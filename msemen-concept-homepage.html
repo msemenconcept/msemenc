@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Msemen Concept by Bouti - Authentic Moroccan Msemen</title>
+    <style>
+        :root {
+            --primary: #f5bc3b;
+            --dark: #333333;
+            --light: #ffffff;
+            --gray: #f5f5f5;
+            --accent: #f08c00;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        
+        .logo {
+            width: 50px;
+			height: 50px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links li a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links li a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Video Background Styles */
+.hero {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-top: 60px;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adds a dark overlay to make text more readable */
+    z-index: 1;
+}
+
+.hero-content {
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    border-radius: 10px;
+}
+
+/* Update hero text color for better contrast against the video */
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--dark);
+}
+
+.hero p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: #666;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .hero-content {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-content {
+        padding: 1.5rem;
+        width: 95%;
+    }
+}
+        
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: 500;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--dark);
+            border: 2px solid var(--dark);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--dark);
+            color: white;
+        }
+        
+        .hero-image {
+            position: absolute;
+            right: 0;
+            width: 50%;
+            height: 100%;
+        }
+        
+        .hero-image-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .floating-msemen {
+            position: absolute;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .floating-msemen:nth-child(1) {
+            width: 60%;
+            top: 20%;
+            right: 10%;
+            z-index: 3;
+            transform: rotate(5deg);
+        }
+        
+        .floating-msemen:nth-child(2) {
+            width: 50%;
+            top: 45%;
+            right: 25%;
+            z-index: 2;
+            transform: rotate(-8deg);
+        }
+        
+        .floating-msemen:nth-child(3) {
+            width: 45%;
+            bottom: 15%;
+            right: 15%;
+            z-index: 1;
+            transform: rotate(3deg);
+        }
+        
+        /* About Section */
+        .about {
+            padding: 5rem 0;
+            background-color: var(--gray);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section-title h2 span {
+            color: var(--primary);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .about-image {
+            width: 40%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        
+        .about-text {
+            width: 60%;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: #666;
+        }
+        
+        /* Menu Section */
+        .menu {
+            padding: 5rem 0;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .menu-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .menu-item-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .menu-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .menu-item:hover .menu-item-image img {
+            transform: scale(1.1);
+        }
+        
+        .menu-item-content {
+            padding: 1.5rem;
+        }
+        
+        .menu-item-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .menu-item-content p {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .menu-item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .price {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        
+        .order-btn {
+            padding: 0.5rem 1rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .order-btn:hover {
+            background-color: var(--accent);
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 5rem 0;
+            background-color: var(--gray);
+        }
+        
+        .testimonials-container {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding: 2rem 0;
+            scrollbar-width: none;
+        }
+        
+        .testimonials-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .testimonial {
+            min-width: 350px;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #888;
+        }
+        
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .testimonial-info h4 {
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+        
+        .testimonial-info p {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .testimonial-stars {
+            display: flex;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-content {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Contact */
+        .contact {
+            padding: 5rem 0;
+        }
+        
+        .contact-container {
+            display: flex;
+            gap: 3rem;
+        }
+        
+        .contact-info {
+            width: 40%;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .contact-info p {
+            margin-bottom: 2rem;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .contact-details {
+            margin-bottom: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+        
+        .contact-text {
+            color: #666;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent);
+        }
+        
+        .contact-form {
+            width: 60%;
+        }
+        
+        .contact-form h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-submit {
+            padding: 0.8rem 2rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .form-submit:hover {
+            background-color: var(--accent);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-logo {
+            max-width: 150px;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-about p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            color: #bbb;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-contact-item {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-contact-icon {
+            margin-right: 1rem;
+            color: var(--primary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        .footer-bottom a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content, .hero-image {
+                width: 100%;
+            }
+            
+            .hero {
+                flex-direction: column;
+                height: auto;
+                padding: 3rem 0;
+            }
+            
+            .hero-image {
+                position: relative;
+                height: 400px;
+                margin-top: 2rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image, .about-text {
+                width: 100%;
+            }
+            
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .contact-info, .contact-form {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#"><img src="https://i.imgur.com/cyhq0BG.jpeg" alt="Msemen Concept Logo" class="logo"></a>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+	<section class="hero">
+		<video autoplay muted loop class="hero-video">
+			<source src="https://media.igram.world/get?__sig=sHkRPi5T_pWHtIIuzZ-S0g&__expires=1740673318&uri=https%3A%2F%2Finstagram.ftas1-1.fna.fbcdn.net%2Fo1%2Fv%2Ft16%2Ff2%2Fm86%2FAQMNO0hC8xRMMwf50a_WZMENBnlKav6QLn1kyWHwIh1EhULpcfszFN8KZOCpPUSWLxGcGVLlLJP3ziwqADX9zfV1EcV9fjX6JSv0900.mp4%3Fstp%3Ddst-mp4%26efg%3DeyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuMzYwLmJhc2VsaW5lIn0%26_nc_cat%3D108%26vs%3D849288310508290_2140032883%26_nc_vs%3DHBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC8zNDQ4OTQ1NEREOUM0REEwQkZFMjVFMEY3NzlCRkVCQ192aWRlb19kYXNoaW5pdC5tcDQVAALIAQAVAhg6cGFzc3Rocm91Z2hfZXZlcnN0b3JlL0dBSzBTaHcyeGk5T3BiNEVBSmJhQjNYYkJLTTNia1lMQUFBRhUCAsgBACgAGAAbABUAACagr7Tm17H8PxUCKAJDMywXQDBmZmZmZmYYEmRhc2hfYmFzZWxpbmVfM192MREAdf4HAA%253D%253D%26_nc_rid%3D46174bc7a3%26ccb%3D9-4%26oh%3D00_AYBeAkagaVlZDgRNT2eeWMIAJYPMN2HxA6DSKqv8M9q80Q%26oe%3D67C26594%26_nc_sid%3Dd885a2%26dl%3D1&filename=Vous%20souhaitez%20d%C3%A9couvrir%20la%20pr%C3%A9paration%20du%20Concept%20de%20Poulet%20%20%20Pour%20voir%20tout%20%C3%A7a%20de%20plus%20pr%C3%A8s%2C%20venez%20nous%20visiter%20du%20Lundi%20au%20Samedi%20de%209h00%20%C3%A0%2022h00..mp4&ua=-&referer=https%3A%2F%2Fwww.instagram.com%2F" type="video/mp4">
+			Your browser does not support the video tag.
+		</video>
+		<div class="overlay"></div>
+		<div class="hero-content">
+			<h1>Authentic <span>Moroccan</span> Msemen With a Modern Twist</h1>
+			<p>Discover the traditional taste of Morocco with our handcrafted Msemen, filled with delicious flavors that will transport you straight to the streets of Marrakech.</p>
+			<div class="hero-buttons">
+				<a href="#menu" class="btn btn-primary">Explore Menu</a>
+				<a href="#contact" class="btn btn-outline">Contact Us</a>
+			</div>
+		</div>
+	</section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our <span>Story</span></h2>
+                <p>How a passion for traditional Moroccan cuisine became a modern culinary concept</p>
+            </div>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://i.imgur.com/lbHZ8x3.jpeg" alt="Msemen making">
+                </div>
+                <div class="about-text">
+                    <h3>Tradition Meets Innovation</h3>
+                    <p>At Msemen Concept by Bouti, we honor the time-honored tradition of Moroccan msemen while introducing contemporary flavors and techniques. Our journey began with a deep appreciation for the authentic flatbreads that have been a staple in Moroccan households for generations.</p>
+                    <p>What sets us apart is our innovative approach to this beloved classic. We carefully craft each msemen by hand, ensuring the perfect texture - crispy on the outside, soft and layered on the inside. Then we fill them with delicious combinations inspired by traditional Moroccan cuisine, like savory chicken with caramelized onions (tfaya) and aromatic minced meat with spices.</p>
+                    <p>Every bite tells a story of Moroccan heritage reimagined for today's culinary adventurers. We invite you to experience the perfect blend of tradition and innovation that is Msemen Concept.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our <span>Menu</span></h2>
+                <p>Discover our handcrafted selection of authentic Moroccan Msemen</p>
+            </div>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="menu-item-image">
+                        <img src="https://i.imgur.com/SL1afuG.jpeg" alt="Rghifa Normal">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Mellaoui Normal</h3>
+                        <p>Our classic handcrafted Moroccan flatbread, perfect with honey or cheese. Made fresh daily following traditional methods.</p>
+                        <div class="menu-item-footer">
+                            <span class="price">2 DH</span>
+                            <button class="order-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-image">
+                        <img src="https://i.imgur.com/MjguJiM.jpeg" alt="Chicken Tfaya Msemen">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Concept Poulet</h3>
+                        <p>Delicious msemen filled with tender chicken and caramelized onions, topped with crushed almonds.</p>
+                        <div class="menu-item-footer">
+                            <span class="price">12 DH</span>
+                            <button class="order-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-image">
+                        <img src="https://i.imgur.com/H3EfEej.jpeg" alt="Kefta Msemen">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Concept Viande Hachée</h3>
+                        <p>Savory msemen filled with seasoned Moroccan minced meat, caramelized onions and aromatic spices.</p>
+                        <div class="menu-item-footer">
+                            <span class="price">17 DH</span>
+                            <button class="order-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-image">
+                        <img src="https://i.imgur.com/AKfca4X.jpeg" alt="Sweet Almond Msemen">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Concept Nutella</h3>
+                        <p>Indulgent msemen filled with almond paste, honey, and cinnamon. A perfect sweet treat anytime.</p>
+                        <div class="menu-item-footer">
+                            <span class="price">9 DH</span>
+                            <button class="order-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our <span>Customers</span> Love Us</h2>
+                <p>Read what our customers have to say about Msemen Concept</p>
+            </div>
+            <div class="testimonials-container">
+                <div class="testimonial">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Amal Bouchta</h4>
+                            <p>Regular Customer</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-content">
+                        "The best msemen I've had outside of my grandmother's kitchen! The Chicken Tfaya filling is absolutely delicious and reminds me of home. I order at least once a week!"
+                    </p>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Karim Alaoui</h4>
+                            <p>Food Blogger</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-content">
+                        "Msemen Concept has revolutionized traditional Moroccan street food. The quality and flavors are outstanding, and their innovative approach to fillings is genius. Highly recommended!"
+                    </p>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Sarah Benjelloun</h4>
+                            <p>First-time Customer</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="testimonial-content">
+                        "I tried the Kefta Msemen for lunch today and was blown away! The flatbread was perfectly crispy yet soft inside, and the filling was so flavorful. Can't wait to try more varieties!"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get In <span>Touch</span></h2>
+                <p>We'd love to hear from you! Reach out for orders, catering inquiries, or just to say hello</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p>Visit our shop or reach out through one of the following methods. We look forward to serving you delicious Moroccan msemen!</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                Chari3 Mexique, Tangier - Morocco
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                +212 614882878
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                IG: @Msemen_Concept
+                            </div>
+                        </div>
+                        <div class="
