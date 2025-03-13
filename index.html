@@ -339,6 +339,7 @@
       overflow: hidden;
       box-shadow: 0 3px 10px rgba(0,0,0,0.1);
       transition: var(--transition);
+      cursor: pointer;
     }
     
     .product-card:hover {
@@ -504,6 +505,7 @@
       position: relative;
       overflow: hidden;
       z-index: 1;
+      cursor: pointer;
     }
     
     .menu-item::before {
@@ -685,137 +687,366 @@
       background-color: var(--accent);
       transform: translateY(-5px);
     }
-    
-    /* Responsive styles */
-    @media (max-width: 768px) {
-      .about-section {
-        flex-direction: column;
-      }
-      
-      .about-text {
-        padding-right: 0;
-        margin-bottom: 2rem;
-      }
-      
-      .about-image {
-        margin-right: 0;
-        margin-bottom: 2rem;
-      }
-      
-      .benefits {
-        flex-direction: column;
-      }
-      
-      .benefit-item {
-        margin-bottom: 1rem;
-      }
-      
-      .slider-overlay h1 {
-        font-size: 1.8rem;
-      }
 
-      .slider-overlay p {
-        font-size: 1rem;
-      }
-
-      .arrow {
-        width: 40px;
-        height: 40px;
-      }
-    }
+    /* Basket Sidebar Styles - Updated */
+	.basket-sidebar {
+	position: fixed;
+	top: 0;
+	right: -400px;
+	width: 400px;
+	height: 100%;
+	background-color: var(--light-bg);
+	box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+	transition: var(--transition);
+	z-index: 1001;
+	padding: 0;
+	overflow-y: auto;
+	border-left: 3px solid var(--primary-color);
+	}
+	
+	.basket-sidebar.active {
+	right: 0;
+	}
+	
+	.basket-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 1000;
+	display: none;
+	transition: var(--transition);
+	}
+	
+	.basket-overlay.active {
+	display: block;
+	}
+	
+	.close-basket {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	font-size: 28px;
+	cursor: pointer;
+	color: var(--accent);
+	transition: var(--transition);
+	}
+	
+	.close-basket:hover {
+	transform: rotate(90deg);
+	color: var(--primary-color);
+	}
+	
+	.basket-section {
+	padding: 2rem;
+	}
+	
+	.basket-section h2 {
+	color: var(--text-color);
+	margin-bottom: 1.5rem;
+	padding-bottom: 0.5rem;
+	border-bottom: 2px solid var(--primary-color);
+	font-size: 1.8rem;
+	position: relative;
+	}
+	
+	#basket-items {
+	list-style: none;
+	padding: 0;
+	margin-bottom: 2rem;
+	}
+	
+	#basket-items li {
+	padding: 1rem;
+	margin-bottom: 1rem;
+	background-color: var(--white);
+	border-radius: 8px;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+	transition: var(--transition);
+	position: relative;
+	overflow: hidden;
+	}
+	
+	#basket-items li:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+	}
+	
+	#basket-items li:before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 4px;
+	background-color: var(--primary-color);
+	}
+	
+	#total-price {
+	font-weight: bold;
+	color: var(--primary-color);
+	font-size: 1.2rem;
+	}
+	
+	#order-form {
+	margin-top: 2rem;
+	display: flex;
+	flex-direction: column;
+	}
+	
+	#order-form label {
+	margin-bottom: 0.5rem;
+	font-weight: 500;
+	}
+	
+	#order-form input {
+	padding: 0.7rem;
+	margin-bottom: 1rem;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	transition: var(--transition);
+	}
+	
+	#order-form input:focus {
+	outline: none;
+	border-color: var(--primary-color);
+	box-shadow: 0 0 0 2px rgba(245, 188, 59, 0.3);
+	}
+	
+	.basket-btn {
+	display: flex;
+	align-items: center;
+	background-color: var(--primary-color);
+	color: var(--white);
+	padding: 0.5rem 1rem;
+	border-radius: 30px;
+	cursor: pointer;
+	transition: var(--transition);
+	border: none;
+	font-weight: 600;
+	position: relative;
+	overflow: hidden;
+	z-index: 1;
+	}
+	
+	.basket-btn::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background-color: var(--accent);
+	transition: var(--transition);
+	z-index: -1;
+	}
+	
+	.basket-btn:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 5px 15px rgba(214, 140, 6, 0.3);
+	}
+	
+	.basket-btn:hover::before {
+	left: 0;
+	}
+	
+	.basket-btn span {
+	margin-left: 0.5rem;
+	}
+	
+	/* Quantity control styles */
+	.quantity-control {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-top: 0.8rem;
+	}
+	
+	.quantity-control input {
+	width: 60px;
+	padding: 0.5rem;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	text-align: center;
+	font-weight: 500;
+	transition: var(--transition);
+	}
+	
+	.quantity-control input:focus {
+	outline: none;
+	border-color: var(--primary-color);
+	}
+	
+	.refresh-btn {
+	background-color: var(--primary-color);
+	color: var(--white);
+	border: none;
+	padding: 0.5rem;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: var(--transition);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	}
+	
+	.refresh-btn:hover {
+	background-color: var(--accent);
+	transform: rotate(180deg);
+	}
+	
+	@media (max-width: 768px) {
+	.basket-sidebar {
+		width: 90%;
+		right: -90%;
+	}
+	}
+	
+	/* Additional Animation Styles */
+	@keyframes pulse {
+	0% { transform: scale(1); }
+	50% { transform: scale(1.2); }
+	100% { transform: scale(1); }
+	}
+	
+	.pulse {
+	animation: pulse 0.3s ease-in-out;
+	}
+	
+	#basket-count {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	min-width: 20px;
+	height: 20px;
+	background-color: var(--accent);
+	color: white;
+	border-radius: 50%;
+	font-size: 0.8rem;
+	font-weight: bold;
+	transition: var(--transition);
+	}
+	
+	.item-added {
+	animation: pulse 0.5s ease-in-out;
+	box-shadow: 0 0 0 4px rgba(245, 188, 59, 0.4);
+	}
+	
+	#basket-empty-message {
+	text-align: center;
+	padding: 2rem 0;
+	color: #888;
+	font-style: italic;
+	}
+	
+	/* Make the basket button more prominent */
+	.basket-btn {
+	position: relative;
+	padding: 0.5rem 1rem 0.5rem 2rem;
+	}
+	
+	
+	
+	.basket-btn span {
+	margin-left: 0;
+	}
   </style>
-   <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const slides = document.querySelectorAll('.slide');
-            const dotsContainer = document.querySelector('.slider-controls');
-            const arrowLeft = document.querySelector('.arrow-left');
-            const arrowRight = document.querySelector('.arrow-right');
-            let currentSlide = 0;
-            let slideInterval;
-            
-            // Create dots based on number of slides
-            slides.forEach((_, index) => {
-                const dot = document.createElement('div');
-                dot.classList.add('dot');
-                if (index === 0) dot.classList.add('active');
-                dot.addEventListener('click', () => goToSlide(index));
-                dotsContainer.appendChild(dot);
-            });
-            
-            const dots = document.querySelectorAll('.dot');
-            
-            // Function to show a specific slide
-            function goToSlide(n) {
-                slides[currentSlide].classList.remove('active');
-                dots[currentSlide].classList.remove('active');
-                
-                currentSlide = (n + slides.length) % slides.length;
-                
-                slides[currentSlide].classList.add('active');
-                dots[currentSlide].classList.add('active');
-            }
-            
-            // Previous and next slide functions
-            function prevSlide() {
-                goToSlide(currentSlide - 1);
-            }
-            
-            function nextSlide() {
-                goToSlide(currentSlide + 1);
-            }
-            
-            // Event listeners for arrows
-            arrowLeft.addEventListener('click', prevSlide);
-            arrowRight.addEventListener('click', nextSlide);
-            
-            // Auto-play the slider
-            function startSlideShow() {
-                slideInterval = setInterval(nextSlide, 5000);
-            }
-            
-            function stopSlideShow() {
-                clearInterval(slideInterval);
-            }
-            
-            // Start the slideshow
-            startSlideShow();
-            
-            // Pause on hover
-            const sliderContainer = document.querySelector('.slider-container');
-            sliderContainer.addEventListener('mouseenter', stopSlideShow);
-            sliderContainer.addEventListener('mouseleave', startSlideShow);
-            
-            // Keyboard navigation
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'ArrowLeft') {
-                    prevSlide();
-                } else if (e.key === 'ArrowRight') {
-                    nextSlide();
-                }
-            });
-            
-            // Touch swipe functionality
-            let touchStartX = 0;
-            let touchEndX = 0;
-            
-            sliderContainer.addEventListener('touchstart', function(e) {
-                touchStartX = e.changedTouches[0].screenX;
-            }, false);
-            
-            sliderContainer.addEventListener('touchend', function(e) {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe();
-            }, false);
-            
-            function handleSwipe() {
-                if (touchEndX < touchStartX - 50) {
-                    nextSlide(); // Swipe left
-                } else if (touchEndX > touchStartX + 50) {
-                    prevSlide(); // Swipe right
-                }
-            }
-        });
-    </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const slides = document.querySelectorAll('.slide');
+      const dotsContainer = document.querySelector('.slider-controls');
+      const arrowLeft = document.querySelector('.arrow-left');
+      const arrowRight = document.querySelector('.arrow-right');
+      let currentSlide = 0;
+      let slideInterval;
+      
+      // Create dots based on number of slides
+      slides.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+      });
+      
+      const dots = document.querySelectorAll('.dot');
+      
+      // Function to show a specific slide
+      function goToSlide(n) {
+        slides[currentSlide].classList.remove('active');
+        dots[currentSlide].classList.remove('active');
+        
+        currentSlide = (n + slides.length) % slides.length;
+        
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+      }
+      
+      // Previous and next slide functions
+      function prevSlide() {
+        goToSlide(currentSlide - 1);
+      }
+      
+      function nextSlide() {
+        goToSlide(currentSlide + 1);
+      }
+      
+      // Event listeners for arrows
+      arrowLeft.addEventListener('click', prevSlide);
+      arrowRight.addEventListener('click', nextSlide);
+      
+      // Auto-play the slider
+      function startSlideShow() {
+        slideInterval = setInterval(nextSlide, 5000);
+      }
+      
+      function stopSlideShow() {
+        clearInterval(slideInterval);
+      }
+      
+      // Start the slideshow
+      startSlideShow();
+      
+      // Pause on hover
+      const sliderContainer = document.querySelector('.slider-container');
+      sliderContainer.addEventListener('mouseenter', stopSlideShow);
+      sliderContainer.addEventListener('mouseleave', startSlideShow);
+      
+      // Keyboard navigation
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowLeft') {
+          prevSlide();
+        } else if (e.key === 'ArrowRight') {
+          nextSlide();
+        }
+      });
+      
+      // Touch swipe functionality
+      let touchStartX = 0;
+      let touchEndX = 0;
+      
+      sliderContainer.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+      }, false);
+      
+      sliderContainer.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, false);
+      
+      function handleSwipe() {
+        if (touchEndX < touchStartX - 50) {
+          nextSlide(); // Swipe left
+        } else if (touchEndX > touchStartX + 50) {
+          prevSlide(); // Swipe right
+        }
+      }
+    });
+  </script>
 </head>
 <body>
   <header id="navbar">
@@ -826,6 +1057,11 @@
         <li><a href="#menu">Menu</a></li>
         <li><a href="#about">À Propos</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li>
+          <div class="basket-btn" onclick="showBasket()">
+            🛒 <span id="basket-count">0</span>
+          </div>
+        </li>
       </ul>
     </nav>
   </header>
@@ -1080,102 +1316,139 @@
   </footer>
   
   <a href="#home" class="back-to-top" id="backToTop">↑</a>
-  
+
+  <!-- Updated Basket Sidebar HTML -->
+	<div class="basket-overlay"></div>
+	<div class="basket-sidebar">
+	<span class="close-basket">&times;</span>
+	<div class="basket-section">
+		<h2>Votre Panier</h2>
+		<div id="basket-empty-message">Votre panier est vide.</div>
+		<ul id="basket-items"></ul>
+		<p>Total: <span id="total-price">0 DH</span></p>
+		<form id="order-form">
+		<label for="client-name">Nom:</label>
+		<input type="text" id="client-name" name="client-name" required placeholder="Votre nom">
+		<label for="client-phone">Téléphone:</label>
+		<input type="tel" id="client-phone" name="client-phone" required placeholder="Votre numéro de téléphone">
+		<button type="submit" class="btn">Passer la Commande</button>
+		</form>
+	</div>
+	</div>
+
   <script>
-    // Sticky header that shrinks on scroll
-    window.addEventListener('scroll', function() {
-      const header = document.getElementById('navbar');
-      const backToTop = document.getElementById('backToTop');
-      
-      if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-      
-      // Back to top button visibility
-      if (window.scrollY > 300) {
-        backToTop.classList.add('visible');
-      } else {
-        backToTop.classList.remove('visible');
-      }
-    });
-    
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        
-        if (targetElement) {
-          const navbarHeight = document.getElementById('navbar').offsetHeight;
-          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
-          
-          window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-          });
-        }
-      });
-    });
-    
-    // Add interactive hover effects to menu items
-    const menuItems = document.querySelectorAll('.menu-item');
-    menuItems.forEach(item => {
-      item.addEventListener('mouseenter', function() {
-        this.style.cursor = 'pointer';
-      });
-      
-      item.addEventListener('click', function() {
-        // Could add popup with more details or add-to-cart functionality
-        const itemName = this.querySelector('h4').textContent;
-        const itemPrice = this.querySelector('.price').textContent;
-        alert(`${itemName} - ${itemPrice} ajouté à votre commande!`);
-      });
-    });
-    
-    // Add animation to stats numbers
-    const statElements = document.querySelectorAll('.stat-item h2');
-    let animated = false;
-    
-    const animateStats = () => {
-      if (animated) return;
-      
-      statElements.forEach(stat => {
-        const targetValue = parseInt(stat.textContent);
-        let currentValue = 0;
-        const duration = 2000; // ms
-        const increment = targetValue / (duration / 16); // 60fps
-        
-        const animate = () => {
-          currentValue += increment;
-          if (currentValue < targetValue) {
-            stat.textContent = Math.floor(currentValue) + (stat.textContent.includes('+') ? '+' : '');
-            requestAnimationFrame(animate);
-          } else {
-            stat.textContent = targetValue + (stat.textContent.includes('+') ? '+' : '');
-          }
-        };
-        
-        stat.textContent = '0';
-        animate();
-      });
-      
-      animated = true;
-    };
-    
-    // Trigger animation when stats section is in view
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateStats();
-        }
-      });
-    }, { threshold: 0.5 });
-    
-    observer.observe(document.querySelector('.stats'));
-  </script>
+  // Enhanced Basket functionality
+	const basketSidebar = document.querySelector('.basket-sidebar');
+	const basketOverlay = document.querySelector('.basket-overlay');
+	const closeBasket = document.querySelector('.close-basket');
+	const basketCount = document.getElementById('basket-count');
+	const basketEmptyMessage = document.getElementById('basket-empty-message');
+	let basket = [];
+	let totalPrice = 0;
+	
+	// Function to show the basket sidebar
+	function showBasket() {
+	basketSidebar.classList.add('active');
+	basketOverlay.classList.add('active');
+	document.body.style.overflow = 'hidden'; // Prevent scrolling
+	}
+	
+	// Function to hide the basket sidebar
+	function hideBasket() {
+	basketSidebar.classList.remove('active');
+	basketOverlay.classList.remove('active');
+	document.body.style.overflow = ''; // Re-enable scrolling
+	}
+	
+	// Close basket handlers
+	closeBasket.addEventListener('click', hideBasket);
+	basketOverlay.addEventListener('click', hideBasket);
+	
+	// Function to add an item to the basket
+	function addToBasket(itemName, itemPrice) {
+	const existingItem = basket.find(item => item.name === itemName);
+	if (existingItem) {
+		existingItem.quantity += 1; // Increase quantity if item already exists
+	} else {
+		const item = { name: itemName, price: parseFloat(itemPrice), quantity: 1 };
+		basket.push(item); // Add new item to the basket
+	}
+	
+	// Show a brief animation on the basket icon
+	basketCount.classList.add('pulse');
+	setTimeout(() => {
+		basketCount.classList.remove('pulse');
+	}, 300);
+	
+	updateBasket(); // Refresh the basket display
+	showBasket(); // Show the basket sidebar
+	}
+	
+	// Function to update the basket display
+	function updateBasket() {
+	const basketItems = document.getElementById('basket-items');
+	const totalPriceElement = document.getElementById('total-price');
+	
+	basketItems.innerHTML = ''; // Clear the basket items
+	totalPrice = 0; // Reset total price
+	
+	if (basket.length === 0) {
+		basketEmptyMessage.style.display = 'block';
+	} else {
+		basketEmptyMessage.style.display = 'none';
+		
+		// Loop through each item in the basket
+		basket.forEach((item, index) => {
+		const li = document.createElement('li');
+		li.innerHTML = `
+			<div><strong>${item.name}</strong> - ${item.price} DH</div>
+			<div class="quantity-control">
+			<input type="number" min="1" value="${item.quantity}" data-index="${index}">
+			<button class="refresh-btn" onclick="updateQuantity(${index})">🔄</button>
+			<button class="refresh-btn" onclick="removeItem(${index})" style="background-color: #e74c3c;">🗑️</button>
+			</div>
+		`;
+		basketItems.appendChild(li); // Add item to the basket list
+		totalPrice += item.price * item.quantity; // Update total price
+		});
+	}
+	
+	totalPriceElement.textContent = `${totalPrice.toFixed(2)} DH`; // Update total price display
+	basketCount.textContent = basket.reduce((sum, item) => sum + item.quantity, 0); // Update basket count
+	}
+	
+	// Function to update the quantity of an item
+	function updateQuantity(index) {
+	const input = document.querySelector(`input[data-index="${index}"]`);
+	const newQuantity = parseInt(input.value);
+	if (newQuantity > 0) {
+		basket[index].quantity = newQuantity; // Update the quantity
+		updateBasket(); // Refresh the basket display
+	}
+	}
+	
+	// Function to remove an item from the basket
+	function removeItem(index) {
+	basket.splice(index, 1); // Remove the item
+	updateBasket(); // Refresh the basket display
+	}
+	
+	// Add items to basket on click with animation
+	const menuItems = document.querySelectorAll('.menu-item, .product-card');
+	menuItems.forEach(item => {
+	item.addEventListener('click', function() {
+		const itemName = this.querySelector('h4, .product-title').textContent;
+		const itemPrice = this.querySelector('.price, .product-price').textContent.replace('DH', '').trim();
+		
+		// Add a visual feedback that item was added
+		this.classList.add('item-added');
+		setTimeout(() => {
+		this.classList.remove('item-added');
+		}, 500);
+		
+		addToBasket(itemName, itemPrice); // Add item to basket
+	});
+	});
+</script>
 </body>
 </html>
