@@ -1641,10 +1641,10 @@
   basket.forEach((item, index) => {
     let tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${index + 1}</td>
-      <td>${item.name}</td>
-      <td>${(item.price * item.quantity).toFixed(2)} DH</td>
-    `;
+  <td>${item.quantity}</td>
+  <td>${item.name}</td>
+  <td>${(item.price * item.quantity).toFixed(2)} DH</td>
+`;
     orderDetailsBody.appendChild(tr);
   });
 
