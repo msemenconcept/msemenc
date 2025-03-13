@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Msemen Concept - Authentic Moroccan Flatbreads with a Modern Twist</title>
   <style>
+    /* Global Styles */
     :root {
       --primary-color: #f5bc3b;
       --text-color: #333;
@@ -32,6 +33,7 @@
       line-height: 1.6;
     }
     
+    /* Header */
     header {
       background-color: var(--white);
       padding: 1rem 5%;
@@ -113,13 +115,13 @@
       overflow: hidden;
       background-color: var(--light-bg);
     }
-
+    
     .slider-container {
       width: 100%;
       height: 100%;
       position: relative;
     }
-
+    
     .slide {
       position: absolute;
       top: 0;
@@ -132,17 +134,21 @@
       align-items: center;
       justify-content: center;
     }
-
+    
+    /* Fix selector: use .slide.active instead of ".slide active" */
     .slide.active {
       opacity: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-
+    
     .slide img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-
+    
     .slider-controls {
       position: absolute;
       bottom: 30px;
@@ -152,7 +158,7 @@
       justify-content: center;
       z-index: 10;
     }
-
+    
     .dot {
       width: 12px;
       height: 12px;
@@ -160,16 +166,16 @@
       background-color: rgba(255, 255, 255, 0.5);
       margin: 0 8px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       border: 1px solid rgba(0, 0, 0, 0.2);
     }
-
+    
     .dot.active {
       background-color: #fff;
       transform: scale(1.2);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
-
+    
     .arrow {
       position: absolute;
       top: 50%;
@@ -183,29 +189,29 @@
       justify-content: center;
       cursor: pointer;
       z-index: 10;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-
+    
     .arrow:hover {
       background-color: rgba(255, 255, 255, 0.9);
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     }
-
+    
     .arrow-left {
       left: 20px;
     }
-
+    
     .arrow-right {
       right: 20px;
     }
-
+    
     .arrow-icon {
       width: 20px;
       height: 20px;
       position: relative;
     }
-
+    
     .arrow-left .arrow-icon::before,
     .arrow-left .arrow-icon::after {
       content: '';
@@ -215,17 +221,17 @@
       background-color: #333;
       left: 0;
     }
-
+    
     .arrow-left .arrow-icon::before {
       transform: rotate(-45deg);
       top: 5px;
     }
-
+    
     .arrow-left .arrow-icon::after {
       transform: rotate(45deg);
       top: 15px;
     }
-
+    
     .arrow-right .arrow-icon::before,
     .arrow-right .arrow-icon::after {
       content: '';
@@ -235,23 +241,17 @@
       background-color: #333;
       right: 0;
     }
-
+    
     .arrow-right .arrow-icon::before {
       transform: rotate(45deg);
       top: 5px;
     }
-
+    
     .arrow-right .arrow-icon::after {
       transform: rotate(-45deg);
       top: 15px;
     }
-	
-	.slide active {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	}
-
+    
     .slider-overlay {
       position: absolute;
       bottom: 0;
@@ -263,14 +263,14 @@
       text-align: center;
       z-index: 5;
     }
-
+    
     .slider-overlay h1 {
       font-size: 2.5rem;
       margin-bottom: 10px;
       font-weight: 300;
       letter-spacing: 1px;
     }
-
+    
     .slider-overlay p {
       font-size: 1.1rem;
       max-width: 700px;
@@ -278,6 +278,7 @@
       line-height: 1.6;
     }
     
+    /* Stats Section */
     .stats {
       display: flex;
       justify-content: center;
@@ -305,6 +306,7 @@
       color: var(--primary-color);
     }
     
+    /* Featured Products */
     .featured-products {
       padding: 4rem 5%;
       background-color: var(--light-bg);
@@ -377,15 +379,16 @@
       transition: var(--transition);
     }
     
-    .product-card:hover .product-price {color: #000;}
-      transform: scale(1.1);
+    .product-card:hover .product-price {
+      color: #000;
     }
-	
+    
     .product-desc {
       margin-top: 0.5rem;
       font-size: 0.9rem;
     }
     
+    /* Benefits Section */
     .benefits {
       display: flex;
       justify-content: space-between;
@@ -420,6 +423,7 @@
       transform: scale(1.2) rotate(10deg);
     }
     
+    /* About Section */
     .about-section {
       display: flex;
       padding: 4rem 5%;
@@ -429,9 +433,9 @@
     .about-image {
       flex: 1;
       height: 430px;
-	  align-items: center;
-	  display: flex;
-	  justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background-color: #fff;
       margin-right: 2rem;
       border-radius: 8px;
@@ -469,6 +473,7 @@
       width: 100%;
     }
     
+    /* Menu Section */
     .menu-section {
       padding: 4rem 5%;
       background-color: var(--white);
@@ -555,6 +560,7 @@
       font-size: 0.9rem;
     }
     
+    /* Contact Section */
     .contact-section {
       padding: 4rem 5%;
       background-color: var(--light-bg);
@@ -578,6 +584,7 @@
       margin-bottom: 1rem;
     }
     
+    /* Footer */
     footer {
       background-color: var(--text-color);
       color: var(--white);
@@ -619,6 +626,7 @@
       width: 100%;
     }
     
+    /* Buttons */
     .btn {
       display: inline-block;
       background-color: var(--primary-color);
@@ -687,274 +695,707 @@
       background-color: var(--accent);
       transform: translateY(-5px);
     }
-
-    /* Basket Sidebar Styles - Updated */
-	.basket-sidebar {
-	position: fixed;
-	top: 0;
-	right: -400px;
-	width: 400px;
-	height: 100%;
-	background-color: var(--light-bg);
-	box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-	transition: var(--transition);
-	z-index: 1001;
-	padding: 0;
-	overflow-y: auto;
-	border-left: 3px solid var(--primary-color);
+    
+    /* Basket Sidebar */
+    .basket-sidebar {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      height: 100%;
+      background-color: var(--light-bg);
+      box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+      transition: var(--transition);
+      z-index: 1001;
+      padding: 0;
+      overflow-y: auto;
+      border-left: 3px solid var(--primary-color);
+    }
+    
+    .basket-sidebar.active {
+      right: 0;
+    }
+    
+    .basket-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: none;
+      transition: var(--transition);
+    }
+    
+    .basket-overlay.active {
+      display: block;
+    }
+    
+    .close-basket {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--accent);
+      transition: var(--transition);
+    }
+    
+    .close-basket:hover {
+      transform: rotate(90deg);
+      color: var(--primary-color);
+    }
+    
+    .basket-section {
+      padding: 2rem;
+    }
+    
+    .basket-section h2 {
+      color: var(--text-color);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--primary-color);
+      font-size: 1.8rem;
+      position: relative;
+    }
+    
+    #basket-items {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 2rem;
+    }
+    
+    #basket-items li {
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background-color: var(--white);
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    #basket-items li:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    #basket-items li:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      background-color: var(--primary-color);
+    }
+    
+    #total-price {
+      font-weight: bold;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+    }
+    
+    #order-form {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    #order-form label {
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    #order-form input {
+      padding: 0.7rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+    
+    #order-form input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(245, 188, 59, 0.3);
+    }
+    
+    .basket-btn {
+      display: flex;
+      align-items: center;
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .basket-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background-color: var(--accent);
+      transition: var(--transition);
+      z-index: -1;
+    }
+    
+    .basket-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(214, 140, 6, 0.3);
+    }
+    
+    .basket-btn:hover::before {
+      left: 0;
+    }
+    
+    .basket-btn span {
+      margin-left: 0.5rem;
+    }
+    
+    /* Quantity Control */
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.8rem;
+    }
+    
+    .quantity-control input {
+      width: 60px;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    
+    .quantity-control input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+    
+    .refresh-btn {
+      background-color: var(--primary-color);
+      color: var(--white);
+      border: none;
+      padding: 0.5rem;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .refresh-btn:hover {
+      background-color: var(--accent);
+      transform: rotate(180deg);
+    }
+    
+    /* Additional Animation */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    
+    .pulse {
+      animation: pulse 0.3s ease-in-out;
+    }
+    
+    #basket-count {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 20px;
+      height: 20px;
+      background-color: var(--accent);
+      color: white;
+      border-radius: 50%;
+      font-size: 0.8rem;
+      font-weight: bold;
+      transition: var(--transition);
+    }
+    
+    .item-added {
+      animation: pulse 0.5s ease-in-out;
+      box-shadow: 0 0 0 4px rgba(245, 188, 59, 0.4);
+    }
+    
+    /* Basket Empty Message */
+    #basket-empty-message {
+      text-align: center;
+      padding: 2rem 0;
+      color: #888;
+      font-style: italic;
+    }
+    
+    /* Basket Button (More prominent) */
+    .basket-btn {
+      position: relative;
+      padding: 0.5rem 1rem 0.5rem 2rem;
+    }
+    
+    .basket-btn span {
+      margin-left: 0;
+    }
+    
+    /* Modal Styles */
+    .modal {
+		display: none;
+		position: fixed;
+		z-index: 2000;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		overflow: auto; /* Enable scroll if needed */
+		background-color: rgba(0,0,0,0.4); /* Dim background */
 	}
-	
-	.basket-sidebar.active {
-	right: 0;
-	}
-	
-	.basket-overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0,0,0,0.5);
-	z-index: 1000;
-	display: none;
-	transition: var(--transition);
-	}
-	
-	.basket-overlay.active {
-	display: block;
-	}
-	
-	.close-basket {
-	position: absolute;
-	top: 20px;
-	right: 20px;
-	font-size: 28px;
-	cursor: pointer;
-	color: var(--accent);
-	transition: var(--transition);
-	}
-	
-	.close-basket:hover {
-	transform: rotate(90deg);
-	color: var(--primary-color);
-	}
-	
-	.basket-section {
-	padding: 2rem;
-	}
-	
-	.basket-section h2 {
-	color: var(--text-color);
-	margin-bottom: 1.5rem;
-	padding-bottom: 0.5rem;
-	border-bottom: 2px solid var(--primary-color);
-	font-size: 1.8rem;
-	position: relative;
-	}
-	
-	#basket-items {
-	list-style: none;
-	padding: 0;
-	margin-bottom: 2rem;
-	}
-	
-	#basket-items li {
-	padding: 1rem;
-	margin-bottom: 1rem;
-	background-color: var(--white);
-	border-radius: 8px;
-	box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-	transition: var(--transition);
-	position: relative;
-	overflow: hidden;
-	}
-	
-	#basket-items li:hover {
-	transform: translateY(-3px);
-	box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-	}
-	
-	#basket-items li:before {
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 0;
-	height: 100%;
-	width: 4px;
-	background-color: var(--primary-color);
-	}
-	
-	#total-price {
-	font-weight: bold;
-	color: var(--primary-color);
-	font-size: 1.2rem;
-	}
-	
-	#order-form {
-	margin-top: 2rem;
-	display: flex;
-	flex-direction: column;
-	}
-	
-	#order-form label {
-	margin-bottom: 0.5rem;
-	font-weight: 500;
-	}
-	
-	#order-form input {
-	padding: 0.7rem;
-	margin-bottom: 1rem;
-	border: 1px solid #ddd;
-	border-radius: 8px;
-	transition: var(--transition);
-	}
-	
-	#order-form input:focus {
-	outline: none;
-	border-color: var(--primary-color);
-	box-shadow: 0 0 0 2px rgba(245, 188, 59, 0.3);
-	}
-	
-	.basket-btn {
-	display: flex;
-	align-items: center;
-	background-color: var(--primary-color);
-	color: var(--white);
-	padding: 0.5rem 1rem;
-	border-radius: 30px;
-	cursor: pointer;
-	transition: var(--transition);
-	border: none;
-	font-weight: 600;
-	position: relative;
-	overflow: hidden;
-	z-index: 1;
-	}
-	
-	.basket-btn::before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: -100%;
-	width: 100%;
-	height: 100%;
-	background-color: var(--accent);
-	transition: var(--transition);
-	z-index: -1;
-	}
-	
-	.basket-btn:hover {
-	transform: translateY(-3px);
-	box-shadow: 0 5px 15px rgba(214, 140, 6, 0.3);
-	}
-	
-	.basket-btn:hover::before {
-	left: 0;
-	}
-	
-	.basket-btn span {
-	margin-left: 0.5rem;
-	}
-	
-	/* Quantity control styles */
-	.quantity-control {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-	margin-top: 0.8rem;
-	}
-	
-	.quantity-control input {
-	width: 60px;
-	padding: 0.5rem;
-	border: 1px solid #ddd;
-	border-radius: 6px;
-	text-align: center;
-	font-weight: 500;
-	transition: var(--transition);
-	}
-	
-	.quantity-control input:focus {
-	outline: none;
-	border-color: var(--primary-color);
-	}
-	
-	.refresh-btn {
-	background-color: var(--primary-color);
-	color: var(--white);
-	border: none;
-	padding: 0.5rem;
-	width: 30px;
-	height: 30px;
-	border-radius: 50%;
-	cursor: pointer;
-	transition: var(--transition);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	}
-	
-	.refresh-btn:hover {
-	background-color: var(--accent);
-	transform: rotate(180deg);
-	}
-	
-	@media (max-width: 768px) {
-	.basket-sidebar {
+    
+    .modal-content.receipt-container {
+		position: relative;
+		background-color: #fff;
+		margin: 5% auto;
+		padding: 2rem;
+		border: 1px solid #888;
 		width: 90%;
-		right: -90%;
+		max-width: 600px;
+		border-radius: 8px;
 	}
-	}
-	
-	/* Additional Animation Styles */
-	@keyframes pulse {
-	0% { transform: scale(1); }
-	50% { transform: scale(1.2); }
-	100% { transform: scale(1); }
-	}
-	
-	.pulse {
-	animation: pulse 0.3s ease-in-out;
+    
+    .close-modal {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		color: #333;
+		font-size: 1.5rem;
+		cursor: pointer;
 	}
 	
-	#basket-count {
-	display: inline-flex;
-	justify-content: center;
-	align-items: center;
-	min-width: 20px;
-	height: 20px;
-	background-color: var(--accent);
-	color: white;
-	border-radius: 50%;
-	font-size: 0.8rem;
-	font-weight: bold;
-	transition: var(--transition);
+	/* Modal Headings / Title */
+		.modal-content h2 {
+		margin-bottom: 1rem;
+		text-align: center;
+		font-size: 1.8rem;
+		font-weight: bold;
+	}
+    
+    .close-modal:hover,
+    .close-modal:focus {
+      color: #000;
+      text-decoration: none;
+    }
+	
+	.receipt-title {
+		margin-bottom: 1rem;
+		font-size: 1.2rem;
+		text-align: center;
 	}
 	
-	.item-added {
-	animation: pulse 0.5s ease-in-out;
-	box-shadow: 0 0 0 4px rgba(245, 188, 59, 0.4);
+	.modal-content p {
+		margin-bottom: 0.5rem;
+		line-height: 1.5;
 	}
-	
-	#basket-empty-message {
-	text-align: center;
-	padding: 2rem 0;
-	color: #888;
-	font-style: italic;
+		
+	/* Make the strong text stand out a bit more */
+		.modal-content p strong {
+		font-weight: 600;
 	}
-	
-	/* Make the basket button more prominent */
-	.basket-btn {
-	position: relative;
-	padding: 0.5rem 1rem 0.5rem 2rem;
+    
+    #orderDetails {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 1rem 0;
 	}
-	
-	
-	
-	.basket-btn span {
-	margin-left: 0;
+    
+    #orderDetails thead {
+		background-color: #f5f5f5;
+	}
+		
+	#orderDetails th,
+	#orderDetails td {
+		padding: 8px;
+		border: 1px solid #ddd;
+	}
+		
+	#orderDetails th {
+		font-weight: 600;
+		text-align: left;
 	}
   </style>
+</head>
+<body>
+  <header id="navbar">
+    <div class="logo">Msemen <span>Concept</span></div>
+    <nav>
+      <ul>
+        <li><a href="#home">Accueil</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#about">À Propos</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li>
+          <a href="#" onclick="showBasket(); return false;">
+            Panier <span id="basket-count">0</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  
+  <section class="hero-section" id="home">
+    <div class="slider-container">
+      <div class="slide active">
+        <img src="https://i.imgur.com/pdADvGs.jpeg" alt="Msemen Concept flatbread">
+      </div>
+      <div class="slide">
+        <img src="https://i.imgur.com/FFuRVEk.jpeg" alt="Msemen Concept wrapped pastry">
+      </div>
+      <div class="slide">
+        <img src="https://i.imgur.com/cH7Rbq7.jpeg" alt="Msemen Concept filled pastry">
+      </div>
+      <div class="slide">
+        <img src="https://i.imgur.com/0r0LRKT.jpeg" alt="Msemen Concept sweet pastry">
+      </div>
+    </div>
+    <div class="slider-overlay">
+      <h1>Msemen Marocaines Authentiques<br>Revisitées avec une Touche Moderne</h1>
+      <p>Découvrez nos msemens faits main, un parfait mélange de tradition et d'innovation. Chaque galette est soigneusement préparée selon des techniques ancestrales et garnie de délicieuses saveurs marocaines.</p>
+      <a href="#menu" class="btn">Découvrir Notre Menu</a>
+    </div>
+    <div class="arrow arrow-left">
+      <div class="arrow-icon"></div>
+    </div>
+    <div class="arrow arrow-right">
+      <div class="arrow-icon"></div>
+    </div>
+    <div class="slider-controls">
+      <!-- Dots will be generated by JavaScript -->
+    </div>
+  </section>
+  
+  <section class="stats">
+    <div class="stat-item">
+      <h2>100+</h2>
+      <p>Msemen Servis Par Jour</p>
+    </div>
+    <div class="stat-item">
+      <h2>15+</h2>
+      <p>Variétés Uniques</p>
+    </div>
+  </section>
+  
+  <section class="featured-products">
+    <div class="section-title">
+      <h2>Nos Produits Vedettes</h2>
+    </div>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://i.imgur.com/pdADvGs.jpeg" style="max-width: 100%; max-height: 100%;"/>
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">Concept Poulet</h3>
+          <div class="product-price">12DH</div>
+          <p class="product-desc">Un Msemen fait maison, garni de poulet cuit en épices traditionnelles, des oignons caramélisés. Pour encore plus de gourmandise on y ajoute des amandes</p>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://i.imgur.com/FFuRVEk.jpeg" style="max-width: 100%; max-height: 100%;"/>
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">Concept Viande Hachée</h3>
+          <div class="product-price">17DH</div>
+          <p class="product-desc">Msemen fait maison, de la viande hachée de qualité, avec des épices maison pour relever le goût, des oignons caramélisés, et pour la gourmandise on rajoute du fromage</p>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://i.imgur.com/oKkONke.jpeg" style="max-width: 100%; max-height: 100%;"/>
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">Concept Nutella</h3>
+          <div class="product-price">10DH</div>
+          <p class="product-desc">Msemen fait maison, garni de Nutella et de fruits secs concassés. Une gourmandise parfaite à tout moment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="benefits">
+    <div class="benefit-item">
+      <div class="benefit-icon">★</div>
+      <h3>Fait à la Main</h3>
+      <p>Chaque msemen est préparé artisanalement</p>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-icon">★</div>
+      <h3>Ingrédients Frais</h3>
+      <p>Nous utilisons uniquement des produits de qualité</p>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-icon">★</div>
+      <h3>Recettes Authentiques</h3>
+      <p>Inspirées de la tradition marocaine</p>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-icon">★</div>
+      <h3>Innovation Culinaire</h3>
+      <p>Des saveurs modernes dans un format traditionnel</p>
+    </div>
+  </section>
+  
+  <section class="about-section" id="about">
+    <div class="about-image">
+      <img src="https://i.imgur.com/qj5cD70.jpeg" style="max-width: 100%; max-height: 100%;">
+    </div>
+    <div class="about-text">
+      <h2>Où la Tradition Rencontre l'Innovation</h2>
+      <p>Chez Msemen Concept by Bouti, nous honorons la tradition du msemen marocain tout en y apportant des saveurs et des techniques contemporaines. Notre aventure a commencé avec une profonde admiration pour ces galettes authentiques, véritable pilier des foyers marocains depuis des générations.</p>
+      <p>Ce qui nous distingue, c'est notre approche innovante de ce classique tant apprécié. Chaque msemen est façonné à la main avec soin, garantissant une texture parfaite – croustillante à l'extérieur, douce et feuilletée à l'intérieur. Nous les garnissons ensuite de délicieuses combinaisons inspirées de la cuisine marocaine traditionnelle, comme le poulet savoureux aux oignons caramélisés ou la viande hachée parfumée aux épices.</p>
+      <p>Chaque bouchée raconte une histoire, celle du patrimoine marocain revisité pour les aventuriers culinaires d'aujourd'hui. Nous vous invitons à découvrir l'équilibre parfait entre tradition et innovation avec Msemen Concept.</p>
+      <br>
+      <a href="#contact" class="btn">Nous Contacter</a>
+    </div>
+  </section>
+  
+  <section class="menu-section" id="menu">
+    <div class="section-title">
+      <h2>Notre Menu</h2>
+    </div>
+    <div class="menu-category">
+      <h3>Les Concepts</h3>
+      <div class="menu-items">
+        <div class="menu-item">
+          <h4>Concept Poulet</h4>
+          <div class="price">12DH</div>
+          <p>Délicieux msemen farci de poulet tendre et d'oignons caramélisés, saupoudré d'amandes concassées.</p>
+        </div>
+        <div class="menu-item">
+          <h4>Concept Viande Hachée</h4>
+          <div class="price">17DH</div>
+          <p>Msemen savoureux farci de viande hachée marocaine épicée, d'oignons caramélisés et d'épices aromatiques.</p>
+        </div>
+        <div class="menu-item">
+          <h4>Concept Nutella</h4>
+          <div class="price">10DH</div>
+          <p>Msemen garni de Nutella et de fruits secs concassés. Une douceur parfaite à tout moment.</p>
+        </div>
+      </div>
+    </div>
+    <div class="menu-category">
+      <h3>Les Salés</h3>
+      <div class="menu-items">
+        <div class="menu-item">
+          <h4>Salé légumes Fromage</h4>
+          <div class="price">3DH</div>
+          <p>Une pâtisserie salée à base de pâte de msemen, garnie de légumes et de fromage.</p>
+        </div>
+        <div class="menu-item">
+          <h4>Salé Poulet</h4>
+          <div class="price">4DH</div>
+          <p>Une pâtisserie salée à base de pâte de msemen, garnie de légumes et de poulet.</p>
+        </div>
+        <div class="menu-item">
+          <h4>Salé Viande Hachée</h4>
+          <div class="price">5DH</div>
+          <p>Une pâtisserie salée à base de pâte de msemen, garnie de légumes et de viande hachée.</p>
+        </div>
+      </div>
+    </div>
+    <div class="menu-category">
+      <h3>Les Standards</h3>
+      <div class="menu-items">
+        <div class="menu-item">
+          <h4>Rghifa Normal</h4>
+          <div class="price">1.5DH</div>
+          <p>Un msemen traditionnel marocain.</p>
+        </div>
+        <div class="menu-item">
+          <h4>Rghifa Zrae</h4>
+          <div class="price">1.5DH</div>
+          <p>Un msemen traditionnel marocain préparé avec de la farine de blé entier.</p>
+        </div>
+        <div class="menu-item">
+          <h4>Meloui Normal</h4>
+          <div class="price">2DH</div>
+          <p>Un meloui traditionnel marocain.</p>
+        </div>
+        <div class="menu-item">
+          <h4>Meloui Zrae</h4>
+          <div class="price">2DH</div>
+          <p>Un meloui traditionnel marocain préparé avec de la farine de blé entier.</p>
+        </div>
+      </div>
+    </div>
+    <div class="menu-category">
+      <h3>Boissons Chauds</h3>
+      <div class="menu-items">
+        <div class="menu-item">
+          <h4>Café normal</h4>
+          <div class="price">8DH</div>
+          <p>Un espresso.</p>
+        </div>
+        <div class="menu-item">
+          <h4>Café au lait</h4>
+          <div class="price">9DH</div>
+          <p>Café au lait.</p>
+        </div>
+        <div class="menu-item">
+          <h4>Thé</h4>
+          <div class="price">8DH</div>
+          <p>Thé à la menthe marocain.</p>
+        </div>
+      </div>
+    </div>
+    <div class="menu-category">
+      <h3>Boissons Fraiches</h3>
+      <div class="menu-items">
+        <div class="menu-item">
+          <h4>Jus de Citron</h4>
+          <div class="price">8DH</div>
+          <p>Jus de citron frais.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="contact-section" id="contact">
+    <div class="section-title">
+      <h2>Contactez-Nous</h2>
+    </div>
+    <div class="contact-info">
+      <p>Visitez notre boutique ou contactez-nous par l’un des moyens suivants. Nous avons hâte de vous servir de délicieux msemen marocains !</p>
+      <p><strong>Adresse:</strong> Avenue Mexique, Tangier - Morocco</p>
+      <p><strong>Téléphone:</strong> +212 614882878</p>
+      <p><strong>Instagram:</strong> @Msemen_Concept</p>
+      <a href="https://wa.me/+212614882878" class="btn">Commander Maintenant</a>
+    </div>
+  </section>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="#home">Accueil</a>
+      <a href="#menu">Menu</a>
+      <a href="#about">À Propos</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <p>&copy; 2025 Msemen Concept by Bouti. Tous droits réservés.</p>
+  </footer>
+  
+  <a href="#home" class="back-to-top" id="backToTop">↑</a>
+  
+  <!-- Basket Sidebar -->
+  <div class="basket-overlay"></div>
+  <div class="basket-sidebar">
+    <span class="close-basket">&times;</span>
+    <div class="basket-section">
+      <h2>Votre Panier</h2>
+      <div id="basket-empty-message">Votre panier est vide.</div>
+      <ul id="basket-items"></ul>
+      <p>Total: <span id="total-price">0 DH</span></p>
+      <form id="order-form">
+        <label for="client-name">Nom:</label>
+        <input type="text" id="client-name" name="client-name" required placeholder="Votre nom">
+        <label for="client-phone">Téléphone:</label>
+        <input type="tel" id="client-phone" name="client-phone" required placeholder="Votre numéro de téléphone">
+        <button type="submit" class="btn">Passer la Commande</button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Order Details Modal -->
+	<div id="orderModal" class="modal">
+	<div class="modal-content receipt-container">
+		<span class="close-modal">&times;</span>
+		
+		<!-- Logo / Title -->
+		<h2>Msemen Concept</h2>
+		
+		<!-- Receipt Title -->
+		<p class="receipt-title">
+		Votre reçu pour 
+		<strong id="orderId">[order ID]</strong>
+		</p>
+		
+		<p>
+		<strong>Statut de commande:</strong>
+		<span id="orderStatus">en attente</span>
+		</p>
+		
+		<p>
+		<strong>Numéro de commande:</strong>
+		<span id="orderId2">[order ID]</span>
+		</p>
+		
+		<!-- NEW: Show Client Name and Phone here -->
+		<p>
+		<strong>Nom:</strong>
+		<span id="modalClientName"></span>
+		</p>
+		<p>
+		<strong>Téléphone:</strong>
+		<span id="modalClientPhone"></span>
+		</p>
+		<!-- END NEW -->
+		
+		<p>
+		<strong>Date de commande:</strong>
+		<span id="orderDate">[date]</span>
+		</p>
+		
+		<p>
+		<strong>Méthode de payement:</strong>
+		à la livraison
+		</p>
+		
+		<p>
+		<strong>Montant total:</strong>
+		<span id="orderTotal">0.00 DH</span>
+		</p>
+		
+		<h3>Détails de commande:</h3>
+		<table id="orderDetails">
+		<thead>
+			<tr>
+			<th>#</th>
+			<th>Produit</th>
+			<th>Montant</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- Items will be injected by JS -->
+		</tbody>
+		</table>
+		
+		<p>
+		<strong>Montant Total:</strong>
+		<span id="orderTotal2">0.00 DH</span>
+		</p>
+		
+		<button id="confirmOrder" class="btn">Confirmer la Commande</button>
+	</div>
+	</div>
+
+
+  
+  <!-- Slider Script -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const slides = document.querySelectorAll('.slide');
@@ -1047,408 +1488,206 @@
       }
     });
   </script>
-</head>
-<body>
-  <header id="navbar">
-    <div class="logo">Msemen <span>Concept</span></div>
-    <nav>
-      <ul>
-        <li><a href="#home">Accueil</a></li>
-        <li><a href="#menu">Menu</a></li>
-        <li><a href="#about">À Propos</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li>
-          <div class="basket-btn" onclick="showBasket()">
-            🛒 <span id="basket-count">0</span>
-          </div>
-        </li>
-      </ul>
-    </nav>
-  </header>
   
-  <section class="hero-section" id="home">
-    <div class="slider-container">
-      <div class="slide active">
-        <img src="https://i.imgur.com/pdADvGs.jpeg" alt="Msemen Concept flatbread" style="width: 100%; height: 100%; object-fit: cover;">
-      </div>
-      <div class="slide">
-        <img src="https://i.imgur.com/FFuRVEk.jpeg" alt="Msemen Concept wrapped pastry" style="width: 100%; height: 100%; object-fit: cover;">
-      </div>
-      <div class="slide">
-        <img src="https://i.imgur.com/cH7Rbq7.jpeg" alt="Msemen Concept filled pastry" style="width: 100%; height: 100%; object-fit: cover;">
-      </div>
-      <div class="slide">
-        <img src="https://i.imgur.com/0r0LRKT.jpeg" alt="Msemen Concept sweet pastry" style="width: 100%; height: 100%; object-fit: cover;">
-      </div>
-    </div>
-
-    <div class="slider-overlay">
-      <h1>Msemen Marocaines Authentiques<br>Revisitées avec une Touche Moderne</h1>
-      <p>Découvrez nos msemens faits main, un parfait mélange de tradition et d'innovation. Chaque galette est soigneusement préparée selon des techniques ancestrales et garnie de délicieuses saveurs marocaines.</p>
-      <a href="#menu" class="btn">Découvrir Notre Menu</a>
-    </div>
-
-    <div class="arrow arrow-left">
-      <div class="arrow-icon"></div>
-    </div>
-    <div class="arrow arrow-right">
-      <div class="arrow-icon"></div>
-    </div>
-
-    <div class="slider-controls">
-      <!-- Dots will be created by JavaScript -->
-    </div>
-  </section>
-  
-  <section class="stats">
-    <div class="stat-item">
-      <h2>100+</h2>
-      <p>Msemen Servis Par Jour</p>
-    </div>
-    <div class="stat-item">
-      <h2>15+</h2>
-      <p>Variétés Uniques</p>
-    </div>
-  </section>
-  
-  <section class="featured-products">
-    <div class="section-title">
-      <h2>Nos Produits Vedettes</h2>
-    </div>
-    <div class="product-grid">
-      <div class="product-card">
-        <div class="product-image">
-          <img src="https://i.imgur.com/pdADvGs.jpeg" style="max-width: 100%; max-height: 100%;"/>
-        </div>
-        <div class="product-info">
-          <h3 class="product-title">Concept Poulet</h3>
-          <div class="product-price">12DH</div>
-          <p class="product-desc">Un Msemen fait maison, garni de poulet cuit en épices traditionnelles, des oignons caramélisés. Pour encore plus de gourmandise on y ajoute des amandes</p>
-        </div>
-      </div>
-      <div class="product-card">
-        <div class="product-image">
-          <img src="https://i.imgur.com/FFuRVEk.jpeg" style="max-width: 100%; max-height: 100%;"/>
-        </div>
-        <div class="product-info">
-          <h3 class="product-title">Concept Viande Hachée</h3>
-          <div class="product-price">17DH</div>
-          <p class="product-desc">Msemen fait maison, de la viande hachée de qualité, avec des épices maison pour relever le goût, des oignons caramélisés, et pour la gourmandise on rajoute du fromage</p>
-        </div>
-      </div>
-      <div class="product-card">
-        <div class="product-image">
-          <img src="https://i.imgur.com/oKkONke.jpeg" style="max-width: 100%; max-height: 100%;"/>
-        </div>
-        <div class="product-info">
-          <h3 class="product-title">Concept Nutella</h3>
-          <div class="product-price">10DH</div>
-          <p class="product-desc">Msemen fait maison, garni de Nutella et de fruits secs concassés. Une gourmandise parfaite à tout moment.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <section class="benefits">
-    <div class="benefit-item">
-      <div class="benefit-icon">★</div>
-      <h3>Fait à la Main</h3>
-      <p>Chaque msemen est préparé artisanalement</p>
-    </div>
-    <div class="benefit-item">
-      <div class="benefit-icon">★</div>
-      <h3>Ingrédients Frais</h3>
-      <p>Nous utilisons uniquement des produits de qualité</p>
-    </div>
-    <div class="benefit-item">
-      <div class="benefit-icon">★</div>
-      <h3>Recettes Authentiques</h3>
-      <p>Inspirées de la tradition marocaine</p>
-    </div>
-    <div class="benefit-item">
-      <div class="benefit-icon">★</div>
-      <h3>Innovation Culinaire</h3>
-      <p>Des saveurs modernes dans un format traditionnel</p>
-    </div>
-  </section>
-  
-  <section class="about-section" id="about">
-    <div class="about-image">
-      <img src="https://i.imgur.com/qj5cD70.jpeg" style="max-width: 100%; max-height: 100%;"/>
-    </div>
-    <div class="about-text">
-      <h2>Où la Tradition Rencontre l'Innovation</h2>
-      <p>Chez Msemen Concept by Bouti, nous honorons la du msemen marocain tout en y apportant des saveurs et des techniques contemporaines. Notre aventure a commencé avec une profonde admiration pour ces galettes authentiques, véritable pilier des foyers marocains depuis des générations.</p>
-      <p>Ce qui nous distingue, c'est notre approche innovante de ce classique tant apprécié. Chaque msemen est façonné à la main avec soin, garantissant une texture parfaite – croustillante à l'extérieur, douce et feuilletée à l'intérieur. Nous les garnissons ensuite de délicieuses combinaisons inspirées de la cuisine marocaine traditionnelle, comme le poulet savoureux aux oignons caramélisés (tfaya) ou la viande hachée parfumée aux épices.</p>
-      <p>Chaque bouchée raconte une histoire, celle du patrimoine marocain revisité pour les aventuriers culinaires d'aujourd'hui. Nous vous invitons à découvrir l'équilibre parfait entre tradition et innovation avec Msemen Concept.</p>
-      </br>
-	  <a href="#contact" class="btn">Nous Contacter</a>
-    </div>
-  </section>
-  
-  <section class="menu-section" id="menu">
-    <div class="section-title">
-      <h2>Notre Menu</h2>
-    </div>
-    
-    <div class="menu-category">
-      <h3>Les Concepts</h3>
-      <div class="menu-items">
-        <div class="menu-item">
-          <h4>Concept Poulet</h4>
-          <div class="price">12DH</div>
-          <p>Délicieux msemen farci de poulet tendre et d'oignons caramélisés, saupoudré d'amandes concassées.</p>
-        </div>
-        <div class="menu-item">
-          <h4>Concept Viande Hachée</h4>
-          <div class="price">17DH</div>
-          <p>Msemen savoureux farci de viande hachée marocaine épicée, d'oignons caramélisés et d'épices aromatiques.</p>
-        </div>
-        <div class="menu-item">
-          <h4>Concept Nutella</h4>
-          <div class="price">10DH</div>
-          <p>Msemen garni de Nutella et de fruits secs concassés. Une douceur parfaite à tout moment.</p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="menu-category">
-      <h3>Les Salés</h3>
-      <div class="menu-items">
-        <div class="menu-item">
-          <h4>Salé légumes Fromage</h4>
-          <div class="price">3DH</div>
-          <p>Une pâtisserie salée à base de pâte de msemen, garnie de légumes et de fromage.</p>
-        </div>
-        <div class="menu-item">
-          <h4>Salé Poulet</h4>
-          <div class="price">4DH</div>
-          <p>Une pâtisserie salée à base de pâte de msemen, garnie de légumes et de poulet.</p>
-        </div>
-        <div class="menu-item">
-          <h4>Salé Viande Hachée</h4>
-          <div class="price">5DH</div>
-          <p>Une pâtisserie salée à base de pâte de msemen, garnie de légumes et de viande hachée.</p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="menu-category">
-      <h3>Les Standards</h3>
-      <div class="menu-items">
-        <div class="menu-item">
-          <h4>Rghifa Normal</h4>
-          <div class="price">1.5DH</div>
-          <p>Un msemen traditionnel marocain.</p>
-        </div>
-        <div class="menu-item">
-          <h4>Rghifa Zrae</h4>
-          <div class="price">1.5DH</div>
-          <p>Un msemen traditionnel marocain préparé avec de la farine de blé entier.</p>
-        </div>
-        <div class="menu-item">
-          <h4>Meloui Normal</h4>
-          <div class="price">2DH</div>
-          <p>Un meloui traditionnel marocain.</p>
-        </div>
-        <div class="menu-item">
-          <h4>Meloui Zrae</h4>
-          <div class="price">2DH</div>
-          <p>Un meloui traditionnel marocain préparé avec de la farine de blé entier.</p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="menu-category">
-      <h3>Boissons Chauds</h3>
-      <div class="menu-items">
-        <div class="menu-item">
-          <h4>Café normal</h4>
-          <div class="price">8DH</div>
-          <p>Un espresso.</p>
-        </div>
-        <div class="menu-item">
-          <h4>Café au lait</h4>
-          <div class="price">9DH</div>
-          <p>Café au lait.</p>
-        </div>
-        <div class="menu-item">
-          <h4>Thé</h4>
-          <div class="price">8DH</div>
-          <p>Thé à la menthe marocain.</p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="menu-category">
-      <h3>Boissons Fraiches</h3>
-      <div class="menu-items">
-        <div class="menu-item">
-          <h4>Jus de Citron</h4>
-          <div class="price">8DH</div>
-          <p>Jus de citron frais.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <section class="contact-section" id="contact">
-    <div class="section-title">
-      <h2>Contactez-Nous</h2>
-    </div>
-    <div class="contact-info">
-      <p>Visitez notre boutique ou contactez-nous par l’un des moyens suivants. Nous avons hâte de vous servir de délicieux msemen marocains !</p>
-      <p><strong>Adresse:</strong> Avenue Mexique, Tangier - Morocco</p>
-      <p><strong>Téléphone:</strong> +212 614882878</p>
-      <p><strong>Instagram:</strong> @Msemen_Concept</p>
-      <a href="https://wa.me/+212614882878" class="btn">Commander Maintenant</a>
-    </div>
-  </section>
-  
-  <footer>
-    <div class="footer-links">
-      <a href="#home">Accueil</a>
-      <a href="#menu">Menu</a>
-      <a href="#about">À Propos</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <p>&copy; 2025 Msemen Concept by Bouti. Tous droits réservés.</p>
-  </footer>
-  
-  <a href="#home" class="back-to-top" id="backToTop">↑</a>
-
-  <!-- Updated Basket Sidebar HTML -->
-	<div class="basket-overlay"></div>
-	<div class="basket-sidebar">
-	<span class="close-basket">&times;</span>
-	<div class="basket-section">
-		<h2>Votre Panier</h2>
-		<div id="basket-empty-message">Votre panier est vide.</div>
-		<ul id="basket-items"></ul>
-		<p>Total: <span id="total-price">0 DH</span></p>
-		<form id="order-form">
-		<label for="client-name">Nom:</label>
-		<input type="text" id="client-name" name="client-name" required placeholder="Votre nom">
-		<label for="client-phone">Téléphone:</label>
-		<input type="tel" id="client-phone" name="client-phone" required placeholder="Votre numéro de téléphone">
-		<button type="submit" class="btn">Passer la Commande</button>
-		</form>
-	</div>
-	</div>
-
+  <!-- Basket and Modal Script -->
   <script>
-  // Enhanced Basket functionality
-	const basketSidebar = document.querySelector('.basket-sidebar');
-	const basketOverlay = document.querySelector('.basket-overlay');
-	const closeBasket = document.querySelector('.close-basket');
-	const basketCount = document.getElementById('basket-count');
-	const basketEmptyMessage = document.getElementById('basket-empty-message');
-	let basket = [];
-	let totalPrice = 0;
-	
-	// Function to show the basket sidebar
-	function showBasket() {
-	basketSidebar.classList.add('active');
-	basketOverlay.classList.add('active');
-	document.body.style.overflow = 'hidden'; // Prevent scrolling
-	}
-	
-	// Function to hide the basket sidebar
-	function hideBasket() {
-	basketSidebar.classList.remove('active');
-	basketOverlay.classList.remove('active');
-	document.body.style.overflow = ''; // Re-enable scrolling
-	}
-	
-	// Close basket handlers
-	closeBasket.addEventListener('click', hideBasket);
-	basketOverlay.addEventListener('click', hideBasket);
-	
-	// Function to add an item to the basket
-	function addToBasket(itemName, itemPrice) {
-	const existingItem = basket.find(item => item.name === itemName);
-	if (existingItem) {
-		existingItem.quantity += 1; // Increase quantity if item already exists
-	} else {
-		const item = { name: itemName, price: parseFloat(itemPrice), quantity: 1 };
-		basket.push(item); // Add new item to the basket
-	}
-	
-	// Show a brief animation on the basket icon
-	basketCount.classList.add('pulse');
-	setTimeout(() => {
-		basketCount.classList.remove('pulse');
-	}, 300);
-	
-	updateBasket(); // Refresh the basket display
-	showBasket(); // Show the basket sidebar
-	}
-	
-	// Function to update the basket display
-	function updateBasket() {
-	const basketItems = document.getElementById('basket-items');
-	const totalPriceElement = document.getElementById('total-price');
-	
-	basketItems.innerHTML = ''; // Clear the basket items
-	totalPrice = 0; // Reset total price
-	
-	if (basket.length === 0) {
-		basketEmptyMessage.style.display = 'block';
-	} else {
-		basketEmptyMessage.style.display = 'none';
-		
-		// Loop through each item in the basket
-		basket.forEach((item, index) => {
-		const li = document.createElement('li');
-		li.innerHTML = `
-			<div><strong>${item.name}</strong> - ${item.price} DH</div>
-			<div class="quantity-control">
-			<input type="number" min="1" value="${item.quantity}" data-index="${index}">
-			<button class="refresh-btn" onclick="updateQuantity(${index})">🔄</button>
-			<button class="refresh-btn" onclick="removeItem(${index})" style="background-color: #e74c3c;">🗑️</button>
-			</div>
-		`;
-		basketItems.appendChild(li); // Add item to the basket list
-		totalPrice += item.price * item.quantity; // Update total price
-		});
-	}
-	
-	totalPriceElement.textContent = `${totalPrice.toFixed(2)} DH`; // Update total price display
-	basketCount.textContent = basket.reduce((sum, item) => sum + item.quantity, 0); // Update basket count
-	}
-	
-	// Function to update the quantity of an item
-	function updateQuantity(index) {
-	const input = document.querySelector(`input[data-index="${index}"]`);
-	const newQuantity = parseInt(input.value);
-	if (newQuantity > 0) {
-		basket[index].quantity = newQuantity; // Update the quantity
-		updateBasket(); // Refresh the basket display
-	}
-	}
-	
-	// Function to remove an item from the basket
-	function removeItem(index) {
-	basket.splice(index, 1); // Remove the item
-	updateBasket(); // Refresh the basket display
-	}
-	
-	// Add items to basket on click with animation
-	const menuItems = document.querySelectorAll('.menu-item, .product-card');
-	menuItems.forEach(item => {
-	item.addEventListener('click', function() {
-		const itemName = this.querySelector('h4, .product-title').textContent;
-		const itemPrice = this.querySelector('.price, .product-price').textContent.replace('DH', '').trim();
-		
-		// Add a visual feedback that item was added
-		this.classList.add('item-added');
-		setTimeout(() => {
-		this.classList.remove('item-added');
-		}, 500);
-		
-		addToBasket(itemName, itemPrice); // Add item to basket
-	});
-	});
-</script>
+    // Enhanced Basket functionality
+    const basketSidebar = document.querySelector('.basket-sidebar');
+    const basketOverlay = document.querySelector('.basket-overlay');
+    const closeBasket = document.querySelector('.close-basket');
+    const basketCount = document.getElementById('basket-count');
+    const basketEmptyMessage = document.getElementById('basket-empty-message');
+    let basket = [];
+    let totalPrice = 0;
+    
+    // Function to show the basket sidebar
+    function showBasket() {
+      basketSidebar.classList.add('active');
+      basketOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+    
+    // Function to hide the basket sidebar
+    function hideBasket() {
+      basketSidebar.classList.remove('active');
+      basketOverlay.classList.remove('active');
+      document.body.style.overflow = ''; // Re-enable scrolling
+    }
+    
+    // Close basket handlers
+    closeBasket.addEventListener('click', hideBasket);
+    basketOverlay.addEventListener('click', hideBasket);
+    
+    // Function to add an item to the basket
+    function addToBasket(itemName, itemPrice) {
+      const existingItem = basket.find(item => item.name === itemName);
+      if (existingItem) {
+        existingItem.quantity += 1; // Increase quantity if item already exists
+      } else {
+        const item = { name: itemName, price: parseFloat(itemPrice), quantity: 1 };
+        basket.push(item); // Add new item to the basket
+      }
+      
+      // Show a brief animation on the basket icon
+      basketCount.classList.add('pulse');
+      setTimeout(() => {
+        basketCount.classList.remove('pulse');
+      }, 300);
+      
+      updateBasket(); // Refresh the basket display
+      showBasket(); // Show the basket sidebar
+    }
+    
+    // Function to update the basket display
+    function updateBasket() {
+      const basketItems = document.getElementById('basket-items');
+      const totalPriceElement = document.getElementById('total-price');
+      
+      basketItems.innerHTML = ''; // Clear the basket items
+      totalPrice = 0; // Reset total price
+      
+      if (basket.length === 0) {
+        basketEmptyMessage.style.display = 'block';
+      } else {
+        basketEmptyMessage.style.display = 'none';
+        
+        // Loop through each item in the basket
+        basket.forEach((item, index) => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <div><strong>${item.name}</strong> - ${item.price} DH</div>
+            <div class="quantity-control">
+              <input type="number" min="1" value="${item.quantity}" data-index="${index}">
+              <button class="refresh-btn" onclick="updateQuantity(${index})">🔄</button>
+              <button class="refresh-btn" onclick="removeItem(${index})" style="background-color: #e74c3c;">🗑️</button>
+            </div>
+          `;
+          basketItems.appendChild(li); // Add item to the basket list
+          totalPrice += item.price * item.quantity; // Update total price
+        });
+      }
+      
+      totalPriceElement.textContent = `${totalPrice.toFixed(2)} DH`; // Update total price display
+      basketCount.textContent = basket.reduce((sum, item) => sum + item.quantity, 0); // Update basket count
+    }
+    
+    // Function to update the quantity of an item
+    function updateQuantity(index) {
+      const input = document.querySelector(`input[data-index="${index}"]`);
+      const newQuantity = parseInt(input.value);
+      if (newQuantity > 0) {
+        basket[index].quantity = newQuantity; // Update the quantity
+        updateBasket(); // Refresh the basket display
+      }
+    }
+    
+    // Function to remove an item from the basket
+    function removeItem(index) {
+      basket.splice(index, 1); // Remove the item
+      updateBasket(); // Refresh the basket display
+    }
+    
+    // Add items to basket on click with animation
+    const menuItems = document.querySelectorAll('.menu-item, .product-card');
+    menuItems.forEach(item => {
+      item.addEventListener('click', function() {
+        const itemName = this.querySelector('h4, .product-title').textContent;
+        const itemPrice = this.querySelector('.price, .product-price').textContent.replace('DH', '').trim();
+        
+        // Add a visual feedback that item was added
+        this.classList.add('item-added');
+        setTimeout(() => {
+          this.classList.remove('item-added');
+        }, 500);
+        
+        addToBasket(itemName, itemPrice); // Add item to basket
+      });
+    });
+    
+    // Modal functionality for order details
+    const orderModal = document.getElementById("orderModal");
+    const closeModal = document.querySelector(".close-modal");
+    
+    // When the user clicks the close icon, hide the modal
+    closeModal.addEventListener("click", function() {
+      orderModal.style.display = "none";
+    });
+    
+    // Handle order form submission
+    const orderForm = document.getElementById("order-form");
+    orderForm.addEventListener("submit", function(e) {
+  e.preventDefault(); // Prevent default form action
+
+  // Get name & phone from the basket form
+  let clientName = document.getElementById("client-name").value;
+  let clientPhone = document.getElementById("client-phone").value;
+
+  // Generate a sample order ID, date, etc.
+  let orderId = "CMD" + Date.now();
+  let orderDate = new Date().toLocaleString();
+  let orderTotal = totalPrice.toFixed(2) + " DH";
+
+  // Populate modal fields
+  document.getElementById("orderId").textContent = orderId;
+  document.getElementById("orderId2").textContent = orderId;
+  document.getElementById("modalClientName").textContent = clientName;   // <-- Add Name
+  document.getElementById("modalClientPhone").textContent = clientPhone; // <-- Add Phone
+  document.getElementById("orderDate").textContent = orderDate;
+  document.getElementById("orderTotal").textContent = orderTotal;
+  
+  // Build the order table
+  const orderDetailsBody = document.querySelector("#orderDetails tbody");
+  orderDetailsBody.innerHTML = ""; 
+  basket.forEach((item, index) => {
+    let tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${item.name}</td>
+      <td>${(item.price * item.quantity).toFixed(2)} DH</td>
+    `;
+    orderDetailsBody.appendChild(tr);
+  });
+
+  // Show the modal
+  orderModal.style.display = "block";
+});
+    
+    // Confirm order button: sends the order details via WhatsApp
+    document.getElementById("confirmOrder").addEventListener("click", function() {
+  let orderId = document.getElementById("orderId").textContent;
+  let orderDate = document.getElementById("orderDate").textContent;
+  let orderTotal = document.getElementById("orderTotal").textContent;
+  
+  // Retrieve the name & phone from the modal (or from the original form)
+  let clientName = document.getElementById("modalClientName").textContent;
+  let clientPhone = document.getElementById("modalClientPhone").textContent;
+  
+  // Build the order message
+  let orderMessage = 
+    `Votre Command: ${orderId}\n` +
+    `Status de command: en attente\n` +
+    `Numéro de command: ${orderId}\n` +
+    `Date de command: ${orderDate}\n` +
+    `Nom: ${clientName}\n` +                // <-- Insert name
+    `Téléphone: ${clientPhone}\n` +         // <-- Insert phone
+    `Méthode de payement: à la livraison\n` +
+    `Total: ${orderTotal}\n\n` +
+    `Détails de votre command:\n`;
+  
+  basket.forEach((item, index) => {
+    orderMessage += 
+      `${index + 1}     ${item.name}     ${(item.price * item.quantity).toFixed(2)} DH\n`;
+  });
+  orderMessage += `\nMontant Total: ${orderTotal}`;
+
+  // WhatsApp URL
+  let whatsappNumber = "+212614882878";
+  let url = "https://wa.me/" + whatsappNumber.replace("+", "") +
+            "?text=" + encodeURIComponent(orderMessage);
+
+  // Open WhatsApp in a new tab
+  window.open(url, "_blank");
+});
+  </script>
 </body>
 </html>
