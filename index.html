@@ -1583,9 +1583,9 @@
       <ul id="basket-items"></ul>
       <p>Total: <span id="total-price">0 DH</span></p>
       <form id="order-form">
-        <label for="client-name">Nom:</label>
+        <label for="client-name">Votre Nom et Prénom:</label>
         <input type="text" id="client-name" name="client-name" required placeholder="Votre nom">
-        <label for="client-phone">Téléphone:</label>
+        <label for="client-phone">Votre Téléphone:</label>
         <input type="tel" id="client-phone" name="client-phone" required placeholder="Votre numéro de téléphone">
         <button type="submit" class="btn">Passer la Commande</button>
       </form>
@@ -1605,6 +1605,16 @@
       <div class="title">Votre reçu pour <span id="orderId">[order ID]</span></div>
       
       <div class="info-group">
+	  
+		<div class="order-info">
+			<div class="label">Nom de Client</div>
+			<div class="value" id="clientName"></div>
+		</div>
+		<div class="order-info">
+			<div class="label">Contact de Client </div>
+			<div class="value" id="clientPhone"></div>
+		</div>
+	  
         <div class="order-info">
           <div class="label">Statut de commande</div>
           <div class="value"><span class="status-badge" id="orderStatus">en attente</span></div>
@@ -1750,7 +1760,6 @@
       }
     });
   </script>
-  
   <script>
     const basketSidebar = document.querySelector('.basket-sidebar');
     const basketOverlay = document.querySelector('.basket-overlay');
@@ -1835,7 +1844,6 @@
 
     // Event listeners
     document.addEventListener('DOMContentLoaded', () => {
-        // Menu item clicks
         document.querySelectorAll('.menu-item, .product-card').forEach(item => {
             item.addEventListener('click', function() {
                 const itemName = this.querySelector('h4, .product-title').textContent;
@@ -1846,7 +1854,6 @@
             });
         });
 
-        // Basket controls
         closeBasket.addEventListener('click', hideBasket);
         basketOverlay.addEventListener('click', hideBasket);
     });
@@ -1865,12 +1872,14 @@
         document.getElementById("orderId2").textContent = orderId;
         document.getElementById("orderDate").textContent = orderDate;
         document.getElementById("orderTotal").textContent = orderTotal;
+        document.getElementById("clientName").textContent = clientName;
+        document.getElementById("clientPhone").textContent = clientPhone;
 
-        // Update order details table
+        // Update order details
         const orderDetailsBody = document.querySelector("#orderDetails tbody");
         orderDetailsBody.innerHTML = basket.map((item, index) => `
             <tr>
-                 <td>${item.quantity}</td>
+                <td>${item.quantity}</td>
 				<td>${item.name}</td>
 				<td>${(item.price * item.quantity).toFixed(2)} DH</td>
             </tr>
@@ -1887,18 +1896,30 @@
         }
     };
 
-    // WhatsApp confirmation
+    // WhatsApp confirmation (CORRECTED)
     document.getElementById("confirmOrder").addEventListener("click", function() {
-        const orderMessage = `Commande Details:%0A%0A` +
-            `*Numéro de commande:* ${document.getElementById("orderId").textContent}%0A` +
-            `*Date:* ${document.getElementById("orderDate").textContent}%0A` +
-            `*Total:* ${document.getElementById("orderTotal").textContent}%0A%0A` +
-            `*Items:*%0A${basket.map(item => 
-                `- ${item.quantity}x ${item.name} (${item.price} DH)`
-            ).join('%0A')}`;
+        const clientName = document.getElementById("clientName").textContent;
+        const clientPhone = document.getElementById("clientPhone").textContent;
+        const orderId = document.getElementById("orderId").textContent;
+        const orderTotal = document.getElementById("orderTotal").textContent;
+        
+        const orderMessage = 
+            `*Nouvelle Commande - Msemen Concept*\n\n` +
+            `*Nom:* ${clientName}\n` +
+            `*Téléphone:* ${clientPhone}\n` +
+            `*Numéro de commande:* ${orderId}\n` +
+            `*Date:* ${new Date().toLocaleString()}\n` +
+            `*Total:* ${orderTotal}\n\n` +
+            `*Détails de la commande:*\n` +
+            `${basket.map(item => 
+                `➤ ${item.quantity}x ${item.name} - ${(item.price * item.quantity).toFixed(2)} DH`
+            ).join('\n')}`;
 
-        window.open(`https://wa.me/212630063286?text=${orderMessage}`, '_blank');
+        const whatsappNumber = "212630063286"; // Update this number if needed
+        const encodedMessage = encodeURIComponent(orderMessage);
+        window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
     });
 </script>
+
 </body>
 </html>
