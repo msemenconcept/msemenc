@@ -1111,6 +1111,205 @@
         width: 100%;
       }
     }
+	 /* New Receipt Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    .receipt-container {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      position: relative;
+      border: 1px solid #eaeaea;
+      margin: 5% auto;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 35px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #222;
+      margin-bottom: 5px;
+      letter-spacing: 0.5px;
+    }
+
+    .title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #444;
+      margin: 25px 0 20px 0;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .order-info {
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .info-group {
+      margin-bottom: 20px;
+    }
+
+    .label {
+      font-weight: 600;
+      color: #555;
+      width: 45%;
+      padding-right: 10px;
+    }
+
+    .value {
+      text-align: right;
+      flex-grow: 1;
+    }
+
+    .order-number {
+      color: #0066cc;
+      font-weight: 600;
+    }
+
+    .status-badge {
+      background-color: #fff8e6;
+      color: #e6a400;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 14px;
+      border: 1px solid #ffe0a3;
+      display: inline-block;
+    }
+
+    .divider {
+      height: 1px;
+      background-color: #eee;
+      margin: 25px 0;
+      border: none;
+    }
+
+    .details-section {
+      margin: 30px 0;
+    }
+
+    .details-header {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    #orderDetails {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 15px;
+      border: 1px solid #eaeaea;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    #orderDetails th {
+      background-color: #f9f9f9;
+      text-align: left;
+      padding: 12px 15px;
+      font-weight: 600;
+      color: #555;
+      border-bottom: 1px solid #eaeaea;
+    }
+
+    #orderDetails td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    #orderDetails tr:last-child td {
+      border-bottom: none;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 0;
+      font-weight: 600;
+      font-size: 18px;
+      color: #333;
+      margin-top: 5px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #777;
+      font-size: 14px;
+      padding-top: 20px;
+      border-top: 1px dashed #eee;
+    }
+
+    .thank-you {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .payment-badge {
+      background-color: #f0f7ff;
+      color: #0066cc;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 14px;
+      border: 1px solid #d0e5ff;
+      display: inline-block;
+    }
+
+    .receipt-number {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 12px;
+      color: #999;
+      font-family: monospace;
+    }
+
+    .watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      font-size: 100px;
+      opacity: 0.03;
+      pointer-events: none;
+      font-weight: bold;
+      color: #000;
+      z-index: 0;
+      white-space: nowrap;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: #333;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 1;
+    }
   </style>
 </head>
 <body>
@@ -1236,7 +1435,7 @@
   
   <section class="about-section" id="about">
     <div class="about-image">
-      <img src="https://i.imgur.com/qj5cD70.jpeg" alt="About Msemen Concept" style="max-width: 100%; max-height: 100%;">
+      <img src="https://i.imgur.com/qj5cD70.jpeg" style="max-width: 100%; max-height: 100%;" alt="About Msemen Concept">
     </div>
     <div class="about-text">
       <h2>Où la Tradition Rencontre l'Innovation</h2>
@@ -1393,60 +1592,73 @@
     </div>
   </div>
   
-  <!-- Order Details Modal -->
   <div id="orderModal" class="modal">
-    <div class="modal-content receipt-container">
+    <div class="receipt-container">
       <span class="close-modal">&times;</span>
-      <h2>Msemen Concept</h2>
-      <p class="receipt-title">
-        Votre reçu pour 
-        <strong id="orderId">[order ID]</strong>
-      </p>
-      <p>
-        <strong>Statut de commande:</strong>
-        <span id="orderStatus">en attente</span>
-      </p>
-      <p>
-        <strong>Numéro de commande:</strong>
-        <span id="orderId2">[order ID]</span>
-      </p>
-      <p>
-        <strong>Nom:</strong>
-        <span id="modalClientName"></span>
-      </p>
-      <p>
-        <strong>Téléphone:</strong>
-        <span id="modalClientPhone"></span>
-      </p>
-      <p>
-        <strong>Date de commande:</strong>
-        <span id="orderDate">[date]</span>
-      </p>
-      <p>
-        <strong>Méthode de payement:</strong>
-        à la livraison
-      </p>
-      <p>
-        <strong>Montant total:</strong>
-        <span id="orderTotal">0.00 DH</span>
-      </p>
-      <h3>Détails de commande:</h3>
-      <table id="orderDetails">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Produit</th>
-            <th>Montant</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Items will be injected by JS -->
-        </tbody>
-      </table>
-      <button id="confirmOrder" class="btn">Confirmer la Commande</button>
+      <div class="receipt-number">#003295</div>
+      <div class="watermark">MSEMEN CONCEPT</div>
+      
+      <div class="header">
+        <div class="logo">Msemen Concept</div>
+      </div>
+      
+      <div class="title">Votre reçu pour <span id="orderId">[order ID]</span></div>
+      
+      <div class="info-group">
+        <div class="order-info">
+          <div class="label">Statut de commande</div>
+          <div class="value"><span class="status-badge" id="orderStatus">en attente</span></div>
+        </div>
+        
+        <div class="order-info">
+          <div class="label">Numéro de commande</div>
+          <div class="value"><span class="order-number" id="orderId2">[order ID]</span></div>
+        </div>
+        
+        <div class="order-info">
+          <div class="label">Date de commande</div>
+          <div class="value" id="orderDate">[date]</div>
+        </div>
+        
+        <div class="order-info">
+          <div class="label">Méthode de paiement</div>
+          <div class="value"><span class="payment-badge">À la livraison</span></div>
+        </div>
+        
+        <div class="order-info">
+          <div class="label">Montant total</div>
+          <div class="value" id="orderTotal">0.00 DH</div>
+        </div>
+      </div>
+      
+      <div class="divider"></div>
+      
+      <div class="details-section">
+        <div class="details-header">Détails de commande</div>
+        
+        <table id="orderDetails">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Produit</th>
+              <th>Montant</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Items will be injected by JS -->
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="divider"></div>
+     
+      
+      <div class="footer">
+        <p class="thank-you">Merci pour votre commande!</p>
+        <button id="confirmOrder" class="btn">Confirmer la Commande</button>
+      </div>
     </div>
   </div>
-  
   <!-- Slider Script -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -1539,180 +1751,154 @@
     });
   </script>
   
-  <!-- Basket and Modal Script -->
   <script>
     const basketSidebar = document.querySelector('.basket-sidebar');
     const basketOverlay = document.querySelector('.basket-overlay');
     const closeBasket = document.querySelector('.close-basket');
     const basketCount = document.getElementById('basket-count');
     const basketEmptyMessage = document.getElementById('basket-empty-message');
-    let basket = [];
-    let totalPrice = 0;
-    
-    // Function to show the basket sidebar
-    function showBasket() {
-      basketSidebar.classList.add('active');
-      basketOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    
-    // Function to hide the basket sidebar
-    function hideBasket() {
-      basketSidebar.classList.remove('active');
-      basketOverlay.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-    
-    // Close basket handlers
-    closeBasket.addEventListener('click', hideBasket);
-    basketOverlay.addEventListener('click', hideBasket);
-    
-    // Function to add an item to the basket
-    function addToBasket(itemName, itemPrice) {
-      const existingItem = basket.find(item => item.name === itemName);
-      if (existingItem) {
-        existingItem.quantity += 1;
-      } else {
-        const item = { name: itemName, price: parseFloat(itemPrice), quantity: 1 };
-        basket.push(item);
-      }
-      
-      basketCount.classList.add('pulse');
-      setTimeout(() => {
-        basketCount.classList.remove('pulse');
-      }, 300);
-      
-      updateBasket();
-      showBasket();
-    }
-    
-    // Function to update the basket display
-    function updateBasket() {
-      const basketItems = document.getElementById('basket-items');
-      const totalPriceElement = document.getElementById('total-price');
-      basketItems.innerHTML = '';
-      totalPrice = 0;
-      
-      if (basket.length === 0) {
-        basketEmptyMessage.style.display = 'block';
-      } else {
-        basketEmptyMessage.style.display = 'none';
-        basket.forEach((item, index) => {
-          const li = document.createElement('li');
-          li.innerHTML = `
-            <div><strong>${item.name}</strong> - ${item.price} DH</div>
-            <div class="quantity-control">
-              <input type="number" min="1" value="${item.quantity}" data-index="${index}">
-              <button class="refresh-btn" onclick="updateQuantity(${index})">🔄</button>
-              <button class="refresh-btn" onclick="removeItem(${index})" style="background-color: #e74c3c;">🗑️</button>
-            </div>
-          `;
-          basketItems.appendChild(li);
-          totalPrice += item.price * item.quantity;
-        });
-      }
-      
-      totalPriceElement.textContent = `${totalPrice.toFixed(2)} DH`;
-      basketCount.textContent = basket.reduce((sum, item) => sum + item.quantity, 0);
-    }
-    
-    // Function to update the quantity of an item
-    function updateQuantity(index) {
-      const input = document.querySelector(`input[data-index="${index}"]`);
-      const newQuantity = parseInt(input.value);
-      if (newQuantity > 0) {
-        basket[index].quantity = newQuantity;
-        updateBasket();
-      }
-    }
-    
-    // Function to remove an item from the basket
-    function removeItem(index) {
-      basket.splice(index, 1);
-      updateBasket();
-    }
-    
-    // Add items to basket on click with animation
-    const menuItems = document.querySelectorAll('.menu-item, .product-card');
-    menuItems.forEach(item => {
-      item.addEventListener('click', function() {
-        const itemName = this.querySelector('h4, .product-title').textContent;
-        const itemPrice = this.querySelector('.price, .product-price').textContent.replace('DH', '').trim();
-        this.classList.add('item-added');
-        setTimeout(() => {
-          this.classList.remove('item-added');
-        }, 500);
-        addToBasket(itemName, itemPrice);
-      });
-    });
-    
-    // Modal functionality for order details
     const orderModal = document.getElementById("orderModal");
     const closeModal = document.querySelector(".close-modal");
-    closeModal.addEventListener("click", function() {
-      orderModal.style.display = "none";
-    });
-    
     const orderForm = document.getElementById("order-form");
-    orderForm.addEventListener("submit", function(e) {
-      e.preventDefault();
-      let clientName = document.getElementById("client-name").value;
-      let clientPhone = document.getElementById("client-phone").value;
-      let orderId = "CMD" + Date.now();
-      let orderDate = new Date().toLocaleString();
-      let orderTotal = totalPrice.toFixed(2) + " DH";
-      
-      document.getElementById("orderId").textContent = orderId;
-      document.getElementById("orderId2").textContent = orderId;
-      document.getElementById("modalClientName").textContent = clientName;
-      document.getElementById("modalClientPhone").textContent = clientPhone;
-      document.getElementById("orderDate").textContent = orderDate;
-      document.getElementById("orderTotal").textContent = orderTotal;
-      
-      const orderDetailsBody = document.querySelector("#orderDetails tbody");
-      orderDetailsBody.innerHTML = "";
-      basket.forEach((item, index) => {
-        let tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${item.quantity}</td>
-          <td>${item.name}</td>
-          <td>${(item.price * item.quantity).toFixed(2)} DH</td>
-        `;
-        orderDetailsBody.appendChild(tr);
-      });
-      
-      orderModal.style.display = "block";
+    let basket = [];
+    let totalPrice = 0;
+
+    // Basket visibility functions
+    function showBasket() {
+        basketSidebar.classList.add('active');
+        basketOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function hideBasket() {
+        basketSidebar.classList.remove('active');
+        basketOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Basket item management
+    function addToBasket(itemName, itemPrice) {
+        const existingItem = basket.find(item => item.name === itemName);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            basket.push({ 
+                name: itemName, 
+                price: parseFloat(itemPrice), 
+                quantity: 1 
+            });
+        }
+        updateBasket();
+        showBasket();
+        basketCount.classList.add('pulse');
+        setTimeout(() => basketCount.classList.remove('pulse'), 300);
+    }
+
+    function updateBasket() {
+        const basketItems = document.getElementById('basket-items');
+        const totalPriceElement = document.getElementById('total-price');
+        basketItems.innerHTML = '';
+        totalPrice = 0;
+
+        basket.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <div><strong>${item.name}</strong> - ${item.price} DH</div>
+                <div class="quantity-control">
+                    <input type="number" min="1" value="${item.quantity}" data-index="${index}">
+                    <button class="refresh-btn" onclick="updateQuantity(${index})">🔄</button>
+                    <button class="refresh-btn" onclick="removeItem(${index})" style="background-color: #e74c3c;">🗑️</button>
+                </div>
+            `;
+            basketItems.appendChild(li);
+            totalPrice += item.price * item.quantity;
+        });
+
+        totalPriceElement.textContent = `${totalPrice.toFixed(2)} DH`;
+        basketCount.textContent = basket.reduce((sum, item) => sum + item.quantity, 0);
+        basketEmptyMessage.style.display = basket.length ? 'none' : 'block';
+    }
+
+    function updateQuantity(index) {
+        const input = document.querySelector(`input[data-index="${index}"]`);
+        const newQuantity = parseInt(input.value);
+        if (newQuantity > 0) {
+            basket[index].quantity = newQuantity;
+            updateBasket();
+        }
+    }
+
+    function removeItem(index) {
+        basket.splice(index, 1);
+        updateBasket();
+    }
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+        // Menu item clicks
+        document.querySelectorAll('.menu-item, .product-card').forEach(item => {
+            item.addEventListener('click', function() {
+                const itemName = this.querySelector('h4, .product-title').textContent;
+                const itemPrice = this.querySelector('.price, .product-price').textContent.replace('DH', '').trim();
+                this.classList.add('item-added');
+                setTimeout(() => this.classList.remove('item-added'), 500);
+                addToBasket(itemName, itemPrice);
+            });
+        });
+
+        // Basket controls
+        closeBasket.addEventListener('click', hideBasket);
+        basketOverlay.addEventListener('click', hideBasket);
     });
-    
+
+    // Order form submission
+    orderForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const clientName = document.getElementById("client-name").value;
+        const clientPhone = document.getElementById("client-phone").value;
+        const orderId = "CMD" + Date.now();
+        const orderDate = new Date().toLocaleString();
+        const orderTotal = totalPrice.toFixed(2) + " DH";
+
+        // Update modal content
+        document.getElementById("orderId").textContent = orderId;
+        document.getElementById("orderId2").textContent = orderId;
+        document.getElementById("orderDate").textContent = orderDate;
+        document.getElementById("orderTotal").textContent = orderTotal;
+
+        // Update order details table
+        const orderDetailsBody = document.querySelector("#orderDetails tbody");
+        orderDetailsBody.innerHTML = basket.map((item, index) => `
+            <tr>
+                 <td>${item.quantity}</td>
+				<td>${item.name}</td>
+				<td>${(item.price * item.quantity).toFixed(2)} DH</td>
+            </tr>
+        `).join('');
+
+        orderModal.style.display = "block";
+    });
+
+    // Modal controls
+    closeModal.addEventListener("click", () => orderModal.style.display = "none");
+    window.onclick = function(event) {
+        if (event.target === orderModal) {
+            orderModal.style.display = "none";
+        }
+    };
+
+    // WhatsApp confirmation
     document.getElementById("confirmOrder").addEventListener("click", function() {
-      let orderId = document.getElementById("orderId").textContent;
-      let orderDate = document.getElementById("orderDate").textContent;
-      let orderTotal = document.getElementById("orderTotal").textContent;
-      let clientName = document.getElementById("modalClientName").textContent;
-      let clientPhone = document.getElementById("modalClientPhone").textContent;
-      
-      let orderMessage = 
-        `Votre Command: ${orderId}\n` +
-        `Status de command: en attente\n` +
-        `Numéro de command: ${orderId}\n` +
-        `Date de command: ${orderDate}\n` +
-        `Nom: ${clientName}\n` +
-        `Téléphone: ${clientPhone}\n` +
-        `Méthode de payement: à la livraison\n` +
-        `Total: ${orderTotal}\n\n` +
-        `Détails de votre command:\n`;
-      
-      basket.forEach((item, index) => {
-        orderMessage += `${index + 1}     ${item.name}     ${(item.price * item.quantity).toFixed(2)} DH\n`;
-      });
-      orderMessage += `\nMontant Total: ${orderTotal}`;
-      
-      let whatsappNumber = "+212630063286";
-      let url = "https://wa.me/" + whatsappNumber.replace("+", "") +
-                "?text=" + encodeURIComponent(orderMessage);
-      
-      window.open(url, "_blank");
+        const orderMessage = `Commande Details:%0A%0A` +
+            `*Numéro de commande:* ${document.getElementById("orderId").textContent}%0A` +
+            `*Date:* ${document.getElementById("orderDate").textContent}%0A` +
+            `*Total:* ${document.getElementById("orderTotal").textContent}%0A%0A` +
+            `*Items:*%0A${basket.map(item => 
+                `- ${item.quantity}x ${item.name} (${item.price} DH)`
+            ).join('%0A')}`;
+
+        window.open(`https://wa.me/212630063286?text=${orderMessage}`, '_blank');
     });
-  </script>
+</script>
 </body>
 </html>
