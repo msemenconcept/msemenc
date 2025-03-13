@@ -135,7 +135,6 @@
       justify-content: center;
     }
     
-    /* Fix selector: use .slide.active instead of ".slide active" */
     .slide.active {
       opacity: 1;
       display: flex;
@@ -957,87 +956,142 @@
     
     /* Modal Styles */
     .modal {
-		display: none;
-		position: fixed;
-		z-index: 2000;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		overflow: auto; /* Enable scroll if needed */
-		background-color: rgba(0,0,0,0.4); /* Dim background */
-	}
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
     
     .modal-content.receipt-container {
-		position: relative;
-		background-color: #fff;
-		margin: 5% auto;
-		padding: 2rem;
-		border: 1px solid #888;
-		width: 90%;
-		max-width: 600px;
-		border-radius: 8px;
-	}
+      position: relative;
+      background-color: #fff;
+      margin: 5% auto;
+      padding: 2rem;
+      border: 1px solid #888;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 8px;
+    }
     
     .close-modal {
-		position: absolute;
-		top: 1rem;
-		right: 1rem;
-		color: #333;
-		font-size: 1.5rem;
-		cursor: pointer;
-	}
-	
-	/* Modal Headings / Title */
-		.modal-content h2 {
-		margin-bottom: 1rem;
-		text-align: center;
-		font-size: 1.8rem;
-		font-weight: bold;
-	}
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: #333;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    .modal-content h2 {
+      margin-bottom: 1rem;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
     
     .close-modal:hover,
     .close-modal:focus {
       color: #000;
       text-decoration: none;
     }
-	
-	.receipt-title {
-		margin-bottom: 1rem;
-		font-size: 1.2rem;
-		text-align: center;
-	}
-	
-	.modal-content p {
-		margin-bottom: 0.5rem;
-		line-height: 1.5;
-	}
-		
-	/* Make the strong text stand out a bit more */
-		.modal-content p strong {
-		font-weight: 600;
-	}
+    
+    .receipt-title {
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    
+    .modal-content p {
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    
+    .modal-content p strong {
+      font-weight: 600;
+    }
     
     #orderDetails {
-		width: 100%;
-		border-collapse: collapse;
-		margin: 1rem 0;
-	}
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
     
     #orderDetails thead {
-		background-color: #f5f5f5;
-	}
-		
-	#orderDetails th,
-	#orderDetails td {
-		padding: 8px;
-		border: 1px solid #ddd;
-	}
-		
-	#orderDetails th {
-		font-weight: 600;
-		text-align: left;
-	}
+      background-color: #f5f5f5;
+    }
+    
+    #orderDetails th,
+    #orderDetails td {
+      padding: 8px;
+      border: 1px solid #ddd;
+    }
+    
+    #orderDetails th {
+      font-weight: 600;
+      text-align: left;
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      header {
+        padding: 0.5rem 2%;
+        flex-direction: column;
+      }
+      
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      nav ul li {
+        margin-left: 0;
+        margin-bottom: 0.5rem;
+      }
+      
+      .hero-section {
+        height: 40vh;
+      }
+      
+      .slider-overlay h1 {
+        font-size: 1.8rem;
+        padding: 0 1rem;
+      }
+      
+      .stats {
+        flex-direction: column;
+      }
+      
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .product-image {
+        height: auto;
+      }
+      
+      .about-section {
+        flex-direction: column;
+      }
+      
+      .about-image {
+        margin-right: 0;
+        margin-bottom: 1rem;
+        height: auto;
+      }
+      
+      .menu-items {
+        grid-template-columns: 1fr;
+      }
+      
+      .basket-sidebar {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1321,73 +1375,58 @@
   </div>
   
   <!-- Order Details Modal -->
-	<div id="orderModal" class="modal">
-	<div class="modal-content receipt-container">
-		<span class="close-modal">&times;</span>
-		
-		<!-- Logo / Title -->
-		<h2>Msemen Concept</h2>
-		
-		<!-- Receipt Title -->
-		<p class="receipt-title">
-		Votre reçu pour 
-		<strong id="orderId">[order ID]</strong>
-		</p>
-		
-		<p>
-		<strong>Statut de commande:</strong>
-		<span id="orderStatus">en attente</span>
-		</p>
-		
-		<p>
-		<strong>Numéro de commande:</strong>
-		<span id="orderId2">[order ID]</span>
-		</p>
-		
-		<!-- NEW: Show Client Name and Phone here -->
-		<p>
-		<strong>Nom:</strong>
-		<span id="modalClientName"></span>
-		</p>
-		<p>
-		<strong>Téléphone:</strong>
-		<span id="modalClientPhone"></span>
-		</p>
-		<!-- END NEW -->
-		
-		<p>
-		<strong>Date de commande:</strong>
-		<span id="orderDate">[date]</span>
-		</p>
-		
-		<p>
-		<strong>Méthode de payement:</strong>
-		à la livraison
-		</p>
-		
-		<p>
-		<strong>Montant total:</strong>
-		<span id="orderTotal">0.00 DH</span>
-		</p>
-		
-		<h3>Détails de commande:</h3>
-		<table id="orderDetails">
-		<thead>
-			<tr>
-			<th>#</th>
-			<th>Produit</th>
-			<th>Montant</th>
-			</tr>
-		</thead>
-		<tbody>
-			<!-- Items will be injected by JS -->
-		</tbody>
-		</table>
-		<button id="confirmOrder" class="btn">Confirmer la Commande</button>
-	</div>
-	</div>
-
-
+  <div id="orderModal" class="modal">
+    <div class="modal-content receipt-container">
+      <span class="close-modal">&times;</span>
+      <h2>Msemen Concept</h2>
+      <p class="receipt-title">
+        Votre reçu pour 
+        <strong id="orderId">[order ID]</strong>
+      </p>
+      <p>
+        <strong>Statut de commande:</strong>
+        <span id="orderStatus">en attente</span>
+      </p>
+      <p>
+        <strong>Numéro de commande:</strong>
+        <span id="orderId2">[order ID]</span>
+      </p>
+      <p>
+        <strong>Nom:</strong>
+        <span id="modalClientName"></span>
+      </p>
+      <p>
+        <strong>Téléphone:</strong>
+        <span id="modalClientPhone"></span>
+      </p>
+      <p>
+        <strong>Date de commande:</strong>
+        <span id="orderDate">[date]</span>
+      </p>
+      <p>
+        <strong>Méthode de payement:</strong>
+        à la livraison
+      </p>
+      <p>
+        <strong>Montant total:</strong>
+        <span id="orderTotal">0.00 DH</span>
+      </p>
+      <h3>Détails de commande:</h3>
+      <table id="orderDetails">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Produit</th>
+            <th>Montant</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Items will be injected by JS -->
+        </tbody>
+      </table>
+      <button id="confirmOrder" class="btn">Confirmer la Commande</button>
+    </div>
+  </div>
   
   <!-- Slider Script -->
   <script>
@@ -1414,9 +1453,7 @@
       function goToSlide(n) {
         slides[currentSlide].classList.remove('active');
         dots[currentSlide].classList.remove('active');
-        
         currentSlide = (n + slides.length) % slides.length;
-        
         slides[currentSlide].classList.add('active');
         dots[currentSlide].classList.add('active');
       }
@@ -1485,7 +1522,6 @@
   
   <!-- Basket and Modal Script -->
   <script>
-    // Enhanced Basket functionality
     const basketSidebar = document.querySelector('.basket-sidebar');
     const basketOverlay = document.querySelector('.basket-overlay');
     const closeBasket = document.querySelector('.close-basket');
@@ -1498,14 +1534,14 @@
     function showBasket() {
       basketSidebar.classList.add('active');
       basketOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden'; // Prevent scrolling
+      document.body.style.overflow = 'hidden';
     }
     
     // Function to hide the basket sidebar
     function hideBasket() {
       basketSidebar.classList.remove('active');
       basketOverlay.classList.remove('active');
-      document.body.style.overflow = ''; // Re-enable scrolling
+      document.body.style.overflow = '';
     }
     
     // Close basket handlers
@@ -1516,36 +1552,32 @@
     function addToBasket(itemName, itemPrice) {
       const existingItem = basket.find(item => item.name === itemName);
       if (existingItem) {
-        existingItem.quantity += 1; // Increase quantity if item already exists
+        existingItem.quantity += 1;
       } else {
         const item = { name: itemName, price: parseFloat(itemPrice), quantity: 1 };
-        basket.push(item); // Add new item to the basket
+        basket.push(item);
       }
       
-      // Show a brief animation on the basket icon
       basketCount.classList.add('pulse');
       setTimeout(() => {
         basketCount.classList.remove('pulse');
       }, 300);
       
-      updateBasket(); // Refresh the basket display
-      showBasket(); // Show the basket sidebar
+      updateBasket();
+      showBasket();
     }
     
     // Function to update the basket display
     function updateBasket() {
       const basketItems = document.getElementById('basket-items');
       const totalPriceElement = document.getElementById('total-price');
-      
-      basketItems.innerHTML = ''; // Clear the basket items
-      totalPrice = 0; // Reset total price
+      basketItems.innerHTML = '';
+      totalPrice = 0;
       
       if (basket.length === 0) {
         basketEmptyMessage.style.display = 'block';
       } else {
         basketEmptyMessage.style.display = 'none';
-        
-        // Loop through each item in the basket
         basket.forEach((item, index) => {
           const li = document.createElement('li');
           li.innerHTML = `
@@ -1556,13 +1588,13 @@
               <button class="refresh-btn" onclick="removeItem(${index})" style="background-color: #e74c3c;">🗑️</button>
             </div>
           `;
-          basketItems.appendChild(li); // Add item to the basket list
-          totalPrice += item.price * item.quantity; // Update total price
+          basketItems.appendChild(li);
+          totalPrice += item.price * item.quantity;
         });
       }
       
-      totalPriceElement.textContent = `${totalPrice.toFixed(2)} DH`; // Update total price display
-      basketCount.textContent = basket.reduce((sum, item) => sum + item.quantity, 0); // Update basket count
+      totalPriceElement.textContent = `${totalPrice.toFixed(2)} DH`;
+      basketCount.textContent = basket.reduce((sum, item) => sum + item.quantity, 0);
     }
     
     // Function to update the quantity of an item
@@ -1570,15 +1602,15 @@
       const input = document.querySelector(`input[data-index="${index}"]`);
       const newQuantity = parseInt(input.value);
       if (newQuantity > 0) {
-        basket[index].quantity = newQuantity; // Update the quantity
-        updateBasket(); // Refresh the basket display
+        basket[index].quantity = newQuantity;
+        updateBasket();
       }
     }
     
     // Function to remove an item from the basket
     function removeItem(index) {
-      basket.splice(index, 1); // Remove the item
-      updateBasket(); // Refresh the basket display
+      basket.splice(index, 1);
+      updateBasket();
     }
     
     // Add items to basket on click with animation
@@ -1587,101 +1619,81 @@
       item.addEventListener('click', function() {
         const itemName = this.querySelector('h4, .product-title').textContent;
         const itemPrice = this.querySelector('.price, .product-price').textContent.replace('DH', '').trim();
-        
-        // Add a visual feedback that item was added
         this.classList.add('item-added');
         setTimeout(() => {
           this.classList.remove('item-added');
         }, 500);
-        
-        addToBasket(itemName, itemPrice); // Add item to basket
+        addToBasket(itemName, itemPrice);
       });
     });
     
     // Modal functionality for order details
     const orderModal = document.getElementById("orderModal");
     const closeModal = document.querySelector(".close-modal");
-    
-    // When the user clicks the close icon, hide the modal
     closeModal.addEventListener("click", function() {
       orderModal.style.display = "none";
     });
     
-    // Handle order form submission
     const orderForm = document.getElementById("order-form");
     orderForm.addEventListener("submit", function(e) {
-  e.preventDefault(); // Prevent default form action
-
-  // Get name & phone from the basket form
-  let clientName = document.getElementById("client-name").value;
-  let clientPhone = document.getElementById("client-phone").value;
-
-  // Generate a sample order ID, date, etc.
-  let orderId = "CMD" + Date.now();
-  let orderDate = new Date().toLocaleString();
-  let orderTotal = totalPrice.toFixed(2) + " DH";
-
-  // Populate modal fields
-  document.getElementById("orderId").textContent = orderId;
-  document.getElementById("orderId2").textContent = orderId;
-  document.getElementById("modalClientName").textContent = clientName;   // <-- Add Name
-  document.getElementById("modalClientPhone").textContent = clientPhone; // <-- Add Phone
-  document.getElementById("orderDate").textContent = orderDate;
-  document.getElementById("orderTotal").textContent = orderTotal;
-  
-  // Build the order table
-  const orderDetailsBody = document.querySelector("#orderDetails tbody");
-  orderDetailsBody.innerHTML = ""; 
-  basket.forEach((item, index) => {
-    let tr = document.createElement("tr");
-    tr.innerHTML = `
-  <td>${item.quantity}</td>
-  <td>${item.name}</td>
-  <td>${(item.price * item.quantity).toFixed(2)} DH</td>
-`;
-    orderDetailsBody.appendChild(tr);
-  });
-
-  // Show the modal
-  orderModal.style.display = "block";
-});
+      e.preventDefault();
+      let clientName = document.getElementById("client-name").value;
+      let clientPhone = document.getElementById("client-phone").value;
+      let orderId = "CMD" + Date.now();
+      let orderDate = new Date().toLocaleString();
+      let orderTotal = totalPrice.toFixed(2) + " DH";
+      
+      document.getElementById("orderId").textContent = orderId;
+      document.getElementById("orderId2").textContent = orderId;
+      document.getElementById("modalClientName").textContent = clientName;
+      document.getElementById("modalClientPhone").textContent = clientPhone;
+      document.getElementById("orderDate").textContent = orderDate;
+      document.getElementById("orderTotal").textContent = orderTotal;
+      
+      const orderDetailsBody = document.querySelector("#orderDetails tbody");
+      orderDetailsBody.innerHTML = "";
+      basket.forEach((item, index) => {
+        let tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${item.quantity}</td>
+          <td>${item.name}</td>
+          <td>${(item.price * item.quantity).toFixed(2)} DH</td>
+        `;
+        orderDetailsBody.appendChild(tr);
+      });
+      
+      orderModal.style.display = "block";
+    });
     
-    // Confirm order button: sends the order details via WhatsApp
     document.getElementById("confirmOrder").addEventListener("click", function() {
-  let orderId = document.getElementById("orderId").textContent;
-  let orderDate = document.getElementById("orderDate").textContent;
-  let orderTotal = document.getElementById("orderTotal").textContent;
-  
-  // Retrieve the name & phone from the modal (or from the original form)
-  let clientName = document.getElementById("modalClientName").textContent;
-  let clientPhone = document.getElementById("modalClientPhone").textContent;
-  
-  // Build the order message
-  let orderMessage = 
-    `Votre Command: ${orderId}\n` +
-    `Status de command: en attente\n` +
-    `Numéro de command: ${orderId}\n` +
-    `Date de command: ${orderDate}\n` +
-    `Nom: ${clientName}\n` +                // <-- Insert name
-    `Téléphone: ${clientPhone}\n` +         // <-- Insert phone
-    `Méthode de payement: à la livraison\n` +
-    `Total: ${orderTotal}\n\n` +
-    `Détails de votre command:\n`;
-  
-  basket.forEach((item, index) => {
-    orderMessage += 
-      `${index + 1}     ${item.name}     ${(item.price * item.quantity).toFixed(2)} DH\n`;
-  });
-  orderMessage += `\nMontant Total: ${orderTotal}`;
-
-  // WhatsApp URL
-  let whatsappNumber = "+212614882878";
-  let url = "https://wa.me/" + whatsappNumber.replace("+", "") +
-            "?text=" + encodeURIComponent(orderMessage);
-
-  // Open WhatsApp in a new tab
-  window.open(url, "_blank");
-});
+      let orderId = document.getElementById("orderId").textContent;
+      let orderDate = document.getElementById("orderDate").textContent;
+      let orderTotal = document.getElementById("orderTotal").textContent;
+      let clientName = document.getElementById("modalClientName").textContent;
+      let clientPhone = document.getElementById("modalClientPhone").textContent;
+      
+      let orderMessage = 
+        `Votre Command: ${orderId}\n` +
+        `Status de command: en attente\n` +
+        `Numéro de command: ${orderId}\n` +
+        `Date de command: ${orderDate}\n` +
+        `Nom: ${clientName}\n` +
+        `Téléphone: ${clientPhone}\n` +
+        `Méthode de payement: à la livraison\n` +
+        `Total: ${orderTotal}\n\n` +
+        `Détails de votre command:\n`;
+      
+      basket.forEach((item, index) => {
+        orderMessage += `${index + 1}     ${item.name}     ${(item.price * item.quantity).toFixed(2)} DH\n`;
+      });
+      orderMessage += `\nMontant Total: ${orderTotal}`;
+      
+      let whatsappNumber = "+212614882878";
+      let url = "https://wa.me/" + whatsappNumber.replace("+", "") +
+                "?text=" + encodeURIComponent(orderMessage);
+      
+      window.open(url, "_blank");
+    });
   </script>
 </body>
 </html>
