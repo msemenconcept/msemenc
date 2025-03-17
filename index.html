@@ -500,6 +500,7 @@
       transform: translateX(100%);
       transition: transform 0.4s ease;
       z-index: 999;
+      overflow-y: auto;
     }
     
     .cart.open {
@@ -551,7 +552,7 @@
     .cart-items {
       flex: 1;
       overflow-y: auto;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       padding-right: 0.5rem;
     }
     
@@ -675,8 +676,7 @@
     }
     
     .cart-footer {
-      margin-top: auto;
-      padding-top: 1.5rem;
+      padding-top: 1rem;
       border-top: 1px solid #eee;
     }
     
@@ -1017,8 +1017,8 @@
     
     /* Customer Information Form */
     .customer-info {
-      margin-bottom: 1.5rem;
-      padding-top: 1.5rem;
+      margin-bottom: 1rem;
+      padding-top: 1rem;
       border-top: 1px solid #eee;
     }
 
@@ -1197,6 +1197,7 @@
       
       .cart {
         width: 100%;
+        padding-bottom: 4rem; /* Add extra padding at bottom for mobile */
       }
       
       .mobile-menu-btn {
