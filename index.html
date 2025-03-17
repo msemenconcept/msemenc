@@ -488,19 +488,18 @@
     
     .cart {
       background-color: #fff;
-      padding: 1.5rem;
       position: fixed;
       right: 0;
       top: 0;
       width: 400px;
-      height: 100vh;
+      height: 100%;
+      max-height: 100vh;
       box-shadow: -5px 0 15px rgba(0,0,0,0.1);
       display: flex;
       flex-direction: column;
       transform: translateX(100%);
       transition: transform 0.4s ease;
       z-index: 999;
-      overflow-y: auto;
     }
     
     .cart.open {
@@ -511,9 +510,12 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
+      padding: 1rem 1.5rem;
       border-bottom: 1px solid #eee;
+      background-color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 2;
     }
     
     .cart-header h2 {
@@ -537,6 +539,13 @@
       color: var(--brand-color);
     }
     
+    .cart-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem;
+      padding-bottom: 80px; /* Space for the checkout button */
+    }
+    
     .cart-empty {
       text-align: center;
       margin: 3rem 0;
@@ -550,28 +559,7 @@
     }
     
     .cart-items {
-      flex: 1;
-      overflow-y: auto;
       margin-bottom: 1rem;
-      padding-right: 0.5rem;
-    }
-    
-    .cart-items::-webkit-scrollbar {
-      width: 5px;
-    }
-    
-    .cart-items::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 10px;
-    }
-    
-    .cart-items::-webkit-scrollbar-thumb {
-      background: #ddd;
-      border-radius: 10px;
-    }
-    
-    .cart-items::-webkit-scrollbar-thumb:hover {
-      background: #ccc;
     }
     
     .cart-item {
@@ -675,11 +663,6 @@
       color: #e74c3c;
     }
     
-    .cart-footer {
-      padding-top: 1rem;
-      border-top: 1px solid #eee;
-    }
-    
     .cart-summary {
       margin-bottom: 1.5rem;
     }
@@ -698,6 +681,32 @@
       margin-top: 0.5rem;
       padding-top: 0.5rem;
       border-top: 1px dashed #eee;
+    }
+    
+    .cart-footer {
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+    }
+    
+    .customer-info {
+      margin-bottom: 1rem;
+    }
+    
+    .customer-info h3 {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      color: var(--text-color);
+    }
+    
+    .checkout-button-container {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      width: 400px;
+      padding: 1rem 1.5rem;
+      background-color: white;
+      box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+      z-index: 3;
     }
     
     .checkout-btn {
@@ -1195,9 +1204,8 @@
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       }
       
-      .cart {
+      .cart, .checkout-button-container {
         width: 100%;
-        padding-bottom: 4rem; /* Add extra padding at bottom for mobile */
       }
       
       .mobile-menu-btn {
@@ -1891,41 +1899,45 @@
         <i class="fas fa-times"></i>
       </button>
     </div>
-    <div class="cart-items" id="cart-items">
-      <!-- Cart items will be added dynamically -->
-      <div class="cart-empty" id="cart-empty">
-        <i class="fas fa-shopping-basket"></i>
-        <p>Your cart is empty</p>
-        <p>Add some delicious items to your cart</p>
+    <div class="cart-content">
+      <div class="cart-items" id="cart-items">
+        <!-- Cart items will be added dynamically -->
+        <div class="cart-empty" id="cart-empty">
+          <i class="fas fa-shopping-basket"></i>
+          <p>Your cart is empty</p>
+          <p>Add some delicious items to your cart</p>
+        </div>
+      </div>
+      <div class="cart-footer">
+        <div class="cart-summary">
+          <div class="summary-row">
+            <span>Subtotal:</span>
+            <span id="cart-subtotal">0 DH</span>
+          </div>
+          <div class="summary-row">
+            <span>Delivery:</span>
+            <span id="cart-delivery">0 DH</span>
+          </div>
+          <div class="summary-row total">
+            <span>Total:</span>
+            <span id="cart-total">0 DH</span>
+          </div>
+        </div>
+        <!-- Customer information form -->
+        <div class="customer-info">
+          <h3>Your Information</h3>
+          <div class="form-group">
+            <label for="customer-name">Full Name</label>
+            <input type="text" id="customer-name" placeholder="Enter your full name" required>
+          </div>
+          <div class="form-group">
+            <label for="customer-phone">Phone Number</label>
+            <input type="tel" id="customer-phone" placeholder="Enter your phone number" required>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="cart-footer">
-      <div class="cart-summary">
-        <div class="summary-row">
-          <span>Subtotal:</span>
-          <span id="cart-subtotal">0 DH</span>
-        </div>
-        <div class="summary-row">
-          <span>Delivery:</span>
-          <span id="cart-delivery">0 DH</span>
-        </div>
-        <div class="summary-row total">
-          <span>Total:</span>
-          <span id="cart-total">0 DH</span>
-        </div>
-      </div>
-      <!-- Customer information form -->
-      <div class="customer-info">
-        <h3>Your Information</h3>
-        <div class="form-group">
-          <label for="customer-name">Full Name</label>
-          <input type="text" id="customer-name" placeholder="Enter your full name" required>
-        </div>
-        <div class="form-group">
-          <label for="customer-phone">Phone Number</label>
-          <input type="tel" id="customer-phone" placeholder="Enter your phone number" required>
-        </div>
-      </div>
+    <div class="checkout-button-container">
       <button class="checkout-btn" id="checkout-btn">
         <i class="fas fa-check-circle"></i> Checkout
       </button>
