@@ -239,8 +239,9 @@ header {
 .food-details {
     flex: 1;
     min-width: 0; /* Helps with text overflow */
-    padding-right: 100px; /* Increased padding to prevent price overlap */
+    padding-right: 120px; /* Further increased padding to prevent price overlap */
     max-width: 100%;
+    position: relative; /* Ensure positioning context */
 }
 
 .food-title {
@@ -261,6 +262,8 @@ header {
     -webkit-box-orient: vertical;
     overflow: hidden;
     word-break: break-word;
+    max-height: 2.8em; /* Hard limit on height to avoid overflow */
+    transition: var(--transition);
 }
 
 .food-price {
@@ -275,9 +278,10 @@ header {
     font-size: 13px;
     font-weight: 500;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    min-width: 60px;
+    min-width: 70px;
     text-align: center;
     z-index: 2;
+    white-space: nowrap; /* Prevent price from wrapping */
 }
 
 .add-btn {
@@ -1042,17 +1046,20 @@ header {
     }
     
     .food-details {
-        padding-right: 100px; /* Increased from 60px */
+        padding-right: 120px; /* Further increased to prevent overlap */
     }
     
     .food-price {
-        min-width: 55px;
+        min-width: 65px;
+        right: 55px; /* Adjusted position */
     }
 }
 
 @media (max-width: 480px) {
     .food-description {
         -webkit-line-clamp: 2; /* Changed from 1 to 2 for better readability */
+        font-size: 12px; /* Smaller font for better fit */
+        line-height: 1.4; /* Tighter line height */
     }
     
     .food-image {
@@ -1061,7 +1068,7 @@ header {
     }
     
     .food-details {
-        padding-right: 90px; /* Increased from 70px */
+        padding-right: 110px; /* Further increased from 90px */
     }
     
     .modal-content {
@@ -1087,7 +1094,7 @@ header {
         font-size: 12px;
         padding: 3px 8px;
         right: 45px; /* Moved left from 50px */
-        min-width: 50px;
+        min-width: 55px;
     }
     
     .add-btn {
@@ -1113,27 +1120,28 @@ header {
 /* For very small screens */
 @media (max-width: 360px) {
     .food-image {
-        width: 50px;
-        height: 50px;
+        width: 45px; /* Made smaller */
+        height: 45px;
     }
     
     .food-details {
-        padding-right: 80px; /* Adjusted from 65px */
+        padding-right: 100px; /* Further increased */
     }
     
     .food-title {
-        font-size: 14px;
+        font-size: 13px;
     }
     
     .food-description {
-        font-size: 12px;
+        font-size: 11px;
+        -webkit-line-clamp: 2;
     }
     
     .food-price {
         font-size: 11px;
         padding: 2px 6px;
         right: 40px; /* Moved left from 45px */
-        min-width: 45px;
+        min-width: 50px;
     }
     
     .add-btn {
@@ -1141,5 +1149,10 @@ header {
         height: 26px;
         font-size: 14px;
         right: 8px;
+    }
+    
+    /* Improve spacing overall for tiny screens */
+    .food-item {
+        padding: 12px 10px;
     }
 }
