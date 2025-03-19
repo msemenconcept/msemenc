@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,21 +7,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <meta name="theme-color" content="#FCBA2E">
-    <meta name="description" content="Order delicious msemen with various fillings and flavors">
+    <meta name="description" content="Commandez de délicieux msemen avec diverses garnitures et saveurs">
     <!-- Add favicon support -->
     <link rel="icon" type="image/png" href="/favicon.png">
 </head>
 <body>
     <div class="app-container">
         <header>
-            <div class="logo-circle"><img src="https://i.postimg.cc/D0Y2DQx1/logo-clear.png" alt="Msemen Concept Logo"></div>
+            <div class="logo-circle"><img src="https://i.postimg.cc/D0Y2DQx1/logo-clear.png" alt="Logo Msemen Concept"></div>
             <h1 class="app-title">Msemen Concept</h1>
         </header>
 
         <div class="search-container">
             <div class="search-bar">
                 <span class="search-icon">⚲</span>
-                <input type="text" placeholder="Search by name, ingredients..." aria-label="Search for food items">
+                <input type="text" placeholder="Rechercher par nom, ingrédients..." aria-label="Rechercher des articles">
                 <!-- Clear search button will be added by JS -->
             </div>
             <!-- Search results count will be added by JS -->
@@ -29,7 +29,7 @@
 
         <div class="category-wrapper">
             <div class="scroll-indicator-left"><span class="scroll-indicator-icon">‹</span></div>
-            <nav class="category-tabs" aria-label="Food categories">
+            <nav class="category-tabs" aria-label="Catégories de nourriture">
                 <div class="tab active" data-category="concept" role="button" tabindex="0" aria-selected="true">Concept</div>
 				<div class="tab" data-category="sales" role="button" tabindex="0" aria-selected="false">Salés</div>
                 <div class="tab" data-category="standards" role="button" tabindex="0" aria-selected="false">Standards</div>
@@ -41,149 +41,149 @@
 
         <main class="food-items">
             <!-- Concept Items -->
-            <div class="food-item" data-name="Concept Poulet" data-price="12.00DH" data-description="Delicious msemen filled with tender chicken and caramelized onions, topped with crushed almonds." role="button" tabindex="0">
+            <div class="food-item" data-name="Concept Poulet" data-price="12.00DH" data-description="Délicieux msemen farci de poulet tendre et d'oignons caramélisés, garni d'amandes concassées." role="button" tabindex="0">
                 <img src="https://i.postimg.cc/rFDvV2h1/concept-poulet.jpg" alt="Concept Poulet" class="food-image">
                 <div class="food-details">
                     <h3 class="food-title">Concept Poulet</h3>
-                    <p class="food-description">Delicious msemen filled with tender chicken and caramelized onions, topped with crushed almonds.</p>
+                    <p class="food-description">Délicieux msemen farci de poulet tendre et d'oignons caramélisés, garni d'amandes concassées.</p>
                 </div>
                 <div class="food-price">12.00DH</div>
-                <button class="add-btn" aria-label="Add Concept Poulet to cart">+</button>
+                <button class="add-btn" aria-label="Ajouter Concept Poulet au panier">+</button>
             </div>
 
-            <div class="food-item" data-name="Concept Viande Hachée" data-price="17.00DH" data-description="Savory msemen filled with Moroccan minced meat, caramelized onions, and aromatic spices." role="button" tabindex="0">
+            <div class="food-item" data-name="Concept Viande Hachée" data-price="17.00DH" data-description="Msemen savoureux farci de viande hachée marocaine, d'oignons caramélisés et d'épices aromatiques." role="button" tabindex="0">
                 <img src="https://i.postimg.cc/c19pGLc1/concept-vh.jpg" alt="Concept Viande Hachée" class="food-image">
                 <div class="food-details">
                     <h3 class="food-title">Concept Viande Hachée</h3>
-                    <p class="food-description">Savory msemen filled with Moroccan minced meat, caramelized onions, and aromatic spices.</p>
+                    <p class="food-description">Msemen savoureux farci de viande hachée à la marocaine, d'oignons caramélisés et d'épices aromatiques.</p>
                 </div>
                 <div class="food-price">17.00DH</div>
-                <button class="add-btn" aria-label="Add Concept Viande Hachée to cart">+</button>
+                <button class="add-btn" aria-label="Ajouter Concept Viande Hachée au panier">+</button>
             </div>
 
-            <div class="food-item" data-name="Concept Nutella" data-price="10.00DH" data-description="Msemen filled with Nutella and crushed nuts. A perfect sweet treat anytime." role="button" tabindex="0">
+            <div class="food-item" data-name="Concept Nutella" data-price="10.00DH" data-description="Msemen farci de Nutella et de noix concassées. Une douceur parfaite à tout moment." role="button" tabindex="0">
                 <img src="https://i.postimg.cc/hv56L2GQ/concept-nutella.jpg" alt="Concept Nutella" class="food-image">
                 <div class="food-details">
                     <h3 class="food-title">Concept Nutella</h3>
-                    <p class="food-description">Msemen filled with Nutella and crushed nuts. A perfect sweet treat anytime.</p>
+                    <p class="food-description">Msemen farci de Nutella et de noix concassées. Une douceur parfaite à tout moment.</p>
                 </div>
                 <div class="food-price">10.00DH</div>
-                <button class="add-btn" aria-label="Add Concept Nutella to cart">+</button>
+                <button class="add-btn" aria-label="Ajouter Concept Nutella au panier">+</button>
             </div>
 			
 			<!-- Salés Items -->
 
-            <div class="food-item sale-item" data-name="Salé Légumes et Fromage" data-price="3.00DH" data-description="A savory pastry with Msemen dough filled with fresh vegetables and delicious cheese." role="button" tabindex="0">
+            <div class="food-item sale-item" data-name="Salé Légumes et Fromage" data-price="3.00DH" data-description="Une pâtisserie salée à base de pâte Msemen farcie de légumes frais et de délicieux fromage." role="button" tabindex="0">
                 <img src="https://i.postimg.cc/NGmdpGPP/sale-legume.jpg" alt="Salé Légumes et Fromage" class="food-image">
                 <div class="food-details">
                     <h3 class="food-title">Salé Légumes et Fromage</h3>
-                    <p class="food-description">A savory pastry with Msemen dough filled with fresh vegetables and delicious cheese.</p>
+                    <p class="food-description">Une pâtisserie salée à base de pâte Msemen farcie de légumes frais et de délicieux fromage.</p>
                 </div>
                 <div class="food-price">3.00DH</div>
-                <button class="add-btn" aria-label="Add Salé Légumes et Fromage to cart">+</button>
+                <button class="add-btn" aria-label="Ajouter Salé Légumes et Fromage au panier">+</button>
             </div>
 			
-			<div class="food-item sale-item" data-name="Salé Poulet" data-price="4.00DH" data-description="A savory pastry with Msemen dough filled with vegetables and tender chicken pieces." role="button" tabindex="0">
+			<div class="food-item sale-item" data-name="Salé Poulet" data-price="4.00DH" data-description="Une pâtisserie salée à base de pâte Msemen farcie de légumes et de morceaux de poulet tendre." role="button" tabindex="0">
                 <img src="https://i.postimg.cc/MTthT62D/sale-poulet.jpg" alt="Salé Poulet" class="food-image">
                 <div class="food-details">
                     <h3 class="food-title">Salé Poulet</h3>
-                    <p class="food-description">A savory pastry with Msemen dough filled with vegetables and tender chicken pieces.</p>
+                    <p class="food-description">Une pâtisserie salée à base de pâte Msemen farcie des morceaux de poulet tendre.</p>
                 </div>
                 <div class="food-price">4.00DH</div>
-                <button class="add-btn" aria-label="Add Salé Poulet to cart">+</button>
+                <button class="add-btn" aria-label="Ajouter Salé Poulet au panier">+</button>
             </div>
             
-            <div class="food-item sale-item" data-name="Salé Viande Hachée" data-price="5.00DH" data-description="A savory pastry with Msemen dough filled with vegetables and seasoned minced meat." role="button" tabindex="0">
+            <div class="food-item sale-item" data-name="Salé Viande Hachée" data-price="5.00DH" data-description="Une pâtisserie salée à base de pâte Msemen farcie de légumes et de viande hachée assaisonnée." role="button" tabindex="0">
                 <img src="https://i.postimg.cc/C519n3wV/sale-vh.jpg" alt="Salé Viande Hachée" class="food-image">
                 <div class="food-details">
                     <h3 class="food-title">Salé Viande Hachée</h3>
-                    <p class="food-description">A savory pastry with Msemen dough filled with vegetables and seasoned minced meat.</p>
+                    <p class="food-description">Une pâtisserie salée à base de pâte Msemen farcie de viande hachée assaisonnée.</p>
                 </div>
                 <div class="food-price">5.00DH</div>
-                <button class="add-btn" aria-label="Add Salé Viande Hachée to cart">+</button>
+                <button class="add-btn" aria-label="Ajouter Salé Viande Hachée au panier">+</button>
             </div>
 
             <!-- Standards Items (New) -->
-            <div class="food-item standard-item" data-name="Rghifa Normal" data-price="1.50DH" data-description="Traditional Moroccan Msemen, a square-shaped, layered flatbread." role="button" tabindex="0">
+            <div class="food-item standard-item" data-name="Rghifa Normal" data-price="1.50DH" data-description="Msemen marocain traditionnel, une crêpe feuilletée de forme carrée." role="button" tabindex="0">
                 <img src="https://i.postimg.cc/SRh7w8t1/rghifa-1.jpg" alt="Rghifa Normal" class="food-image">
                 <div class="food-details">
                     <h3 class="food-title">Rghifa Normal</h3>
-                    <p class="food-description">Traditional Moroccan Msemen, a square-shaped, layered flatbread.</p>
+                    <p class="food-description">Msemen marocain traditionnel.</p>
                 </div>
                 <div class="food-price">1.50DH</div>
-                <button class="add-btn" aria-label="Add Rghifa Normal to cart">+</button>
+                <button class="add-btn" aria-label="Ajouter Rghifa Normal au panier">+</button>
             </div>
 
-            <div class="food-item standard-item" data-name="Rghifa Zrae" data-price="1.50DH" data-description="Traditional Moroccan Msemen made with whole wheat flour for a healthier option with a nutty flavor." role="button" tabindex="0">
+            <div class="food-item standard-item" data-name="Rghifa Zrae" data-price="1.50DH" data-description="Msemen marocain traditionnel préparé avec de la farine complète pour une option plus saine avec une saveur de noix." role="button" tabindex="0">
                 <img src="https://i.postimg.cc/j24QK5px/rghifa-complet.jpg" alt="Rghifa Zrae" class="food-image">
                 <div class="food-details">
                     <h3 class="food-title">Rghifa Zrae</h3>
-                    <p class="food-description">Traditional Moroccan Msemen made with whole wheat flour for a healthier option with a nutty flavor.</p>
+                    <p class="food-description">Msemen marocain traditionnel préparé avec de la farine complète pour une option plus saine.</p>
                 </div>
                 <div class="food-price">1.50DH</div>
-                <button class="add-btn" aria-label="Add Rghifa Zrae to cart">+</button>
+                <button class="add-btn" aria-label="Ajouter Rghifa Zrae au panier">+</button>
             </div>
 
-            <div class="food-item standard-item" data-name="Meloui Normal" data-price="2.00DH" data-description="Traditional Moroccan Meloui, a round, layered flatbread with a soft texture. Perfect with honey or jam." role="button" tabindex="0">
+            <div class="food-item standard-item" data-name="Meloui Normal" data-price="2.00DH" data-description="Meloui marocain traditionnel, une crêpe feuilletée ronde à texture moelleuse. Parfait avec du miel ou de la confiture." role="button" tabindex="0">
                 <img src="https://i.postimg.cc/9M3G7ZVX/meloui-2.webp" alt="Meloui Normal" class="food-image">
                 <div class="food-details">
                     <h3 class="food-title">Meloui Normal</h3>
-                    <p class="food-description">Traditional Moroccan Meloui, a round, layered flatbread with a soft texture. Perfect with honey or jam.</p>
+                    <p class="food-description">Meloui marocain traditionnel.</p>
                 </div>
                 <div class="food-price">2.00DH</div>
-                <button class="add-btn" aria-label="Add Meloui Normal to cart">+</button>
+                <button class="add-btn" aria-label="Ajouter Meloui Normal au panier">+</button>
             </div>
 
-            <div class="food-item standard-item" data-name="Meloui Zrae" data-price="2.00DH" data-description="Traditional Moroccan Meloui made with whole wheat flour. Healthier option with a rich, earthy flavor." role="button" tabindex="0">
+            <div class="food-item standard-item" data-name="Meloui Zrae" data-price="2.00DH" data-description="Meloui marocain traditionnel préparé avec de la farine complète. Option plus saine avec une saveur riche et terreuse." role="button" tabindex="0">
                 <img src="https://i.postimg.cc/B6DBYNN1/meloui-1.jpg" alt="Meloui Zrae" class="food-image">
                 <div class="food-details">
                     <h3 class="food-title">Meloui Zrae</h3>
-                    <p class="food-description">Traditional Moroccan Meloui made with whole wheat flour. Healthier option with a rich, earthy flavor.</p>
+                    <p class="food-description">Meloui marocain traditionnel préparé avec de la farine complète. Option plus saine avec une saveur riche.</p>
                 </div>
                 <div class="food-price">2.00DH</div>
-                <button class="add-btn" aria-label="Add Meloui Zrae to cart">+</button>
+                <button class="add-btn" aria-label="Ajouter Meloui Zrae au panier">+</button>
             </div>
 
             <!-- Boissons Chauds Items -->
-            <div class="food-item boisson-chaude-item" data-name="Café normal" data-price="8.00DH" data-description="Rich espresso shot made with premium Arabica beans. Strong and aromatic." role="button" tabindex="0">
+            <div class="food-item boisson-chaude-item" data-name="Café normal" data-price="8.00DH" data-description="Expresso riche préparé avec des grains d'Arabica de qualité supérieure. Fort et aromatique." role="button" tabindex="0">
                 <img src="https://i.postimg.cc/QdhNHMRL/cafe.webp" alt="Café normal" class="food-image">
                 <div class="food-details">
                     <h3 class="food-title">Café normal</h3>
-                    <p class="food-description">Rich espresso shot made with premium Arabica beans. Strong and aromatic.</p>
+                    <p class="food-description">Expresso riche préparé avec des grains d'Arabica de qualité supérieure. Fort et aromatique.</p>
                 </div>
                 <div class="food-price">8.00DH</div>
-                <button class="add-btn" aria-label="Add Café normal to cart">+</button>
+                <button class="add-btn" aria-label="Ajouter Café normal au panier">+</button>
             </div>
 
-            <div class="food-item boisson-chaude-item" data-name="Café au lait" data-price="9.00DH" data-description="Smooth coffee served with steamed milk. A perfect balance of strong coffee and creamy milk." role="button" tabindex="0">
+            <div class="food-item boisson-chaude-item" data-name="Café au lait" data-price="9.00DH" data-description="Café onctueux servi avec du lait chaud. Un équilibre parfait entre un café fort et un lait crémeux." role="button" tabindex="0">
                 <img src="https://i.postimg.cc/tJFyg0kC/dolcevita-cortado-macchiato-sans-sucre-dolce-vita.webp" alt="Café au lait" class="food-image">
                 <div class="food-details">
                     <h3 class="food-title">Café au lait</h3>
-                    <p class="food-description">Smooth coffee served with steamed milk. A perfect balance of strong coffee and creamy milk.</p>
+                    <p class="food-description">Café onctueux servi avec du lait chaud. Un équilibre parfait entre un café fort et un lait crémeux.</p>
                 </div>
                 <div class="food-price">9.00DH</div>
-                <button class="add-btn" aria-label="Add Café au lait to cart">+</button>
+                <button class="add-btn" aria-label="Ajouter Café au lait au panier">+</button>
             </div>
 
-            <div class="food-item boisson-chaude-item" data-name="Thé" data-price="8.00DH" data-description="Traditional Moroccan mint tea. A refreshing blend of green tea, fresh mint leaves, and sugar." role="button" tabindex="0">
+            <div class="food-item boisson-chaude-item" data-name="Thé" data-price="8.00DH" data-description="Thé à la menthe marocain traditionnel. Un mélange rafraîchissant de thé vert, de feuilles de menthe fraîche et de sucre." role="button" tabindex="0">
                 <img src="https://i.postimg.cc/L6z69PQB/the-a-la-menthe-Palais-Faraj-1.webp" alt="Thé" class="food-image">
                 <div class="food-details">
                     <h3 class="food-title">Thé</h3>
-                    <p class="food-description">Traditional Moroccan mint tea. A refreshing blend of green tea, fresh mint leaves, and sugar.</p>
+                    <p class="food-description">Thé à la menthe marocain traditionnel. Un mélange rafraîchissant de thé vert, de feuilles de menthe fraîche et de sucre.</p>
                 </div>
                 <div class="food-price">8.00DH</div>
-                <button class="add-btn" aria-label="Add Thé to cart">+</button>
+                <button class="add-btn" aria-label="Ajouter Thé au panier">+</button>
             </div>
 
             <!-- Boissons Fraiches Items -->
-            <div class="food-item boisson-fraiche-item" data-name="Jus de Citron" data-price="8.00DH" data-description="Freshly squeezed lemon juice with a hint of sweetness. Refreshing and vitamin-rich." role="button" tabindex="0">
+            <div class="food-item boisson-fraiche-item" data-name="Jus de Citron" data-price="8.00DH" data-description="Jus de citron fraîchement pressé avec une touche de douceur. Rafraîchissant et riche en vitamines." role="button" tabindex="0">
                 <img src="https://i.postimg.cc/fT4RQCCR/zitronensaft-titelbild.jpg" alt="Jus de Citron" class="food-image">
                 <div class="food-details">
                     <h3 class="food-title">Jus de Citron</h3>
-                    <p class="food-description">Freshly squeezed lemon juice with a hint of sweetness. Refreshing and vitamin-rich.</p>
+                    <p class="food-description">Jus de citron fraîchement pressé avec une touche de douceur. Rafraîchissant et riche en vitamines.</p>
                 </div>
                 <div class="food-price">8.00DH</div>
-                <button class="add-btn" aria-label="Add Jus de Citron to cart">+</button>
+                <button class="add-btn" aria-label="Ajouter Jus de Citron au panier">+</button>
             </div>
             
             <!-- Loading indicator will be added by JS -->
@@ -191,10 +191,10 @@
         </main>
 
         <div class="bottom-bar">
-            <div class="cart-box" id="viewCart" role="button" tabindex="0" aria-label="View cart">
+            <div class="cart-box" id="viewCart" role="button" tabindex="0" aria-label="Voir le panier">
                 <div class="cart-info">
                     <span class="cart-icon">🛒</span>
-                    <span id="cart-items-count">0</span> items
+                    <span id="cart-items-count">0</span> articles
                 </div>
                 <div class="cart-price">
                     <span id="cart-total">0.00DH</span>
@@ -207,8 +207,8 @@
     <div class="modal" id="itemModal" role="dialog" aria-labelledby="modal-header-text" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
-                <span id="modal-header-text">Add to Cart</span>
-                <button class="modal-close-btn" id="closeItemModal" aria-label="Close modal">&times;</button>
+                <span id="modal-header-text">Ajouter au panier</span>
+                <button class="modal-close-btn" id="closeItemModal" aria-label="Fermer">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="modal-item-info">
@@ -217,15 +217,15 @@
                     <p class="modal-item-price" id="modal-item-price"></p>
                 </div>
                 <div class="quantity-control">
-                    <span>Quantity</span>
+                    <span>Quantité</span>
                     <div class="quantity-buttons">
-                        <button class="quantity-btn" id="decrease" aria-label="Decrease quantity">-</button>
+                        <button class="quantity-btn" id="decrease" aria-label="Diminuer la quantité">-</button>
                         <span class="quantity" id="quantity" aria-live="polite">1</span>
-                        <button class="quantity-btn" id="increase" aria-label="Increase quantity">+</button>
+                        <button class="quantity-btn" id="increase" aria-label="Augmenter la quantité">+</button>
                     </div>
                 </div>
             </div>
-            <button class="add-to-cart-btn" id="addToCart">Add to Cart</button>
+            <button class="add-to-cart-btn" id="addToCart">Ajouter au panier</button>
         </div>
     </div>
 
@@ -233,12 +233,12 @@
     <div class="modal" id="basketModal" role="dialog" aria-labelledby="basket-header-text" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
-                <span id="basket-header-text">Your Basket</span>
-                <button class="modal-close-btn" id="closeBasket" aria-label="Close basket">&times;</button>
+                <span id="basket-header-text">Votre Panier</span>
+                <button class="modal-close-btn" id="closeBasket" aria-label="Fermer le panier">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="cart-actions">
-                    <button class="empty-cart-btn" id="emptyCart">Empty Cart</button>
+                    <button class="empty-cart-btn" id="emptyCart">Vider le panier</button>
                 </div>
                 <div class="cart-items" id="cartItemsList" aria-live="polite">
                     <!-- Cart items will be added here dynamically -->
@@ -248,14 +248,14 @@
                 </div>
                 <div class="checkout-form">
                     <div class="form-group">
-                        <label for="fullName">Full Name</label>
-                        <input type="text" id="fullName" placeholder="Enter your full name" required autocomplete="name">
+                        <label for="fullName">Nom complet</label>
+                        <input type="text" id="fullName" placeholder="Entrez votre nom complet" required autocomplete="name">
                     </div>
                     <div class="form-group">
-                        <label for="phoneNumber">Phone Number</label>
-                        <input type="tel" id="phoneNumber" placeholder="Enter your phone number" required autocomplete="tel">
+                        <label for="phoneNumber">Numéro de téléphone</label>
+                        <input type="tel" id="phoneNumber" placeholder="Entrez votre numéro de téléphone" required autocomplete="tel">
                     </div>
-                    <button class="checkout-btn" id="checkout">Place Order</button>
+                    <button class="checkout-btn" id="checkout">Passer la commande</button>
                 </div>
             </div>
         </div>
@@ -265,12 +265,12 @@
     <div class="modal" id="confirmationModal" role="dialog" aria-labelledby="confirmation-header-text" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
-                <span id="confirmation-header-text">Order Confirmation</span>
-                <button class="modal-close-btn" id="closeConfirmation" aria-label="Close confirmation">&times;</button>
+                <span id="confirmation-header-text">Confirmation de commande</span>
+                <button class="modal-close-btn" id="closeConfirmation" aria-label="Fermer la confirmation">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="order-confirmation">
-                    <div class="order-title">Order Details</div>
+                    <div class="order-title">Détails de la commande</div>
                     <div class="order-details" id="orderDetailsList" aria-live="polite">
                         <!-- Order details will be added here dynamically -->
                     </div>
@@ -281,7 +281,7 @@
                 </div>
                 <button class="submit-order-btn" id="submitOrder">
                     <span class="whatsapp-icon">📱</span>
-                    Send Order via WhatsApp
+                    Envoyer la commande par WhatsApp
                 </button>
             </div>
         </div>
