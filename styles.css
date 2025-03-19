@@ -82,7 +82,6 @@ header {
     box-shadow: var(--shadow);
 }
 
-/* Logo circle image styles for all screen sizes */
 .logo-circle img {
     max-width: 80%;
     max-height: 80%;
@@ -90,35 +89,6 @@ header {
     height: auto;
     object-fit: contain;
     display: block;
-}
-
-/* Specific mobile adjustments for logo */
-@media (max-width: 480px) {
-    .logo-circle {
-        width: 35px;
-        height: 35px;
-        font-size: 12px;
-    }
-    
-    /* Increase image size inside smaller circle for better visibility */
-    .logo-circle img {
-        max-width: 90%;
-        max-height: 90%;
-    }
-}
-
-/* For very small screens */
-@media (max-width: 360px) {
-    .logo-circle {
-        width: 32px;
-        height: 32px;
-    }
-    
-    /* Even larger percentage for very small screens */
-    .logo-circle img {
-        max-width: 95%;
-        max-height: 95%;
-    }
 }
 
 .app-title {
@@ -132,10 +102,11 @@ header {
 /* Enhanced Search */
 .search-container {
     padding: 15px;
-    position: relative; /* Changed from sticky to relative */
+    position: sticky;
+    top: 76px;
+    z-index: 40;
     background-color: var(--white);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    z-index: 40;
 }
 
 .search-bar {
@@ -185,13 +156,12 @@ header {
     scrollbar-width: none;
     -ms-overflow-style: none;
     gap: 10px;
-    position: relative; /* Changed from sticky to relative */
+    position: sticky;
+    top: 137px;
+    z-index: 30;
     background-color: var(--white);
     padding-top: 10px;
-    /* top property removed */
-    /* z-index adjusted */
-    z-index: 1;
-    /* Keep scroll indication */
+    /* Add scroll indication */
     -webkit-mask-image: linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent);
     mask-image: linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent);
 }
@@ -1027,12 +997,6 @@ header {
 /* Add scroll indicators to categories */
 .category-wrapper {
     position: relative;
-    position: sticky;
-    top: 76px; /* Same position where search bar used to be - right below header */
-    z-index: 40;
-    background-color: var(--white);
-    padding-top: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .scroll-indicator-left,
