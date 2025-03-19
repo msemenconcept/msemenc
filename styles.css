@@ -82,6 +82,15 @@ header {
     box-shadow: var(--shadow);
 }
 
+.logo-circle img {
+    max-width: 80%;
+    max-height: 80%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
 .app-title {
     color: var(--white);
     font-size: 22px;
