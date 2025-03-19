@@ -82,6 +82,7 @@ header {
     box-shadow: var(--shadow);
 }
 
+/* Logo circle image styles for all screen sizes */
 .logo-circle img {
     max-width: 80%;
     max-height: 80%;
@@ -89,6 +90,35 @@ header {
     height: auto;
     object-fit: contain;
     display: block;
+}
+
+/* Specific mobile adjustments for logo */
+@media (max-width: 480px) {
+    .logo-circle {
+        width: 35px;
+        height: 35px;
+        font-size: 12px;
+    }
+    
+    /* Increase image size inside smaller circle for better visibility */
+    .logo-circle img {
+        max-width: 90%;
+        max-height: 90%;
+    }
+}
+
+/* For very small screens */
+@media (max-width: 360px) {
+    .logo-circle {
+        width: 32px;
+        height: 32px;
+    }
+    
+    /* Even larger percentage for very small screens */
+    .logo-circle img {
+        max-width: 95%;
+        max-height: 95%;
+    }
 }
 
 .app-title {
