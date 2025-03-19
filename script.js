@@ -31,7 +31,7 @@ document.querySelector('.food-items').appendChild(loadingIndicator);
 // Create no results message
 const noResultsMessage = document.createElement('div');
 noResultsMessage.className = 'no-results';
-noResultsMessage.textContent = 'No matching items found.';
+noResultsMessage.textContent = 'Aucun article correspondant.';
 document.querySelector('.food-items').appendChild(noResultsMessage);
 
 // Create search results count
@@ -43,7 +43,7 @@ document.querySelector('.search-container').appendChild(searchResultsCount);
 const backToTopBtn = document.createElement('div');
 backToTopBtn.className = 'back-to-top';
 backToTopBtn.innerHTML = '↑';
-backToTopBtn.title = 'Back to top';
+backToTopBtn.title = 'Retour en haut';
 document.body.appendChild(backToTopBtn);
 
 // DOM Elements
@@ -97,8 +97,8 @@ closeConfirmationBtn.addEventListener('click', () => {
 
 // Reset item modal to default state
 function resetItemModal() {
-    modalHeaderText.textContent = 'Add to Cart';
-    addToCartBtn.textContent = 'Add to Cart';
+    modalHeaderText.textContent = 'Ajouter au panier';
+    addToCartBtn.textContent = 'Ajouter au panier';
     currentItemId = null;
     editMode = false;
     currentQuantity = 1;
@@ -329,7 +329,7 @@ function filterItems(query) {
     
     // Update results count
     if (query !== '') {
-        searchResultsCount.textContent = `${visibleCount} results found`;
+        searchResultsCount.textContent = `${visibleCount} résultats trouvés`;
     } else {
         searchResultsCount.textContent = '';
     }
@@ -413,7 +413,7 @@ function addItemToCart() {
         // Update quantity if item exists
         cartItems[existingItemIndex].quantity += currentQuantity;
         cartItems[existingItemIndex].total = cartItems[existingItemIndex].quantity * price;
-        showToast(`Added ${currentQuantity} more ${name} to cart`, 'success');
+        showToast(`Ajouté ${currentQuantity} ${name} de plus au panier`, 'success');
     } else {
         // Add new item to cart
         cartItems.push({
@@ -423,7 +423,7 @@ function addItemToCart() {
             quantity: currentQuantity,
             total: totalForItem
         });
-        showToast(`Added ${name} to cart`, 'success');
+        showToast(`${name} ajouté au panier`, 'success');
     }
     
     // Save cart to local storage
@@ -467,11 +467,11 @@ function updateItemInCart() {
         
         // Show toast message
         if (currentQuantity > oldQuantity) {
-            showToast(`Increased ${item.name} quantity to ${currentQuantity}`, 'info');
+            showToast(`Quantité de ${item.name} augmentée à ${currentQuantity}`, 'info');
         } else if (currentQuantity < oldQuantity) {
-            showToast(`Decreased ${item.name} quantity to ${currentQuantity}`, 'info');
+            showToast(`Quantité de ${item.name} diminuée à ${currentQuantity}`, 'info');
         } else {
-            showToast(`${item.name} quantity unchanged`, 'info');
+            showToast(`Quantité de ${item.name} inchangée`, 'info');
         }
         
         // Close item modal and show basket modal
@@ -492,11 +492,11 @@ viewCartBtn.addEventListener('click', () => {
 // Empty cart
 emptyCartBtn.addEventListener('click', () => {
     if (cartItems.length === 0) {
-        showToast('Your cart is already empty', 'info');
+        showToast('Votre panier est déjà vide', 'info');
         return;
     }
     
-    if (confirm('Are you sure you want to empty your cart?')) {
+    if (confirm('Êtes-vous sûr de vouloir vider votre panier ?')) {
         cartItems = [];
         updateCartDisplay();
         renderCartItems();
@@ -504,7 +504,7 @@ emptyCartBtn.addEventListener('click', () => {
         // Clear from local storage
         localStorage.removeItem('msemenCart');
         
-        showToast('Cart emptied', 'info');
+        showToast('Panier vidé', 'info');
     }
 });
 
@@ -512,13 +512,13 @@ emptyCartBtn.addEventListener('click', () => {
 checkoutBtn.addEventListener('click', () => {
     // Validate form
     if (!fullNameInput.value.trim()) {
-        showToast('Please enter your full name', 'error');
+        showToast('Veuillez entrer votre nom complet', 'error');
         fullNameInput.focus();
         return;
     }
     
     if (!phoneNumberInput.value.trim()) {
-        showToast('Please enter your phone number', 'error');
+        showToast('Veuillez entrer votre numéro de téléphone', 'error');
         phoneNumberInput.focus();
         return;
     }
@@ -526,13 +526,13 @@ checkoutBtn.addEventListener('click', () => {
     // Validate phone number format
     const phoneRegex = /^\+?[0-9]{8,15}$/;
     if (!phoneRegex.test(phoneNumberInput.value.trim().replace(/\s/g, ''))) {
-        showToast('Please enter a valid phone number', 'error');
+        showToast('Veuillez entrer un numéro de téléphone valide', 'error');
         phoneNumberInput.focus();
         return;
     }
     
     if (cartItems.length === 0) {
-        showToast('Your cart is empty', 'error');
+        showToast('Votre panier est vide', 'error');
         return;
     }
     
@@ -550,11 +550,11 @@ submitOrderBtn.addEventListener('click', () => {
     const phone = phoneNumberInput.value.trim();
     
     // Generate WhatsApp message
-    let message = `*New Order from Msemen Concept App*\n\n`;
-    message += `*Customer Details:*\n`;
-    message += `Name: ${name}\n`;
-    message += `Phone: ${phone}\n\n`;
-    message += `*Order Details:*\n`;
+    let message = `*Nouvelle commande depuis l'application Msemen Concept*\n\n`;
+    message += `*Détails du client:*\n`;
+    message += `Nom: ${name}\n`;
+    message += `Téléphone: ${phone}\n\n`;
+    message += `*Détails de la commande:*\n`;
     
     cartItems.forEach(item => {
         message += `- ${item.name} x${item.quantity} = ${item.total.toFixed(2)}DH\n`;
@@ -571,7 +571,7 @@ submitOrderBtn.addEventListener('click', () => {
     
     // Close modal and reset
     confirmationModal.style.display = 'none';
-    showToast('Order sent via WhatsApp!', 'success');
+    showToast('Commande envoyée par WhatsApp!', 'success');
     
     // Clear cart
     cartItems = [];
@@ -603,7 +603,7 @@ function editCartItem(itemId) {
     if (!item) return;
     
     // Set current item details
-    modalHeaderText.textContent = 'Edit Item';
+    modalHeaderText.textContent = 'Modifier l\'article';
     modalItemName.textContent = item.name;
     modalItemDescription.textContent = '';
     modalItemPrice.textContent = item.price.toFixed(2) + 'DH';
@@ -614,7 +614,7 @@ function editCartItem(itemId) {
     editMode = true;
     
     // Change button text
-    addToCartBtn.textContent = 'Update Cart';
+    addToCartBtn.textContent = 'Mettre à jour';
     
     // Override add to cart button functionality
     addToCartBtn.onclick = updateItemInCart;
@@ -632,7 +632,7 @@ function removeCartItem(itemId) {
     const item = cartItems.find(item => item.id === itemId);
     if (!item) return;
     
-    if (confirm(`Are you sure you want to remove ${item.name} from your cart?`)) {
+    if (confirm(`Êtes-vous sûr de vouloir supprimer ${item.name} de votre panier ?`)) {
         cartItems = cartItems.filter(item => item.id !== itemId);
         updateCartDisplay();
         renderCartItems();
@@ -640,7 +640,7 @@ function removeCartItem(itemId) {
         // Save cart to local storage
         localStorage.setItem('msemenCart', JSON.stringify(cartItems));
         
-        showToast(`Removed ${item.name} from cart`, 'info');
+        showToast(`${item.name} supprimé du panier`, 'info');
     }
 }
 
@@ -651,8 +651,8 @@ function renderOrderConfirmation() {
     
     // Add customer details
     customerDetails.innerHTML = `
-        <p><strong>Customer Name:</strong> ${fullNameInput.value}</p>
-        <p><strong>Phone Number:</strong> ${phoneNumberInput.value}</p>
+        <p><strong>Nom du client:</strong> ${fullNameInput.value}</p>
+        <p><strong>Numéro de téléphone:</strong> ${phoneNumberInput.value}</p>
     `;
     
     // Add order details
@@ -671,7 +671,7 @@ function renderCartItems() {
     cartItemsList.innerHTML = '';
     
     if (cartItems.length === 0) {
-        cartItemsList.innerHTML = '<div class="empty-cart-message">Your cart is empty</div>';
+        cartItemsList.innerHTML = '<div class="empty-cart-message">Votre panier est vide</div>';
         return;
     }
     
@@ -684,8 +684,8 @@ function renderCartItems() {
                 <div class="item-price">${item.price.toFixed(2)}DH × ${item.quantity} = ${item.total.toFixed(2)}DH</div>
             </div>
             <div class="item-controls">
-                <button class="edit-btn" data-id="${item.id}" title="Edit">✏️</button>
-                <button class="remove-btn" data-id="${item.id}" title="Remove">🗑️</button>
+                <button class="edit-btn" data-id="${item.id}" title="Modifier">✏️</button>
+                <button class="remove-btn" data-id="${item.id}" title="Supprimer">🗑️</button>
             </div>
         `;
         cartItemsList.appendChild(cartItemElement);
@@ -781,7 +781,7 @@ document.addEventListener('keydown', (e) => {
             renderCartItems();
             basketModal.style.display = 'flex';
         } else {
-            showToast('Your cart is empty', 'info');
+            showToast('Votre panier est vide', 'info');
         }
     }
 });
@@ -804,7 +804,7 @@ document.querySelector('.tab[data-category="concept"]').click();
 // Show welcome message on first visit
 if (!localStorage.getItem('hasVisited')) {
     setTimeout(() => {
-        showToast('Welcome to Msemen Concept! Browse our delicious options.', 'info');
+        showToast('Bienvenue à Msemen Concept ! Découvrez nos délicieuses options.', 'info');
         localStorage.setItem('hasVisited', 'true');
     }, 1000);
 }
