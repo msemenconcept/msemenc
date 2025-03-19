@@ -102,7 +102,7 @@ header {
 /* Enhanced Search */
 .search-container {
     padding: 15px;
-    position: sticky;
+    position: relative;
     top: 76px;
     z-index: 40;
     background-color: var(--white);
