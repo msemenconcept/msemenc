@@ -132,11 +132,10 @@ header {
 /* Enhanced Search */
 .search-container {
     padding: 15px;
-    position: sticky;
-    top: 76px;
-    z-index: 40;
+    position: relative; /* Changed from sticky to relative */
     background-color: var(--white);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    z-index: 40;
 }
 
 .search-bar {
@@ -186,12 +185,13 @@ header {
     scrollbar-width: none;
     -ms-overflow-style: none;
     gap: 10px;
-    position: sticky;
-    top: 137px;
-    z-index: 30;
+    position: relative; /* Changed from sticky to relative */
     background-color: var(--white);
     padding-top: 10px;
-    /* Add scroll indication */
+    /* top property removed */
+    /* z-index adjusted */
+    z-index: 1;
+    /* Keep scroll indication */
     -webkit-mask-image: linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent);
     mask-image: linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent);
 }
@@ -1027,6 +1027,12 @@ header {
 /* Add scroll indicators to categories */
 .category-wrapper {
     position: relative;
+    position: sticky;
+    top: 76px; /* Same position where search bar used to be - right below header */
+    z-index: 40;
+    background-color: var(--white);
+    padding-top: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .scroll-indicator-left,
