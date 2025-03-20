@@ -1,63 +1,232 @@
-// Variables
-let cartTotal = 0;
-let currentQuantity = 1;
-let currentItemPrice = 0;
-let currentItemId = null;
-let cartItems = [];
-let editMode = false;
-// Check for saved cart in local storage
-const savedCart = localStorage.getItem('msemenCart');
-if (savedCart) {
-    try {
-        cartItems = JSON.parse(savedCart);
-        updateCartDisplay();
-    } catch (e) {
-        console.error('Error loading saved cart', e);
+// ===============================
+// Utility Functions
+// ===============================
+
+/**
+ * Debounce function to limit how often a function is called
+ * @param {Function} func - The function to debounce
+ * @param {number} wait - The debounce delay in milliseconds
+ * @param {boolean} immediate - Whether to call the function immediately
+ * @returns {Function} Debounced function
+ */
+function debounce(func, wait = 20, immediate = true) {
+    let timeout;
+    return function() {
+        const context = this, args = arguments;
+        const later = function() {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        const callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+}
+
+/**
+ * Animate success action with a pulse effect
+ * @param {HTMLElement} element - Element to animate
+ */
+function animateSuccess(element) {
+    element.classList.add('success-action');
+    setTimeout(() => {
+        element.classList.remove('success-action');
+    }, 800);
+}
+
+// ===============================
+// ShoppingCart Class
+// ===============================
+class ShoppingCart {
+    constructor() {
+        this.items = [];
+        this.total = 0;
+        this.itemCount = 0;
+        this.loadFromStorage();
+    }
+    
+    // Load cart from local storage
+    loadFromStorage() {
+        const savedCart = localStorage.getItem('msemenCart');
+        if (savedCart) {
+            try {
+                this.items = JSON.parse(savedCart);
+                this.updateTotals();
+            } catch (e) {
+                console.error('Error loading saved cart', e);
+                this.items = [];
+            }
+        }
+    }
+    
+    // Save cart to local storage
+    saveToStorage() {
+        localStorage.setItem('msemenCart', JSON.stringify(this.items));
+    }
+    
+    // Add item to cart
+    addItem(name, price, quantity = 1) {
+        // Check if item already exists
+        const existingItemIndex = this.items.findIndex(item => item.name === name);
+        
+        if (existingItemIndex !== -1) {
+            // Update quantity if item exists
+            this.items[existingItemIndex].quantity += quantity;
+            this.items[existingItemIndex].total = this.items[existingItemIndex].quantity * this.items[existingItemIndex].price;
+            showToast(`Ajouté ${quantity} ${name} de plus au panier`, 'success');
+        } else {
+            // Add new item
+            this.items.push({
+                id: Date.now(),
+                name: name,
+                price: price,
+                quantity: quantity,
+                total: price * quantity
+            });
+            showToast(`${name} ajouté au panier`, 'success');
+        }
+        
+        // Update totals and save
+        this.updateTotals();
+        this.saveToStorage();
+        
+        return true;
+    }
+    
+    // Update item in cart
+    updateItem(itemId, newQuantity) {
+        const item = this.items.find(item => item.id === itemId);
+        if (!item) return false;
+        
+        const oldQuantity = item.quantity;
+        item.quantity = newQuantity;
+        item.total = item.price * item.quantity;
+        
+        // Update totals and save
+        this.updateTotals();
+        this.saveToStorage();
+        
+        // Return change info
+        return {
+            success: true,
+            name: item.name,
+            oldQuantity,
+            newQuantity: item.quantity
+        };
+    }
+    
+    // Remove item from cart
+    removeItem(itemId) {
+        const itemIndex = this.items.findIndex(item => item.id === itemId);
+        if (itemIndex === -1) return false;
+        
+        const removedItem = this.items[itemIndex];
+        this.items.splice(itemIndex, 1);
+        
+        // Update totals and save
+        this.updateTotals();
+        this.saveToStorage();
+        
+        return {
+            success: true,
+            name: removedItem.name
+        };
+    }
+    
+    // Clear cart
+    clearCart() {
+        this.items = [];
+        this.updateTotals();
+        localStorage.removeItem('msemenCart');
+        return true;
+    }
+    
+    // Find item by ID
+    findItem(itemId) {
+        return this.items.find(item => item.id === itemId);
+    }
+    
+    // Update cart totals
+    updateTotals() {
+        this.total = this.items.reduce((sum, item) => sum + item.total, 0);
+        this.itemCount = this.items.reduce((count, item) => count + item.quantity, 0);
+    }
+    
+    // Get cart data
+    getItems() {
+        return this.items;
+    }
+    
+    getTotal() {
+        return this.total;
+    }
+    
+    getItemCount() {
+        return this.itemCount;
+    }
+    
+    // Check if cart is empty
+    isEmpty() {
+        return this.items.length === 0;
     }
 }
 
-// Create toast container
-const toastContainer = document.createElement('div');
-toastContainer.className = 'toast-container';
-document.body.appendChild(toastContainer);
+// ===============================
+// Variables
+// ===============================
+let currentQuantity = 1;
+let currentItemPrice = 0;
+let currentItemId = null;
+let editMode = false;
+let cartTotal = 0;
 
-// Create loading indicator
-const loadingIndicator = document.createElement('div');
-loadingIndicator.className = 'loading';
-loadingIndicator.innerHTML = '<div class="loading-spinner"></div>';
-document.querySelector('.food-items').appendChild(loadingIndicator);
+// Initialize cart
+const cart = new ShoppingCart();
 
-// Create no results message
-const noResultsMessage = document.createElement('div');
-noResultsMessage.className = 'no-results';
-noResultsMessage.textContent = 'Aucun article correspondant.';
-document.querySelector('.food-items').appendChild(noResultsMessage);
-
-// Create back to top button
-const backToTopBtn = document.createElement('div');
-backToTopBtn.className = 'back-to-top';
-backToTopBtn.innerHTML = '↑';
-backToTopBtn.title = 'Retour en haut';
-document.body.appendChild(backToTopBtn);
-
+// ===============================
 // DOM Elements
+// ===============================
+// Main elements
+const foodItemsContainer = document.getElementById('foodItemsContainer');
 const foodItems = document.querySelectorAll('.food-item');
-const addButtons = document.querySelectorAll('.add-btn');
+const backToTopBtn = document.getElementById('backToTopBtn');
+const toastContainer = document.getElementById('toastContainer');
+const loadingIndicator = document.getElementById('loadingIndicator');
+const noResultsMessage = document.getElementById('noResultsMessage');
+const appHeader = document.getElementById('app-header');
+const categoryWrapper = document.getElementById('category-wrapper');
+const categoryTabs = document.getElementById('categoryTabs');
+const scrollLeft = document.getElementById('scrollLeft');
+const scrollRight = document.getElementById('scrollRight');
+
+// Modals
 const itemModal = document.getElementById('itemModal');
 const basketModal = document.getElementById('basketModal');
 const confirmationModal = document.getElementById('confirmationModal');
 const fullImageModal = document.getElementById('fullImageModal');
+
+// Modal elements
 const modalHeaderText = document.getElementById('modal-header-text');
 const modalItemName = document.getElementById('modal-item-name');
 const modalItemDescription = document.getElementById('modal-item-description');
 const modalItemPrice = document.getElementById('modal-item-price');
 const modalItemImage = document.getElementById('modal-item-image');
 const fullscreenImage = document.getElementById('fullscreen-image');
+
+// Close buttons
+const closeItemModalBtn = document.getElementById('closeItemModal');
+const closeBasketBtn = document.getElementById('closeBasket');
+const closeConfirmationBtn = document.getElementById('closeConfirmation');
 const closeFullImageModalBtn = document.getElementById('closeFullImageModal');
+
+// Quantity controls
 const quantitySpan = document.getElementById('quantity');
 const decreaseBtn = document.getElementById('decrease');
 const increaseBtn = document.getElementById('increase');
 const addToCartBtn = document.getElementById('addToCart');
+
+// Cart elements
 const cartTotalSpan = document.getElementById('cart-total');
 const cartItemsCount = document.getElementById('cart-items-count');
 const basketTotalSpan = document.getElementById('basketTotal');
@@ -72,29 +241,70 @@ const checkoutBtn = document.getElementById('checkout');
 const submitOrderBtn = document.getElementById('submitOrder');
 const fullNameInput = document.getElementById('fullName');
 const phoneNumberInput = document.getElementById('phoneNumber');
-const closeItemModalBtn = document.getElementById('closeItemModal');
-const closeBasketBtn = document.getElementById('closeBasket');
-const closeConfirmationBtn = document.getElementById('closeConfirmation');
 
-// Close modal buttons
-closeItemModalBtn.addEventListener('click', () => {
-    itemModal.style.display = 'none';
-    resetItemModal();
-});
+// ===============================
+// Category & Header Position Fix
+// ===============================
 
-closeBasketBtn.addEventListener('click', () => {
-    basketModal.style.display = 'none';
-});
+/**
+ * Update category position based on header height
+ * This fixes the wiggling issue on scroll
+ */
+function updateCategoryPosition() {
+    const headerHeight = appHeader.offsetHeight;
+    categoryWrapper.style.top = `${headerHeight}px`;
+    foodItemsContainer.style.marginTop = `${headerHeight + categoryWrapper.offsetHeight}px`;
+}
 
-closeConfirmationBtn.addEventListener('click', () => {
-    confirmationModal.style.display = 'none';
-});
+// ===============================
+// Modals Management
+// ===============================
 
-closeFullImageModalBtn.addEventListener('click', () => {
-    fullImageModal.style.display = 'none';
-});
+/**
+ * Open a modal with improved accessibility
+ * @param {HTMLElement} modal - Modal element to open
+ */
+function openModal(modal) {
+    // Show the modal
+    modal.style.display = 'flex';
+    
+    // Find the first focusable element
+    const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    if (focusableElements.length) {
+        focusableElements[0].focus();
+    }
+    
+    // Remember the element that had focus before
+    modal.dataset.lastFocus = document.activeElement.id || 'body';
+    
+    // Prevent body scrolling
+    document.body.style.overflow = 'hidden';
+}
 
-// Reset item modal to default state
+/**
+ * Close a modal with improved accessibility
+ * @param {HTMLElement} modal - Modal element to close
+ */
+function closeModal(modal) {
+    // Hide the modal
+    modal.style.display = 'none';
+    
+    // Return focus to the element that had it before
+    const lastFocusId = modal.dataset.lastFocus;
+    if (lastFocusId && lastFocusId !== 'body') {
+        const lastFocus = document.getElementById(lastFocusId);
+        if (lastFocus) lastFocus.focus();
+    } else {
+        document.body.focus();
+    }
+    
+    // Restore body scrolling
+    document.body.style.overflow = '';
+}
+
+/**
+ * Reset item modal to default state
+ */
 function resetItemModal() {
     modalHeaderText.textContent = 'Ajouter au panier';
     addToCartBtn.textContent = 'Ajouter au panier';
@@ -110,7 +320,104 @@ function resetItemModal() {
     updateQuantityControls();
 }
 
-// Update decrease button state based on current quantity
+// ===============================
+// Toast Notifications
+// ===============================
+
+/**
+ * Show toast notification
+ * @param {string} message - Message to display
+ * @param {string} type - Type of toast (info, success, error)
+ */
+function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+    
+    toastContainer.appendChild(toast);
+    
+    // Allow clicking to dismiss
+    toast.addEventListener('click', () => toast.remove());
+    
+    // Remove toast after 3 seconds
+    setTimeout(() => {
+        if (toast.parentNode) {
+            toast.remove();
+        }
+    }, 3000);
+}
+
+// ===============================
+// Image Management
+// ===============================
+
+/**
+ * Handle modal image loading
+ * @param {string} imageSrc - Image source URL
+ * @param {string} itemName - Item name for alt text
+ */
+function handleModalImage(imageSrc, itemName) {
+    if (imageSrc) {
+        // First set a loading state
+        modalItemImage.alt = "Chargement de l'image...";
+        modalItemImage.style.display = "block"; // Ensure image is visible
+        
+        // Show the image loading
+        modalItemImage.src = imageSrc;
+        
+        // Add error handling for the image
+        modalItemImage.onerror = function() {
+            handleImageError(this);
+        };
+        
+        // When image loads successfully
+        modalItemImage.onload = function() {
+            this.alt = itemName;
+            // Remove any error message if it exists
+            const errorMsg = document.querySelector('.image-error-message');
+            if (errorMsg) errorMsg.remove();
+        };
+    } else {
+        // Handle case where no image is found
+        modalItemImage.src = '';
+        modalItemImage.alt = "Image non disponible";
+        modalItemImage.style.display = "none";
+        
+        handleImageError(modalItemImage);
+    }
+}
+
+/**
+ * Handle image loading errors
+ * @param {HTMLImageElement} imageElement - Image element
+ */
+function handleImageError(imageElement) {
+    imageElement.alt = "Image non disponible";
+    imageElement.style.padding = "20px";
+    imageElement.style.backgroundColor = "#f8f8f8";
+    
+    // Add a visible message inside the container
+    const errorMsg = document.createElement('div');
+    errorMsg.className = 'image-error-message';
+    errorMsg.textContent = "Image non disponible";
+    
+    // Remove any previous error message
+    const previousMsg = document.querySelector('.image-error-message');
+    if (previousMsg) previousMsg.remove();
+    
+    const container = imageElement.closest('.modal-image-container');
+    if (container) {
+        container.appendChild(errorMsg);
+    }
+}
+
+// ===============================
+// Cart & Item Management
+// ===============================
+
+/**
+ * Update decrease button state based on current quantity
+ */
 function updateQuantityControls() {
     if (currentQuantity <= 1) {
         decreaseBtn.disabled = true;
@@ -123,349 +430,84 @@ function updateQuantityControls() {
     }
 }
 
-// Show toast notification
-function showToast(message, type = 'info') {
-    const toast = document.createElement('div');
-    toast.className = `toast ${type}`;
-    toast.textContent = message;
-    
-    toastContainer.appendChild(toast);
-    
-    // Remove toast after 3 seconds
-    setTimeout(() => {
-        toast.remove();
-    }, 3000);
-}
-
-// Tab filtering functionality
-tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-        // Remove active class from all tabs
-        tabs.forEach(t => t.classList.remove('active'));
-        
-        // Add active class to clicked tab
-        tab.classList.add('active');
-        
-        // Show loading indicator
-        loadingIndicator.style.display = 'flex';
-        
-        // Hide no results message
-        noResultsMessage.style.display = 'none';
-        
-        setTimeout(() => {
-            const category = tab.dataset.category;
-            let visibleCount = 0;
-            
-            // Show/hide items based on category
-            if (category === 'concept') {
-                foodItems.forEach(item => {
-                    if (!item.classList.contains('standard-item') && 
-                        !item.classList.contains('sale-item') && 
-                        !item.classList.contains('boisson-chaude-item') && 
-                        !item.classList.contains('boisson-fraiche-item')) {
-                        item.style.display = 'flex';
-                        visibleCount++;
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            } else if (category === 'standards') {
-                foodItems.forEach(item => {
-                    if (item.classList.contains('standard-item')) {
-                        item.style.display = 'flex';
-                        visibleCount++;
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            } else if (category === 'sales') {
-                foodItems.forEach(item => {
-                    if (item.classList.contains('sale-item')) {
-                        item.style.display = 'flex';
-                        visibleCount++;
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            } else if (category === 'boissons-chauds') {
-                foodItems.forEach(item => {
-                    if (item.classList.contains('boisson-chaude-item')) {
-                        item.style.display = 'flex';
-                        visibleCount++;
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            } else if (category === 'boissons-fraiches') {
-                foodItems.forEach(item => {
-                    if (item.classList.contains('boisson-fraiche-item')) {
-                        item.style.display = 'flex';
-                        visibleCount++;
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            } else {
-                // For any other categories, just hide all items
-                foodItems.forEach(item => {
-                    item.style.display = 'none';
-                });
-            }
-            
-            // Hide loading indicator
-            loadingIndicator.style.display = 'none';
-            
-            // Show no results message if needed
-            if (visibleCount === 0) {
-                noResultsMessage.style.display = 'block';
-            }
-        }, 300); // Small delay to show loading indicator
-    });
-});
-
-// Close modals when clicking outside
-window.addEventListener('click', (e) => {
-    if (e.target === itemModal) {
-        itemModal.style.display = 'none';
-        resetItemModal();
-    }
-    if (e.target === basketModal) {
-        basketModal.style.display = 'none';
-    }
-    if (e.target === confirmationModal) {
-        confirmationModal.style.display = 'none';
-    }
-    if (e.target === fullImageModal) {
-        fullImageModal.style.display = 'none';
-    }
-});
-
-// Quantity control
-decreaseBtn.addEventListener('click', () => {
-    if (currentQuantity > 1) {
-        currentQuantity--;
-        quantitySpan.textContent = currentQuantity;
-        updateQuantityControls();
-    }
-});
-
-increaseBtn.addEventListener('click', () => {
-    currentQuantity++;
-    quantitySpan.textContent = currentQuantity;
-    updateQuantityControls();
-});
-
-// Fullscreen image functionality
-modalItemImage.addEventListener('click', () => {
-    // Set the fullscreen image src to the current modal image
-    fullscreenImage.src = modalItemImage.src;
-    fullscreenImage.alt = modalItemImage.alt;
-    
-    // Show the fullscreen modal
-    fullImageModal.style.display = 'flex';
-});
-
-// Add to cart function
-function addItemToCart() {
-    const name = modalItemName.textContent;
-    const price = currentItemPrice;
-    const totalForItem = price * currentQuantity;
-    
-    // Check if item already exists in cart
-    const existingItemIndex = cartItems.findIndex(item => item.name === name);
-    
-    if (existingItemIndex !== -1) {
-        // Update quantity if item exists
-        cartItems[existingItemIndex].quantity += currentQuantity;
-        cartItems[existingItemIndex].total = cartItems[existingItemIndex].quantity * price;
-        showToast(`Ajouté ${currentQuantity} ${name} de plus au panier`, 'success');
-    } else {
-        // Add new item to cart
-        cartItems.push({
-            id: Date.now(), // Unique ID for each item
-            name: name,
-            price: price,
-            quantity: currentQuantity,
-            total: totalForItem
-        });
-        showToast(`${name} ajouté au panier`, 'success');
-    }
-    
-    // Save cart to local storage
-    localStorage.setItem('msemenCart', JSON.stringify(cartItems));
-    
-    // Update cart display
-    updateCartDisplay();
-    
-    // Add animation to cart button
-    animateCartButton();
-    
-    // Close modal
-    itemModal.style.display = 'none';
-    resetItemModal();
-}
-
-// Animate cart button
+/**
+ * Animate the cart button
+ */
 function animateCartButton() {
+    viewCartBtn.classList.add('success-action');
+    setTimeout(() => {
+        viewCartBtn.classList.remove('success-action');
+    }, 800);
+    
     viewCartBtn.style.transform = 'scale(1.1)';
     setTimeout(() => {
         viewCartBtn.style.transform = 'scale(1)';
     }, 300);
 }
 
-// Set default onclick for addToCartBtn
-addToCartBtn.onclick = addItemToCart;
+/**
+ * Add item to cart
+ */
+function addItemToCart() {
+    const name = modalItemName.textContent;
+    const price = currentItemPrice;
+    
+    // Add to cart using the new class
+    cart.addItem(name, price, currentQuantity);
+    
+    // Update UI
+    updateCartUI();
+    
+    // Add animation to cart button
+    animateCartButton();
+    
+    // Add animation to the add button
+    animateSuccess(addToCartBtn);
+    
+    // Close modal
+    closeModal(itemModal);
+    resetItemModal();
+}
 
-// Update item in cart function
+/**
+ * Update item in cart
+ */
 function updateItemInCart() {
-    const item = cartItems.find(item => item.id === currentItemId);
-    if (item) {
-        const oldQuantity = item.quantity;
-        item.quantity = currentQuantity;
-        item.total = item.price * item.quantity;
-        
-        // Update cart display
-        updateCartDisplay();
-        renderCartItems(); // Add this line to refresh the cart items display
-        
-        // Save cart to local storage
-        localStorage.setItem('msemenCart', JSON.stringify(cartItems));
+    // Update item using the cart class
+    const result = cart.updateItem(currentItemId, currentQuantity);
+    
+    if (result.success) {
+        // Update UI
+        updateCartUI();
+        renderCartItems();
         
         // Show toast message
-        if (currentQuantity > oldQuantity) {
-            showToast(`Quantité de ${item.name} augmentée à ${currentQuantity}`, 'info');
-        } else if (currentQuantity < oldQuantity) {
-            showToast(`Quantité de ${item.name} diminuée à ${currentQuantity}`, 'info');
+        if (result.newQuantity > result.oldQuantity) {
+            showToast(`Quantité de ${result.name} augmentée à ${result.newQuantity}`, 'info');
+        } else if (result.newQuantity < result.oldQuantity) {
+            showToast(`Quantité de ${result.name} diminuée à ${result.newQuantity}`, 'info');
         } else {
-            showToast(`Quantité de ${item.name} inchangée`, 'info');
+            showToast(`Quantité de ${result.name} inchangée`, 'info');
         }
         
+        // Add animation
+        animateSuccess(addToCartBtn);
+        
         // Close item modal and show basket modal
-        itemModal.style.display = 'none';
-        basketModal.style.display = 'flex';
+        closeModal(itemModal);
+        openModal(basketModal);
         
         // Reset modal
         resetItemModal();
     }
 }
 
-// View cart button
-viewCartBtn.addEventListener('click', () => {
-    renderCartItems();
-    basketModal.style.display = 'flex';
-});
-
-// Empty cart
-emptyCartBtn.addEventListener('click', () => {
-    if (cartItems.length === 0) {
-        showToast('Votre panier est déjà vide', 'info');
-        return;
-    }
-    
-    if (confirm('Êtes-vous sûr de vouloir vider votre panier ?')) {
-        cartItems = [];
-        updateCartDisplay();
-        renderCartItems();
-        
-        // Clear from local storage
-        localStorage.removeItem('msemenCart');
-        
-        showToast('Panier vidé', 'info');
-    }
-});
-
-// Checkout button
-checkoutBtn.addEventListener('click', () => {
-    // Validate form
-    if (!fullNameInput.value.trim()) {
-        showToast('Veuillez entrer votre nom complet', 'error');
-        fullNameInput.focus();
-        return;
-    }
-    
-    if (!phoneNumberInput.value.trim()) {
-        showToast('Veuillez entrer votre numéro de téléphone', 'error');
-        phoneNumberInput.focus();
-        return;
-    }
-    
-    // Validate phone number format
-    const phoneRegex = /^\+?[0-9]{8,15}$/;
-    if (!phoneRegex.test(phoneNumberInput.value.trim().replace(/\s/g, ''))) {
-        showToast('Veuillez entrer un numéro de téléphone valide', 'error');
-        phoneNumberInput.focus();
-        return;
-    }
-    
-    if (cartItems.length === 0) {
-        showToast('Votre panier est vide', 'error');
-        return;
-    }
-    
-    // Generate order details
-    renderOrderConfirmation();
-    
-    // Hide basket modal and show confirmation modal
-    basketModal.style.display = 'none';
-    confirmationModal.style.display = 'flex';
-});
-
-// Submit order via WhatsApp
-submitOrderBtn.addEventListener('click', () => {
-    const name = fullNameInput.value.trim();
-    const phone = phoneNumberInput.value.trim();
-    
-    // Generate WhatsApp message
-    let message = `*Nouvelle commande depuis l'application Msemen Concept*\n\n`;
-    message += `*Détails du client:*\n`;
-    message += `Nom: ${name}\n`;
-    message += `Téléphone: ${phone}\n\n`;
-    message += `*Détails de la commande:*\n`;
-    
-    cartItems.forEach(item => {
-        message += `- ${item.name} x${item.quantity} = ${item.total.toFixed(2)}DH\n`;
-    });
-    
-    message += `\n*Total: ${cartTotal.toFixed(2)}DH*`;
-    
-    // Encode for WhatsApp URL
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/+212600000000?text=${encodedMessage}`; // Replace with actual number
-    
-    // Open WhatsApp
-    window.open(whatsappUrl, '_blank');
-    
-    // Close modal and reset
-    confirmationModal.style.display = 'none';
-    showToast('Commande envoyée par WhatsApp!', 'success');
-    
-    // Clear cart
-    cartItems = [];
-    updateCartDisplay();
-    localStorage.removeItem('msemenCart');
-});
-
-// Function to update cart display with total and count
-function updateCartDisplay() {
-    cartTotal = cartItems.reduce((sum, item) => sum + item.total, 0);
-    const itemCount = cartItems.reduce((count, item) => count + item.quantity, 0);
-    
-    cartTotalSpan.textContent = cartTotal.toFixed(2) + 'DH';
-    cartItemsCount.textContent = itemCount;
-    basketTotalSpan.textContent = cartTotal.toFixed(2) + 'DH';
-    confirmationTotalSpan.textContent = cartTotal.toFixed(2) + 'DH';
-    
-    // Update the cart button visibility
-    if (itemCount > 0) {
-        viewCartBtn.style.animation = 'pulse 2s infinite';
-    } else {
-        viewCartBtn.style.animation = 'none';
-    }
-}
-
-// Function to edit cart item
+/**
+ * Edit cart item
+ * @param {number} itemId - Item ID to edit
+ */
 function editCartItem(itemId) {
-    const item = cartItems.find(item => item.id === itemId);
+    const item = cart.findItem(itemId);
     if (!item) return;
     
     // Set current item details
@@ -488,71 +530,12 @@ function editCartItem(itemId) {
         const imageElement = originalItem.querySelector('.food-image');
         if (imageElement) {
             const imageSrc = imageElement.src;
-            
-            // Clear previous styling
-            modalItemImage.style.display = "block";
-            modalItemImage.style.padding = "";
-            modalItemImage.style.backgroundColor = "";
-            
-            // Set the image with error handling
-            modalItemImage.src = imageSrc;
-            modalItemImage.alt = item.name;
-            
-            // Add error handling
-            modalItemImage.onerror = function() {
-                this.alt = "Image non disponible";
-                this.style.padding = "20px";
-                this.style.backgroundColor = "#f8f8f8";
-                
-                // Add a visible message
-                const errorMsg = document.createElement('div');
-                errorMsg.className = 'image-error-message';
-                errorMsg.textContent = "Image non disponible";
-                errorMsg.style.position = "absolute";
-                errorMsg.style.top = "50%";
-                errorMsg.style.left = "50%";
-                errorMsg.style.transform = "translate(-50%, -50%)";
-                errorMsg.style.color = "#888";
-                errorMsg.style.fontStyle = "italic";
-                errorMsg.style.fontSize = "14px";
-                
-                // Remove any previous error message
-                const previousMsg = document.querySelector('.image-error-message');
-                if (previousMsg) previousMsg.remove();
-                
-                this.closest('.modal-image-container').appendChild(errorMsg);
-            };
+            handleModalImage(imageSrc, item.name);
         } else {
-            // Handle no image element
-            handleNoImage();
+            handleModalImage('', item.name);
         }
     } else {
-        // Handle no original item found
-        handleNoImage();
-    }
-    
-    function handleNoImage() {
-        modalItemImage.src = '';
-        modalItemImage.alt = "Image non disponible";
-        modalItemImage.style.display = "none";
-        
-        // Add a visible message
-        const errorMsg = document.createElement('div');
-        errorMsg.className = 'image-error-message';
-        errorMsg.textContent = "Image non disponible";
-        errorMsg.style.position = "absolute";
-        errorMsg.style.top = "50%";
-        errorMsg.style.left = "50%";
-        errorMsg.style.transform = "translate(-50%, -50%)";
-        errorMsg.style.color = "#888";
-        errorMsg.style.fontStyle = "italic";
-        errorMsg.style.fontSize = "14px";
-        
-        // Remove any previous error message
-        const previousMsg = document.querySelector('.image-error-message');
-        if (previousMsg) previousMsg.remove();
-        
-        document.querySelector('.modal-image-container').appendChild(errorMsg);
+        handleModalImage('', item.name);
     }
     
     // Change button text
@@ -564,29 +547,51 @@ function editCartItem(itemId) {
     // Update quantity controls
     updateQuantityControls();
     
-    // Show modal
-    basketModal.style.display = 'none';
-    itemModal.style.display = 'flex';
+    // Close basket modal and open item modal
+    closeModal(basketModal);
+    openModal(itemModal);
 }
 
-// Function to remove cart item
+/**
+ * Remove item from cart
+ * @param {number} itemId - Item ID to remove
+ */
 function removeCartItem(itemId) {
-    const item = cartItems.find(item => item.id === itemId);
-    if (!item) return;
+    const result = cart.removeItem(itemId);
     
-    if (confirm(`Êtes-vous sûr de vouloir supprimer ${item.name} de votre panier ?`)) {
-        cartItems = cartItems.filter(item => item.id !== itemId);
-        updateCartDisplay();
+    if (result.success) {
+        updateCartUI();
         renderCartItems();
-        
-        // Save cart to local storage
-        localStorage.setItem('msemenCart', JSON.stringify(cartItems));
-        
-        showToast(`${item.name} supprimé du panier`, 'info');
+        showToast(`${result.name} supprimé du panier`, 'info');
     }
 }
 
-// Function to render order confirmation
+/**
+ * Update the UI based on cart state
+ */
+function updateCartUI() {
+    cartTotal = cart.getTotal();
+    
+    // Use requestAnimationFrame for smoother updates
+    requestAnimationFrame(() => {
+        // Update UI elements
+        cartTotalSpan.textContent = cartTotal.toFixed(2) + 'DH';
+        cartItemsCount.textContent = cart.getItemCount();
+        basketTotalSpan.textContent = cartTotal.toFixed(2) + 'DH';
+        confirmationTotalSpan.textContent = cartTotal.toFixed(2) + 'DH';
+        
+        // Update cart button animation
+        if (cart.getItemCount() > 0) {
+            viewCartBtn.style.animation = 'pulse 2s infinite';
+        } else {
+            viewCartBtn.style.animation = 'none';
+        }
+    });
+}
+
+/**
+ * Render order confirmation details
+ */
 function renderOrderConfirmation() {
     orderDetailsList.innerHTML = '';
     customerDetails.innerHTML = '';
@@ -598,7 +603,7 @@ function renderOrderConfirmation() {
     `;
     
     // Add order details
-    cartItems.forEach(item => {
+    cart.getItems().forEach(item => {
         const orderItemElement = document.createElement('div');
         orderItemElement.className = 'order-item';
         orderItemElement.innerHTML = `
@@ -608,16 +613,19 @@ function renderOrderConfirmation() {
     });
 }
 
-// Function to render cart items
+/**
+ * Render cart items
+ */
 function renderCartItems() {
     cartItemsList.innerHTML = '';
+    const items = cart.getItems();
     
-    if (cartItems.length === 0) {
+    if (items.length === 0) {
         cartItemsList.innerHTML = '<div class="empty-cart-message">Votre panier est vide</div>';
         return;
     }
     
-    cartItems.forEach(item => {
+    items.forEach(item => {
         const cartItemElement = document.createElement('div');
         cartItemElement.className = 'cart-item';
         cartItemElement.innerHTML = `
@@ -633,221 +641,255 @@ function renderCartItems() {
         cartItemsList.appendChild(cartItemElement);
     });
     
-    // Add event listeners to edit and remove buttons
-    document.querySelectorAll('.edit-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const itemId = parseInt(e.target.dataset.id);
+    // Event delegation for cart item buttons
+    cartItemsList.addEventListener('click', (e) => {
+        const editBtn = e.target.closest('.edit-btn');
+        const removeBtn = e.target.closest('.remove-btn');
+        
+        if (editBtn) {
+            const itemId = parseInt(editBtn.dataset.id);
             editCartItem(itemId);
-        });
-    });
-    
-    document.querySelectorAll('.remove-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const itemId = parseInt(e.target.dataset.id);
-            removeCartItem(itemId);
-        });
+        } else if (removeBtn) {
+            const itemId = parseInt(removeBtn.dataset.id);
+            if (confirm(`Êtes-vous sûr de vouloir supprimer cet article de votre panier ?`)) {
+                removeCartItem(itemId);
+            }
+        }
     });
 }
 
-// Back to top button functionality
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 200) {
-        backToTopBtn.classList.add('visible');
-    } else {
-        backToTopBtn.classList.remove('visible');
-    }
-});
+// ===============================
+// Tab Filtering
+// ===============================
 
-backToTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
-
-// Make food items clickable to open modal
-foodItems.forEach(item => {
-    item.addEventListener('click', (e) => {
-        
-        const name = item.dataset.name;
-        const price = item.dataset.price;
-        const description = item.dataset.description;
-        
-        // Get the image src from the item with error handling
-        const imageElement = item.querySelector('.food-image');
-        const imageSrc = imageElement ? imageElement.src : '';
-        
-        modalItemName.textContent = name;
-        modalItemDescription.textContent = description;
-        modalItemPrice.textContent = price;
-        
-        // Set the image src with error handling
-        if (imageSrc) {
-            // First set a loading state
-            modalItemImage.alt = "Chargement de l'image...";
-            
-            // Show the image loading
-            modalItemImage.src = imageSrc;
-            
-            // Add error handling for the image
-            modalItemImage.onerror = function() {
-                this.alt = "Image non disponible";
-                this.style.padding = "20px";
-                this.style.backgroundColor = "#f8f8f8";
-                // Add a visible message inside the container
-                const errorMsg = document.createElement('div');
-                errorMsg.className = 'image-error-message';
-                errorMsg.textContent = "Image non disponible";
-                errorMsg.style.position = "absolute";
-                errorMsg.style.top = "50%";
-                errorMsg.style.left = "50%";
-                errorMsg.style.transform = "translate(-50%, -50%)";
-                errorMsg.style.color = "#888";
-                errorMsg.style.fontStyle = "italic";
-                errorMsg.style.fontSize = "14px";
-                
-                // Remove any previous error message
-                const previousMsg = document.querySelector('.image-error-message');
-                if (previousMsg) previousMsg.remove();
-                
-                this.closest('.modal-image-container').appendChild(errorMsg);
-            };
-            
-            // When image loads successfully
-            modalItemImage.onload = function() {
-                this.alt = name;
-                // Remove any error message if it exists
-                const errorMsg = document.querySelector('.image-error-message');
-                if (errorMsg) errorMsg.remove();
-            };
-        } else {
-            // Handle case where no image is found
-            modalItemImage.src = '';
-            modalItemImage.alt = "Image non disponible";
-            modalItemImage.style.display = "none";
-            
-            // Add a visible message inside the container
-            const errorMsg = document.createElement('div');
-            errorMsg.className = 'image-error-message';
-            errorMsg.textContent = "Image non disponible";
-            errorMsg.style.position = "absolute";
-            errorMsg.style.top = "50%";
-            errorMsg.style.left = "50%";
-            errorMsg.style.transform = "translate(-50%, -50%)";
-            errorMsg.style.color = "#888";
-            errorMsg.style.fontStyle = "italic";
-            errorMsg.style.fontSize = "14px";
-            
-            // Remove any previous error message
-            const previousMsg = document.querySelector('.image-error-message');
-            if (previousMsg) previousMsg.remove();
-            
-            document.querySelector('.modal-image-container').appendChild(errorMsg);
-        }
-        
-        // Reset quantity
-        currentQuantity = 1;
-        quantitySpan.textContent = currentQuantity;
-        
-        // Set current item price for calculations
-        currentItemPrice = parseFloat(price.replace('DH', ''));
-        
-        // Update quantity controls
-        updateQuantityControls();
-        
-        // Show modal
-        itemModal.style.display = 'flex';
-    });
-});
-
-// Keyboard shortcuts
-document.addEventListener('keydown', (e) => {
-    // ESC to close modals
-    if (e.key === 'Escape') {
-        if (fullImageModal.style.display === 'flex') {
-            fullImageModal.style.display = 'none';
-        } else if (itemModal.style.display === 'flex') {
-            itemModal.style.display = 'none';
-            resetItemModal();
-        } else if (basketModal.style.display === 'flex') {
-            basketModal.style.display = 'none';
-        } else if (confirmationModal.style.display === 'flex') {
-            confirmationModal.style.display = 'none';
-        }
-    }
+/**
+ * Filter items by category
+ * @param {string} category - Category to filter by
+ */
+function filterItemsByCategory(category) {
+    // Show loading indicator
+    loadingIndicator.style.display = 'flex';
     
-    // CTRL+B to view cart
-    if (e.key === 'b' && (e.ctrlKey || e.metaKey)) {
-        e.preventDefault();
-        if (cartItems.length > 0) {
-            renderCartItems();
-            basketModal.style.display = 'flex';
-        } else {
-            showToast('Votre panier est vide', 'info');
-        }
-    }
-});
-
-// Save form info in local storage
-fullNameInput.value = localStorage.getItem('customerName') || '';
-phoneNumberInput.value = localStorage.getItem('customerPhone') || '';
-
-fullNameInput.addEventListener('change', () => {
-    localStorage.setItem('customerName', fullNameInput.value);
-});
-
-phoneNumberInput.addEventListener('change', () => {
-    localStorage.setItem('customerPhone', phoneNumberInput.value);
-});
-
-// Initialize the view with the 'Concept' tab selected
-document.querySelector('.tab[data-category="concept"]').click();
-
-// Show welcome message on first visit
-if (!localStorage.getItem('hasVisited')) {
+    // Hide no results message
+    noResultsMessage.style.display = 'none';
+    
+    // Use setTimeout to allow UI to update before filtering
     setTimeout(() => {
-        showToast('Bienvenue à Msemen Concept ! Découvrez nos délicieuses options.', 'info');
-        localStorage.setItem('hasVisited', 'true');
-    }, 1000);
+        let visibleCount = 0;
+        
+        // Show/hide items based on category
+        if (category === 'concept') {
+            foodItems.forEach(item => {
+                if (!item.classList.contains('standard-item') && 
+                    !item.classList.contains('sale-item') && 
+                    !item.classList.contains('boisson-chaude-item') && 
+                    !item.classList.contains('boisson-fraiche-item')) {
+                    item.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        } else if (category === 'standards') {
+            foodItems.forEach(item => {
+                if (item.classList.contains('standard-item')) {
+                    item.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        } else if (category === 'sales') {
+            foodItems.forEach(item => {
+                if (item.classList.contains('sale-item')) {
+                    item.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        } else if (category === 'boissons-chauds') {
+            foodItems.forEach(item => {
+                if (item.classList.contains('boisson-chaude-item')) {
+                    item.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        } else if (category === 'boissons-fraiches') {
+            foodItems.forEach(item => {
+                if (item.classList.contains('boisson-fraiche-item')) {
+                    item.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        } else {
+            // For any other categories, just hide all items
+            foodItems.forEach(item => {
+                item.style.display = 'none';
+            });
+        }
+        
+        // Hide loading indicator
+        loadingIndicator.style.display = 'none';
+        
+        // Show no results message if needed
+        if (visibleCount === 0) {
+            noResultsMessage.style.display = 'block';
+        }
+    }, 300); // Small delay to show loading indicator
 }
 
-// Add scroll indicators for category tabs
-const categoryTabs = document.querySelector('.category-tabs');
-const scrollIndicatorLeft = document.querySelector('.scroll-indicator-left');
-const scrollIndicatorRight = document.querySelector('.scroll-indicator-right');
-
-// Function to check scroll position and show/hide indicators
+/**
+ * Update scroll indicators visibility
+ */
 function updateScrollIndicators() {
     if (categoryTabs.scrollLeft > 10) {
-        scrollIndicatorLeft.style.opacity = '1';
+        scrollLeft.style.opacity = '1';
     } else {
-        scrollIndicatorLeft.style.opacity = '0';
+        scrollLeft.style.opacity = '0';
     }
     
     if (categoryTabs.scrollLeft + categoryTabs.clientWidth < categoryTabs.scrollWidth - 10) {
-        scrollIndicatorRight.style.opacity = '1';
+        scrollRight.style.opacity = '1';
     } else {
-        scrollIndicatorRight.style.opacity = '0';
+        scrollRight.style.opacity = '0';
     }
 }
 
-// Initial check
-updateScrollIndicators();
+// ===============================
+// Lazy Loading
+// ===============================
 
-// Update on scroll
-categoryTabs.addEventListener('scroll', updateScrollIndicators);
+/**
+ * Set up lazy loading for images
+ */
+function setupLazyLoading() {
+    // If Intersection Observer is supported
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const src = img.dataset.src;
+                    if (src) {
+                        img.src = src;
+                        img.removeAttribute('data-src');
+                        imageObserver.unobserve(img);
+                    }
+                }
+            });
+        });
+        
+        // Target all images with data-src attribute
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    } else {
+        // Fallback for browsers that don't support Intersection Observer
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+        });
+    }
+}
 
-// Add scroll buttons functionality
-scrollIndicatorLeft.addEventListener('click', () => {
-    categoryTabs.scrollBy({ left: -100, behavior: 'smooth' });
+// ===============================
+// Event Listeners
+// ===============================
+
+// When DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize UI based on cart state
+    updateCartUI();
+    
+    // Fix category position
+    updateCategoryPosition();
+    
+    // Set up lazy loading
+    setupLazyLoading();
+    
+    // Initial check for scroll indicators
+    updateScrollIndicators();
+    
+    // Load saved customer info from local storage
+    fullNameInput.value = localStorage.getItem('customerName') || '';
+    phoneNumberInput.value = localStorage.getItem('customerPhone') || '';
+    
+    // Show welcome message on first visit
+    if (!localStorage.getItem('hasVisited')) {
+        setTimeout(() => {
+            showToast('Bienvenue à Msemen Concept ! Découvrez nos délicieuses options.', 'info');
+            localStorage.setItem('hasVisited', 'true');
+        }, 1000);
+    }
+    
+    // Initialize with Concept tab
+    document.querySelector('.tab[data-category="concept"]').click();
 });
 
-scrollIndicatorRight.addEventListener('click', () => {
-    categoryTabs.scrollBy({ left: 100, behavior: 'smooth' });
+// Window resize event - update positions
+window.addEventListener('resize', debounce(() => {
+    updateCategoryPosition();
+    updateScrollIndicators();
+}, 100));
+
+// Food items click event with event delegation
+foodItemsContainer.addEventListener('click', (e) => {
+    // Find closest food-item parent if click happened on a child element
+    const foodItem = e.target.closest('.food-item');
+    
+    // Skip if not a food item
+    if (!foodItem) return;
+    
+    // Get item data
+    const name = foodItem.dataset.name;
+    const price = foodItem.dataset.price;
+    const description = foodItem.dataset.description;
+    
+    // Get the image src from the item with error handling
+    const imageElement = foodItem.querySelector('.food-image');
+    const imageSrc = imageElement ? imageElement.src : '';
+    
+    modalItemName.textContent = name;
+    modalItemDescription.textContent = description;
+    modalItemPrice.textContent = price;
+    
+    // Handle image loading
+    handleModalImage(imageSrc, name);
+    
+    // Reset quantity
+    currentQuantity = 1;
+    quantitySpan.textContent = currentQuantity;
+    
+    // Set current item price for calculations
+    currentItemPrice = parseFloat(price.replace('DH', ''));
+    
+    // Update quantity controls
+    updateQuantityControls();
+    
+    // Show modal
+    openModal(itemModal);
 });
 
-// Improve accessibility - make tabs navigable by keyboard
+// Category tabs click
 tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        // Remove active class from all tabs
+        tabs.forEach(t => t.classList.remove('active'));
+        
+        // Add active class to clicked tab
+        tab.classList.add('active');
+        
+        // Filter items by category
+        const category = tab.dataset.category;
+        filterItemsByCategory(category);
+    });
+    
+    // Keyboard access
     tab.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -856,13 +898,217 @@ tabs.forEach(tab => {
     });
 });
 
-// Add pulse animation for the cart button
-const style = document.createElement('style');
-style.textContent = `
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-`;
-document.head.appendChild(style);
+// Scroll indicators
+scrollLeft.addEventListener('click', () => {
+    categoryTabs.scrollBy({ left: -100, behavior: 'smooth' });
+});
+
+scrollRight.addEventListener('click', () => {
+    categoryTabs.scrollBy({ left: 100, behavior: 'smooth' });
+});
+
+// Category tabs scroll
+categoryTabs.addEventListener('scroll', debounce(updateScrollIndicators, 50));
+
+// Quantity controls
+decreaseBtn.addEventListener('click', () => {
+    if (currentQuantity > 1) {
+        currentQuantity--;
+        quantitySpan.textContent = currentQuantity;
+        updateQuantityControls();
+    }
+});
+
+increaseBtn.addEventListener('click', () => {
+    currentQuantity++;
+    quantitySpan.textContent = currentQuantity;
+    updateQuantityControls();
+});
+
+// Cart management
+viewCartBtn.addEventListener('click', () => {
+    renderCartItems();
+    openModal(basketModal);
+});
+
+emptyCartBtn.addEventListener('click', () => {
+    if (cart.isEmpty()) {
+        showToast('Votre panier est déjà vide', 'info');
+        return;
+    }
+    
+    if (confirm('Êtes-vous sûr de vouloir vider votre panier ?')) {
+        cart.clearCart();
+        updateCartUI();
+        renderCartItems();
+        showToast('Panier vidé', 'info');
+    }
+});
+
+// Fullscreen image
+modalItemImage.addEventListener('click', () => {
+    // Set the fullscreen image src to the current modal image
+    fullscreenImage.src = modalItemImage.src;
+    fullscreenImage.alt = modalItemImage.alt;
+    
+    // Show the fullscreen modal
+    openModal(fullImageModal);
+});
+
+// Form inputs storage
+fullNameInput.addEventListener('change', () => {
+    localStorage.setItem('customerName', fullNameInput.value);
+});
+
+phoneNumberInput.addEventListener('change', () => {
+    localStorage.setItem('customerPhone', phoneNumberInput.value);
+});
+
+// Checkout process
+checkoutBtn.addEventListener('click', () => {
+    // Validate form
+    if (!fullNameInput.value.trim()) {
+        showToast('Veuillez entrer votre nom complet', 'error');
+        fullNameInput.focus();
+        return;
+    }
+    
+    if (!phoneNumberInput.value.trim()) {
+        showToast('Veuillez entrer votre numéro de téléphone', 'error');
+        phoneNumberInput.focus();
+        return;
+    }
+    
+    // Validate phone number format
+    const phoneRegex = /^\+?[0-9]{8,15}$/;
+    if (!phoneRegex.test(phoneNumberInput.value.trim().replace(/\s/g, ''))) {
+        showToast('Veuillez entrer un numéro de téléphone valide', 'error');
+        phoneNumberInput.focus();
+        return;
+    }
+    
+    if (cart.isEmpty()) {
+        showToast('Votre panier est vide', 'error');
+        return;
+    }
+    
+    // Generate order details
+    renderOrderConfirmation();
+    
+    // Hide basket modal and show confirmation modal
+    closeModal(basketModal);
+    openModal(confirmationModal);
+});
+
+// Submit order via WhatsApp
+submitOrderBtn.addEventListener('click', () => {
+    const name = fullNameInput.value.trim();
+    const phone = phoneNumberInput.value.trim();
+    
+    // Generate WhatsApp message
+    let message = `*Nouvelle commande depuis l'application Msemen Concept*\n\n`;
+    message += `*Détails du client:*\n`;
+    message += `Nom: ${name}\n`;
+    message += `Téléphone: ${phone}\n\n`;
+    message += `*Détails de la commande:*\n`;
+    
+    cart.getItems().forEach(item => {
+        message += `- ${item.name} x${item.quantity} = ${item.total.toFixed(2)}DH\n`;
+    });
+    
+    message += `\n*Total: ${cart.getTotal().toFixed(2)}DH*`;
+    
+    // Encode for WhatsApp URL
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/+212600000000?text=${encodedMessage}`; // Replace with actual number
+    
+    // Open WhatsApp
+    window.open(whatsappUrl, '_blank');
+    
+    // Close modal and reset
+    closeModal(confirmationModal);
+    showToast('Commande envoyée par WhatsApp!', 'success');
+    
+    // Clear cart
+    cart.clearCart();
+    updateCartUI();
+});
+
+// Modal close buttons
+closeItemModalBtn.addEventListener('click', () => {
+    closeModal(itemModal);
+    resetItemModal();
+});
+
+closeBasketBtn.addEventListener('click', () => {
+    closeModal(basketModal);
+});
+
+closeConfirmationBtn.addEventListener('click', () => {
+    closeModal(confirmationModal);
+});
+
+closeFullImageModalBtn.addEventListener('click', () => {
+    closeModal(fullImageModal);
+});
+
+// Close modals when clicking outside
+window.addEventListener('click', (e) => {
+    if (e.target === itemModal) {
+        closeModal(itemModal);
+        resetItemModal();
+    }
+    if (e.target === basketModal) {
+        closeModal(basketModal);
+    }
+    if (e.target === confirmationModal) {
+        closeModal(confirmationModal);
+    }
+    if (e.target === fullImageModal) {
+        closeModal(fullImageModal);
+    }
+});
+
+// Back to top button
+window.addEventListener('scroll', debounce(() => {
+    if (window.scrollY > 200) {
+        backToTopBtn.classList.add('visible');
+    } else {
+        backToTopBtn.classList.remove('visible');
+    }
+}, 50));
+
+backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    // ESC to close modals
+    if (e.key === 'Escape') {
+        if (fullImageModal.style.display === 'flex') {
+            closeModal(fullImageModal);
+        } else if (itemModal.style.display === 'flex') {
+            closeModal(itemModal);
+            resetItemModal();
+        } else if (basketModal.style.display === 'flex') {
+            closeModal(basketModal);
+        } else if (confirmationModal.style.display === 'flex') {
+            closeModal(confirmationModal);
+        }
+    }
+    
+    // CTRL+B to view cart
+    if (e.key === 'b' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        if (!cart.isEmpty()) {
+            renderCartItems();
+            openModal(basketModal);
+        } else {
+            showToast('Votre panier est vide', 'info');
+        }
+    }
+});
