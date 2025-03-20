@@ -53,7 +53,6 @@ const modalItemDescription = document.getElementById('modal-item-description');
 const modalItemPrice = document.getElementById('modal-item-price');
 const modalItemImage = document.getElementById('modal-item-image');
 const fullscreenImage = document.getElementById('fullscreen-image');
-const fullscreenBtn = document.getElementById('fullscreen');
 const closeFullImageModalBtn = document.getElementById('closeFullImageModal');
 const quantitySpan = document.getElementById('quantity');
 const decreaseBtn = document.getElementById('decrease');
@@ -256,8 +255,8 @@ increaseBtn.addEventListener('click', () => {
     updateQuantityControls();
 });
 
-// Fullscreen button functionality
-fullscreenBtn.addEventListener('click', () => {
+// Fullscreen image functionality
+modalItemImage.addEventListener('click', () => {
     // Set the fullscreen image src to the current modal image
     fullscreenImage.src = modalItemImage.src;
     fullscreenImage.alt = modalItemImage.alt;
