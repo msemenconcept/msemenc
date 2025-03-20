@@ -202,6 +202,14 @@
                 <button class="modal-close-btn" id="closeItemModal" aria-label="Fermer">&times;</button>
             </div>
             <div class="modal-body">
+                <div class="modal-image-container">
+                    <img id="modal-item-image" src="" alt="Product image" class="modal-product-image">
+                    <div class="image-zoom-controls">
+                        <button class="zoom-btn" id="fullscreen" aria-label="Vue plein écran">
+                            <span class="zoom-icon">⛶</span>
+                        </button>
+                    </div>
+                </div>
                 <div class="modal-item-info">
                     <h3 id="modal-item-name"></h3>
                     <p id="modal-item-description"></p>
@@ -275,6 +283,14 @@
                     Envoyer la commande par WhatsApp
                 </button>
             </div>
+        </div>
+    </div>
+
+    <!-- Fullscreen image modal -->
+    <div class="modal" id="fullImageModal" role="dialog" aria-hidden="true">
+        <div class="fullscreen-image-container">
+            <img id="fullscreen-image" src="" alt="Product image in full view">
+            <button class="modal-close-btn fullscreen-close-btn" id="closeFullImageModal" aria-label="Fermer">&times;</button>
         </div>
     </div>
 
