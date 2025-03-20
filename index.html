@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <meta name="theme-color" content="#FCBA2E">
-    <meta name="description" content="Commandez de délicieux msemen avec diverses garnitures et saveurs">
+    <meta name="description" content="Commandez de délicieux msemen avec diverses garnitures et saveurs. Livraison rapide et service de qualité.">
     <!-- Add favicon support -->
     <link rel="icon" type="image/png" href="https://i.postimg.cc/D0Y2DQx1/logo-clear.png">
     <!-- Add apple touch icon -->
@@ -19,6 +19,12 @@
             <div class="logo-circle"><img src="https://i.postimg.cc/D0Y2DQx1/logo-clear.png" alt="Logo Msemen Concept"></div>
             <h1 class="app-title">Msemen Concept</h1>
         </header>
+
+        <!-- Added search bar -->
+        <div class="search-container" id="searchContainer">
+            <input type="search" id="searchInput" placeholder="Rechercher un produit..." aria-label="Rechercher un produit">
+            <button id="clearSearch" class="clear-search-btn" aria-label="Effacer la recherche">&times;</button>
+        </div>
 
         <div class="category-wrapper" id="category-wrapper">
             <div class="scroll-indicator-left" id="scrollLeft"><span class="scroll-indicator-icon">‹</span></div>
@@ -183,8 +189,12 @@
                 <div class="loading-spinner"></div>
             </div>
             
-            <!-- No results message -->
-            <div id="noResultsMessage" class="no-results">Aucun article correspondant.</div>
+            <!-- Improved no results message with illustration -->
+            <div id="noResultsMessage" class="no-results">
+                <div class="no-results-icon">🔍</div>
+                <p>Aucun article correspondant.</p>
+                <p class="no-results-help">Essayez un autre terme ou catégorie.</p>
+            </div>
         </main>
 
         <div class="bottom-bar">
@@ -200,7 +210,7 @@
         </div>
     </div>
 
-    <!-- Modal for adding items to cart -->
+    <!-- Modal for adding items to cart - improved layout -->
     <div class="modal" id="itemModal" role="dialog" aria-labelledby="modal-header-text" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
@@ -220,16 +230,25 @@
                     <span>Quantité</span>
                     <div class="quantity-buttons">
                         <button class="quantity-btn" id="decrease" aria-label="Diminuer la quantité">-</button>
-                        <span class="quantity" id="quantity" aria-live="polite">1</span>
+                        <input type="number" class="quantity-input" id="quantity" min="1" max="99" value="1" aria-label="Quantité">
                         <button class="quantity-btn" id="increase" aria-label="Augmenter la quantité">+</button>
                     </div>
+                    <!-- Added quick quantity selectors -->
+                    <div class="quantity-quick-select">
+                        <button class="quantity-preset" data-quantity="1">1</button>
+                        <button class="quantity-preset" data-quantity="2">2</button>
+                        <button class="quantity-preset" data-quantity="5">5</button>
+                    </div>
                 </div>
+                <button class="add-to-cart-btn" id="addToCart">
+                    <span class="btn-icon">+</span>
+                    <span class="btn-text">Ajouter au panier</span>
+                </button>
             </div>
-            <button class="add-to-cart-btn" id="addToCart">Ajouter au panier</button>
         </div>
     </div>
 
-    <!-- Modal for basket/checkout -->
+    <!-- Modal for basket/checkout - improved layout -->
     <div class="modal" id="basketModal" role="dialog" aria-labelledby="basket-header-text" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
@@ -238,22 +257,39 @@
             </div>
             <div class="modal-body">
                 <div class="cart-actions">
-                    <button class="empty-cart-btn" id="emptyCart">Vider le panier</button>
+                    <button class="empty-cart-btn" id="emptyCart">
+                        <span class="btn-icon">🗑️</span>
+                        <span class="btn-text">Vider le panier</span>
+                    </button>
                 </div>
                 <div class="cart-items" id="cartItemsList" aria-live="polite">
                     <!-- Cart items will be added here dynamically -->
+                    
+                    <!-- Empty cart message with illustration -->
+                    <div class="empty-cart-message" id="emptyCartMessage">
+                        <div class="empty-cart-icon">🛒</div>
+                        <p>Votre panier est vide</p>
+                        <p class="empty-cart-help">Parcourez notre menu et ajoutez des articles à votre panier</p>
+                    </div>
                 </div>
                 <div class="cart-summary">
                     <div class="cart-total">Total: <span id="basketTotal" aria-live="polite">0.00DH</span></div>
                 </div>
+                <!-- Improved checkout form with better validation -->
                 <div class="checkout-form">
                     <div class="form-group">
                         <label for="fullName">Nom complet</label>
                         <input type="text" id="fullName" placeholder="Entrez votre nom complet" required autocomplete="name">
+                        <div class="form-feedback" id="fullNameFeedback"></div>
                     </div>
                     <div class="form-group">
                         <label for="phoneNumber">Numéro de téléphone</label>
-                        <input type="tel" id="phoneNumber" placeholder="Entrez votre numéro de téléphone" required autocomplete="tel">
+                        <div class="phone-input-group">
+                            <div class="country-code">+212</div>
+                            <input type="tel" id="phoneNumber" placeholder="6XX XXX XXX" required autocomplete="tel" pattern="[0-9]{9}">
+                        </div>
+                        <div class="form-feedback" id="phoneNumberFeedback"></div>
+                        <div class="form-hint">Format: 6XX XXX XXX (9 chiffres)</div>
                     </div>
                     <button class="checkout-btn" id="checkout">Passer la commande</button>
                 </div>
@@ -261,7 +297,7 @@
         </div>
     </div>
 
-    <!-- Order confirmation modal -->
+    <!-- Order confirmation modal - improved layout -->
     <div class="modal" id="confirmationModal" role="dialog" aria-labelledby="confirmation-header-text" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
@@ -270,6 +306,10 @@
             </div>
             <div class="modal-body">
                 <div class="order-confirmation">
+                    <div class="order-success-message">
+                        <div class="success-icon">✓</div>
+                        <p>Commande prête!</p>
+                    </div>
                     <div class="order-title">Détails de la commande</div>
                     <div class="order-details" id="orderDetailsList" aria-live="polite">
                         <!-- Order details will be added here dynamically -->
@@ -287,7 +327,7 @@
         </div>
     </div>
 
-    <!-- Fullscreen image modal -->
+    <!-- Fullscreen image modal - improved -->
     <div class="modal" id="fullImageModal" role="dialog" aria-hidden="true">
         <div class="fullscreen-image-container">
             <img id="fullscreen-image" src="" alt="Product image in full view">
@@ -295,8 +335,10 @@
         </div>
     </div>
 
-    <!-- Back to top button -->
-    <div class="back-to-top" id="backToTopBtn" aria-label="Retour en haut">↑</div>
+    <!-- Back to top button - improved -->
+    <div class="back-to-top" id="backToTopBtn" aria-label="Retour en haut">
+        <span class="back-to-top-icon">↑</span>
+    </div>
     
     <!-- Toast container for notifications -->
     <div class="toast-container" id="toastContainer"></div>
