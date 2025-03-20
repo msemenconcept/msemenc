@@ -997,6 +997,115 @@ header {
     border-radius: 3px;
 }
 
+/* Product Image in Modal */
+.modal-image-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 18px; /* Slightly larger than the image radius */
+    overflow: hidden;
+    background-color: var(--bg-light);
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px; /* Add some padding around the image */
+}
+
+.modal-product-image {
+    display: block;
+    max-width: 100%;
+    max-height: 200px;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    transform-origin: center center;
+    border-radius: 16px; /* Increased and fixed value for more obvious rounding */
+    border: 3px solid var(--white);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Image Zoom Controls */
+.image-zoom-controls {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+}
+
+.zoom-btn {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    color: var(--accent-color);
+    transition: var(--transition);
+}
+
+.zoom-btn:hover {
+    background-color: var(--white);
+    transform: scale(1.1);
+}
+
+.zoom-btn:active {
+    transform: scale(0.95);
+}
+
+/* Fullscreen Image Modal */
+.fullscreen-image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+#fullscreen-image {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: var(--radius);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+    animation: fadeZoomIn 0.3s;
+}
+
+@keyframes fadeZoomIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.fullscreen-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    font-size: 28px;
+    width: 40px;
+    height: 40px;
+}
+
+.fullscreen-close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Enhanced Modal Content for Image */
+#itemModal .modal-content {
+    max-width: 450px; /* Slightly wider to accommodate image */
+}
+
 /* Responsive Styles */
 @media (min-width: 481px) and (max-width: 768px) {
     .food-description {
@@ -1074,6 +1183,20 @@ header {
     .category-wrapper {
         top: 66px; /* Adjust to match header height */
     }
+    
+    .modal-image-container {
+        height: 180px;
+    }
+    
+    .modal-product-image {
+        max-height: 160px;
+    }
+    
+    .zoom-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
 }
 
 /* For very small screens */
@@ -1113,5 +1236,13 @@ header {
     /* Improve spacing overall for tiny screens */
     .food-item {
         padding: 12px 10px;
+    }
+    
+    .modal-image-container {
+        height: 150px;
+    }
+    
+    .modal-product-image {
+        max-height: 130px;
     }
 }
