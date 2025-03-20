@@ -5,7 +5,6 @@ let currentItemPrice = 0;
 let currentItemId = null;
 let cartItems = [];
 let editMode = false;
-let lastSearchQuery = '';
 // Check for saved cart in local storage
 const savedCart = localStorage.getItem('msemenCart');
 if (savedCart) {
@@ -33,11 +32,6 @@ const noResultsMessage = document.createElement('div');
 noResultsMessage.className = 'no-results';
 noResultsMessage.textContent = 'Aucun article correspondant.';
 document.querySelector('.food-items').appendChild(noResultsMessage);
-
-// Create search results count
-const searchResultsCount = document.createElement('div');
-searchResultsCount.className = 'search-results-count';
-document.querySelector('.search-container').appendChild(searchResultsCount);
 
 // Create back to top button
 const backToTopBtn = document.createElement('div');
@@ -77,9 +71,6 @@ const phoneNumberInput = document.getElementById('phoneNumber');
 const closeItemModalBtn = document.getElementById('closeItemModal');
 const closeBasketBtn = document.getElementById('closeBasket');
 const closeConfirmationBtn = document.getElementById('closeConfirmation');
-const searchInput = document.querySelector('.search-bar input');
-
-// Removed favorites button code
 
 // Close modal buttons
 closeItemModalBtn.addEventListener('click', () => {
@@ -123,8 +114,6 @@ function updateQuantityControls() {
         decreaseBtn.style.cursor = 'pointer';
     }
 }
-
-// Removed favorites functions
 
 // Show toast notification
 function showToast(message, type = 'info') {
@@ -215,159 +204,14 @@ tabs.forEach(tab => {
                 });
             }
             
-            // Apply search filter if there's an active search
-            if (searchInput.value.trim() !== '') {
-                filterItems(searchInput.value.trim());
-            } else {
-                searchResultsCount.textContent = '';
-            }
-            
             // Hide loading indicator
             loadingIndicator.style.display = 'none';
+            
+            // Show no results message if needed
+            if (visibleCount === 0) {
+                noResultsMessage.style.display = 'block';
+            }
         }, 300); // Small delay to show loading indicator
-    });
-});
-
-// Enhanced search functionality
-searchInput.addEventListener('input', function() {
-    const searchQuery = this.value.trim().toLowerCase();
-    
-    // Only filter if query has changed
-    if (searchQuery === lastSearchQuery) return;
-    lastSearchQuery = searchQuery;
-    
-    // Show loading for better UX
-    loadingIndicator.style.display = 'flex';
-    noResultsMessage.style.display = 'none';
-    
-    // Debounce search for better performance
-    clearTimeout(this.searchTimeout);
-    this.searchTimeout = setTimeout(() => {
-        filterItems(searchQuery);
-        loadingIndicator.style.display = 'none';
-    }, 300);
-});
-
-// Clear search button
-const clearSearchBtn = document.createElement('span');
-clearSearchBtn.innerHTML = '✕';
-clearSearchBtn.style.cursor = 'pointer';
-clearSearchBtn.style.display = 'none';
-clearSearchBtn.style.color = '#999';
-clearSearchBtn.style.marginLeft = '5px';
-
-searchInput.parentNode.appendChild(clearSearchBtn);
-
-clearSearchBtn.addEventListener('click', () => {
-    searchInput.value = '';
-    lastSearchQuery = '';
-    clearSearchBtn.style.display = 'none';
-    
-    // Reset to show all items based on current tab
-    const activeTab = document.querySelector('.tab.active');
-    activeTab.click();
-    
-    searchResultsCount.textContent = '';
-});
-
-searchInput.addEventListener('input', function() {
-    if (this.value.trim() !== '') {
-        clearSearchBtn.style.display = 'inline';
-    } else {
-        clearSearchBtn.style.display = 'none';
-    }
-});
-
-// Function to filter items based on search query
-function filterItems(query) {
-    const activeTab = document.querySelector('.tab.active');
-    const category = activeTab.dataset.category;
-    let visibleCount = 0;
-    
-    foodItems.forEach(item => {
-        // First check if item should be visible based on tab
-        let visibleByTab = false;
-        
-        if (category === 'concept') {
-            visibleByTab = !item.classList.contains('standard-item') && 
-                          !item.classList.contains('sale-item') && 
-                          !item.classList.contains('boisson-chaude-item') && 
-                          !item.classList.contains('boisson-fraiche-item');
-        } else if (category === 'standards') {
-            visibleByTab = item.classList.contains('standard-item');
-        } else if (category === 'sales') {
-            visibleByTab = item.classList.contains('sale-item');
-        } else if (category === 'boissons-chauds') {
-            visibleByTab = item.classList.contains('boisson-chaude-item');
-        } else if (category === 'boissons-fraiches') {
-            visibleByTab = item.classList.contains('boisson-fraiche-item');
-        }
-        
-        // If search is empty, only apply tab filtering
-        if (query === '') {
-            item.style.display = visibleByTab ? 'flex' : 'none';
-            if (visibleByTab) visibleCount++;
-            return;
-        }
-        
-        // Check if item matches the search query
-        const name = item.dataset.name.toLowerCase();
-        const description = item.dataset.description.toLowerCase();
-        const price = item.dataset.price.toLowerCase();
-        
-        const matchesSearch = 
-            name.includes(query) || 
-            description.includes(query) ||
-            price.includes(query);
-        
-        // Only show if it passes both tab filter AND search filter
-        const shouldShow = visibleByTab && matchesSearch;
-        item.style.display = shouldShow ? 'flex' : 'none';
-        
-        if (shouldShow) visibleCount++;
-    });
-    
-    // Update results count
-    if (query !== '') {
-        searchResultsCount.textContent = `${visibleCount} résultats trouvés`;
-    } else {
-        searchResultsCount.textContent = '';
-    }
-    
-    // Show no results message if needed
-    if (visibleCount === 0 && query !== '') {
-        noResultsMessage.style.display = 'block';
-    } else {
-        noResultsMessage.style.display = 'none';
-    }
-}
-
-// Add item button click events
-addButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const foodItem = e.target.closest('.food-item');
-        
-        const name = foodItem.dataset.name;
-        const price = foodItem.dataset.price;
-        const description = foodItem.dataset.description;
-        
-        modalItemName.textContent = name;
-        modalItemDescription.textContent = description;
-        modalItemPrice.textContent = price;
-        
-        // Reset quantity
-        currentQuantity = 1;
-        quantitySpan.textContent = currentQuantity;
-        
-        // Set current item price for calculations
-        currentItemPrice = parseFloat(price.replace('DH', ''));
-        
-        // Update quantity controls
-        updateQuantityControls();
-        
-        // Show modal
-        itemModal.style.display = 'flex';
     });
 });
 
@@ -766,12 +610,6 @@ document.addEventListener('keydown', (e) => {
         } else if (confirmationModal.style.display === 'flex') {
             confirmationModal.style.display = 'none';
         }
-    }
-    
-    // CTRL+F to focus search
-    if (e.key === 'f' && (e.ctrlKey || e.metaKey)) {
-        e.preventDefault();
-        searchInput.focus();
     }
     
     // CTRL+B to view cart
