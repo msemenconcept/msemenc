@@ -18,7 +18,11 @@ html {
 }
 
 body {
-    background-color: var(--bg-light);
+    background-image: url('https://i.imgur.com/K2hogrD.jpeg'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     color: var(--text-dark);
     line-height: 1.6;
     min-height: 100vh;
