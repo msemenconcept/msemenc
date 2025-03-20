@@ -1112,3 +1112,27 @@ document.addEventListener('keydown', (e) => {
         }
     }
 });
+
+// Add this to your script.js file, at the top of the event listeners section
+
+// Prevent double-tap zoom on iOS devices
+(function preventDoubleTapZoom() {
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(event) {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, false);
+})();
+
+// Prevent focus zoom
+document.addEventListener('focus', function(e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+        document.documentElement.style.touchAction = 'none';
+        setTimeout(function() {
+            document.documentElement.style.touchAction = '';
+        }, 100);
+    }
+}, true);
