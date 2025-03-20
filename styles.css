@@ -189,7 +189,7 @@ header {
     color: var(--danger);
 }
 
-/* MODIFIED: Category Wrapper - Removed scroll indicators */
+/* MODIFIED: Category Wrapper - Fixed height and overflow handling */
 .category-wrapper {
     position: fixed;
     top: calc(var(--header-height) + var(--search-height));
@@ -201,9 +201,10 @@ header {
     padding: 10px 0;
     width: 100%;
     max-width: var(--max-width);
-    height: var(--category-height);
+    height: var(--category-height) !important;
     transition: transform 0.3s ease;
     will-change: transform;
+    overflow: hidden; /* Prevent any overflow from causing scrolling */
 }
 
 /* Add padding to main content to account for fixed header, search, and category */
@@ -216,11 +217,12 @@ header {
     position: relative; /* Create stacking context */
 }
 
-/* MODIFIED: Category Tabs - Removed scroll indicators and gradients */
+/* IMPROVED: Category Tabs - Fixed for horizontal-only scrolling */
 .category-tabs {
     display: flex;
     padding: 5px 15px;
     overflow-x: auto;
+    overflow-y: hidden !important; /* Prevent vertical scrolling */
     scrollbar-width: none;
     -ms-overflow-style: none;
     gap: 12px;
@@ -232,6 +234,10 @@ header {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     width: 100%;
+    touch-action: pan-x !important; /* Only allow horizontal touch movement */
+    height: 40px !important; /* Fixed height for consistent scrolling */
+    align-items: center; /* Center items vertically */
+    transform: translateZ(0); /* Force hardware acceleration */
 }
 
 .category-tabs::-webkit-scrollbar {
@@ -266,6 +272,7 @@ header {
     display: none !important;
 }
 
+/* IMPROVED: Tab with fixed height */
 .tab {
     background-color: var(--primary-color);
     color: var(--white);
@@ -282,7 +289,7 @@ header {
     scroll-snap-align: start; /* Snap alignment */
     user-select: none; /* Prevent text selection */
     position: relative; /* For active indicator */
-    min-height: 36px; /* Ensure consistent height */
+    height: 36px !important; /* Fixed height for tabs */
     display: flex;
     align-items: center;
     justify-content: center;
