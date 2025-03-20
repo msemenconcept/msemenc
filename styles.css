@@ -226,13 +226,10 @@ header {
     gap: 12px; /* Increased gap between tabs */
     background-color: var(--white);
     /* Add scroll indication */
-    -webkit-mask-image: linear-gradient(to right, transparent, black 25px, black calc(100% - 25px), transparent);
-    mask-image: linear-gradient(to right, transparent, black 25px, black calc(100% - 25px), transparent);
-    scroll-behavior: smooth; /* Smooth scrolling */
-    scroll-snap-type: x mandatory; /* Better snap behavior */
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    padding-left: 25px; /* Increased padding to prevent overlap with scroll indicator */
-    padding-right: 25px;
+    -webkit-mask-image: none;
+	mask-image: none;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
 .category-tabs::-webkit-scrollbar {
@@ -242,13 +239,13 @@ header {
 .category-tabs::after {
     content: '';
     display: block;
-    min-width: 15px;
+    min-width: 5px;
 }
 
 .category-tabs::before {
     content: '';
     display: block;
-    min-width: 15px;
+    min-width: 5px;
 }
 
 .tab {
@@ -1432,6 +1429,7 @@ header {
 /* Enhanced scroll indicators with improved touch targets */
 .scroll-indicator-left,
 .scroll-indicator-right {
+	display: none !important;
     position: absolute;
     top: 0;
     height: 100%;
