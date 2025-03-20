@@ -14,6 +14,7 @@ html {
     touch-action: manipulation; /* Prevent double-tap to zoom */
     height: 100%;
     -webkit-text-size-adjust: 100%; /* Prevent font size adjustment on orientation change */
+    text-size-adjust: none;
 }
 
 body {
@@ -25,6 +26,7 @@ body {
     overflow-x: hidden; /* Prevent horizontal scrolling */
     position: relative; /* Create positioning context */
     width: 100%;
+    touch-action: pan-x pan-y; /* Only allow scrolling, no pinch zoom */
 }
 
 :root {
@@ -571,8 +573,8 @@ header {
 .quantity-btn {
     background-color: var(--primary-color);
     color: var(--white);
-    width: 36px;
-    height: 36px;
+    width: 44px; /* Increased for better touch target */
+    height: 44px; /* Increased for better touch target */
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -653,6 +655,43 @@ header {
 .add-to-cart-btn:focus-visible {
     outline: 2px solid var(--primary-dark);
     outline-offset: 2px;
+}
+
+/* Button states for better feedback */
+.add-to-cart-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.add-to-cart-btn.loading {
+    position: relative;
+    color: transparent;
+}
+
+.add-to-cart-btn.loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-top: -10px;
+    margin-left: -10px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes button-pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.98); }
+    100% { transform: scale(1); }
+}
+
+.button-click {
+    animation: button-pop 0.3s ease;
 }
 
 /* Cart Items with improved scrolling */
@@ -762,8 +801,8 @@ header {
     cursor: pointer;
     font-size: 16px;
     transition: var(--transition);
-    width: 32px;
-    height: 32px;
+    width: 44px; /* Increased for better touch target */
+    height: 44px; /* Increased for better touch target */
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -833,8 +872,10 @@ header {
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: var(--radius-sm);
-    font-size: 14px;
+    font-size: 16px !important; /* Prevents iOS zoom on focus */
+    height: 44px; /* Minimum touch target size */
     transition: var(--transition);
+    max-height: 100%; /* Ensure it doesn't overflow */
 }
 
 .form-group input:focus {
@@ -986,8 +1027,8 @@ header {
     right: 20px;
     background-color: var(--primary-color);
     color: white;
-    width: 40px;
-    height: 40px;
+    width: 44px; /* Increased for better touch target */
+    height: 44px; /* Increased for better touch target */
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1245,8 +1286,8 @@ header {
     background-color: rgba(255, 255, 255, 0.2);
     color: var(--white);
     font-size: 28px;
-    width: 40px;
-    height: 40px;
+    width: 44px; /* Increased for better touch target */
+    height: 44px; /* Increased for better touch target */
 }
 
 .fullscreen-close-btn:hover {
@@ -1288,6 +1329,19 @@ header {
     padding: 10px;
     border-radius: 8px;
     max-width: 80%;
+}
+
+/* Prevent zoom on touch devices */
+input, 
+select, 
+textarea {
+  font-size: 16px !important; /* Prevents iOS zoom on focus */
+  max-height: 100%;
+}
+
+/* Add smooth iOS momentum scrolling */
+* {
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Responsive Styles with fixes for mobile wiggles */
@@ -1380,6 +1434,13 @@ header {
         font-size: 10px;
         padding: 3px 6px;
     }
+    
+    /* Make sure form elements are large enough for finger touch */
+    .form-group input {
+        height: 44px; /* Minimum touch target size */
+        padding: 12px;
+        font-size: 16px !important; /* Reinforcing specific size for inputs */
+    }
 }
 
 /* For very small screens */
@@ -1431,45 +1492,4 @@ header {
     .modal-product-image {
         max-height: 130px;
     }
-}
-
-/* Add smooth iOS momentum scrolling */
-* {
-    -webkit-overflow-scrolling: touch;
-}
-
-/* Prevent zoom on touch devices */
-input, 
-select, 
-textarea {
-  font-size: 16px !important; /* Prevents iOS zoom on focus */
-  max-height: 100%;
-}
-
-@media screen and (max-width: 768px) {
-  body {
-    touch-action: pan-x pan-y; /* Only allow scrolling, no pinch zoom */
-  }
-  
-  * {
-    -webkit-text-size-adjust: none; /* Prevent text size adjustment */
-    text-size-adjust: none;
-  }
-  
-  /* Make sure form elements are large enough for finger touch */
-  .form-group input {
-    height: 44px; /* Minimum touch target size */
-    padding: 12px;
-    font-size: 16px !important; /* Reinforcing specific size for inputs */
-  }
-  
-  .quantity-btn {
-    min-width: 44px;
-    min-height: 44px;
-  }
-}
-
-/* Prevent text size adjustment on orientation change */
-html {
-    -webkit-text-size-adjust: 100%;
 }
