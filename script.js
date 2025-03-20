@@ -1454,3 +1454,24 @@ document.addEventListener('keydown', (e) => {
         searchInput.focus();
     }
 });
+
+// Get the fullscreen image container
+const fullscreenImageContainer = document.querySelector('.fullscreen-image-container');
+
+// Add click event listener to close the fullscreen image when clicking anywhere in the container
+if (fullscreenImageContainer) {
+    fullscreenImageContainer.addEventListener('click', (e) => {
+        // Only close if the click is not on the close button
+        if (!e.target.closest('.fullscreen-close-btn')) {
+            closeModal(fullImageModal);
+        }
+        // Stop propagation to prevent triggering multiple close events
+        e.stopPropagation();
+    });
+}
+
+// Prevent the image itself from closing the modal when dragging/interacting with it
+document.getElementById('fullscreen-image').addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeModal(fullImageModal);
+});
