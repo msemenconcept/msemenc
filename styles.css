@@ -102,11 +102,14 @@ header {
 /* Updated Category Tabs positioning - Now directly below header */
 .category-wrapper {
     position: sticky;
-    top: 76px;  /* Position right after the header */
-    z-index: 40;
+    top: 76px;
+    z-index: 100; /* Increased z-index from 40 to 100 */
     background-color: var(--white);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     padding: 10px 0;
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
 }
 
 /* Enhanced Category Tabs with Horizontal Scroll Indication */
@@ -171,7 +174,7 @@ header {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    padding: 15px;
+    padding-top: 20px; /* Increased padding at the top */
     margin-top: 5px;
 }
 
@@ -182,6 +185,7 @@ header {
     display: flex;
     align-items: flex-start;
     position: relative;
+    z-index: 30; /* Lower than category-wrapper */
     box-shadow: var(--shadow);
     transition: var(--transition);
 }
@@ -1181,7 +1185,7 @@ header {
     }
     
     .category-wrapper {
-        top: 66px; /* Adjust to match header height */
+        top: 66px; /* Match your current mobile adjustment */
     }
     
     .modal-image-container {
@@ -1235,7 +1239,7 @@ header {
     
     /* Improve spacing overall for tiny screens */
     .food-item {
-        padding: 12px 10px;
+        padding-top: 15px; /* Slightly less padding on mobile */
     }
     
     .modal-image-container {
