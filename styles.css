@@ -1438,6 +1438,37 @@ header {
     -webkit-overflow-scrolling: touch;
 }
 
+/* Prevent zoom on touch devices */
+input, 
+select, 
+textarea {
+  font-size: 16px !important; /* Prevents iOS zoom on focus */
+  max-height: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    touch-action: pan-x pan-y; /* Only allow scrolling, no pinch zoom */
+  }
+  
+  * {
+    -webkit-text-size-adjust: none; /* Prevent text size adjustment */
+    text-size-adjust: none;
+  }
+  
+  /* Make sure form elements are large enough for finger touch */
+  .form-group input {
+    height: 44px; /* Minimum touch target size */
+    padding: 12px;
+    font-size: 16px !important; /* Reinforcing specific size for inputs */
+  }
+  
+  .quantity-btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
 /* Prevent text size adjustment on orientation change */
 html {
     -webkit-text-size-adjust: 100%;
