@@ -35,6 +35,46 @@ function animateSuccess(element) {
     }, 800);
 }
 
+/**
+ * Format price for display
+ * @param {number} price - Price to format
+ * @returns {string} Formatted price
+ */
+function formatPrice(price) {
+    // Ensure price has 2 decimal places and proper separator
+    return price.toFixed(2) + 'DH';
+}
+
+/**
+ * Validate phone number
+ * @param {string} phoneNumber - Phone number to validate
+ * @returns {boolean} Whether phone number is valid
+ */
+function isValidPhoneNumber(phoneNumber) {
+    // Remove any non-digit characters for validation
+    const digitsOnly = phoneNumber.replace(/\D/g, '');
+    // Check if it's a valid Moroccan number format (9 digits)
+    const regex = /^[0-9]{9}$/;
+    return regex.test(digitsOnly);
+}
+
+/**
+ * Format phone number for display
+ * @param {string} phoneNumber - Phone number to format
+ * @returns {string} Formatted phone number
+ */
+function formatPhoneNumber(phoneNumber) {
+    // Remove any non-digit characters
+    const digitsOnly = phoneNumber.replace(/\D/g, '');
+    
+    // Format as XXX XXX XXX
+    if (digitsOnly.length >= 9) {
+        return digitsOnly.replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3');
+    }
+    
+    return phoneNumber;
+}
+
 // ===============================
 // ShoppingCart Class
 // ===============================
@@ -67,6 +107,12 @@ class ShoppingCart {
     
     // Add item to cart
     addItem(name, price, quantity = 1) {
+        // Validate inputs
+        if (!name || isNaN(price) || quantity <= 0) {
+            showToast('Erreur: Informations produit invalides', 'error');
+            return false;
+        }
+        
         // Check if item already exists
         const existingItemIndex = this.items.findIndex(item => item.name === name);
         
@@ -96,6 +142,11 @@ class ShoppingCart {
     
     // Update item in cart
     updateItem(itemId, newQuantity) {
+        if (isNaN(newQuantity) || newQuantity <= 0) {
+            showToast('Quantité invalide', 'error');
+            return false;
+        }
+        
         const item = this.items.find(item => item.id === itemId);
         if (!item) return false;
         
@@ -200,6 +251,11 @@ const categoryTabs = document.getElementById('categoryTabs');
 const scrollLeft = document.getElementById('scrollLeft');
 const scrollRight = document.getElementById('scrollRight');
 
+// Search elements (new)
+const searchContainer = document.getElementById('searchContainer');
+const searchInput = document.getElementById('searchInput');
+const clearSearchBtn = document.getElementById('clearSearch');
+
 // Modals
 const itemModal = document.getElementById('itemModal');
 const basketModal = document.getElementById('basketModal');
@@ -221,10 +277,11 @@ const closeConfirmationBtn = document.getElementById('closeConfirmation');
 const closeFullImageModalBtn = document.getElementById('closeFullImageModal');
 
 // Quantity controls
-const quantitySpan = document.getElementById('quantity');
+const quantityInput = document.getElementById('quantity');
 const decreaseBtn = document.getElementById('decrease');
 const increaseBtn = document.getElementById('increase');
 const addToCartBtn = document.getElementById('addToCart');
+const quantityPresetBtns = document.querySelectorAll('.quantity-preset');
 
 // Cart elements
 const cartTotalSpan = document.getElementById('cart-total');
@@ -234,13 +291,18 @@ const confirmationTotalSpan = document.getElementById('confirmationTotal');
 const cartItemsList = document.getElementById('cartItemsList');
 const orderDetailsList = document.getElementById('orderDetailsList');
 const customerDetails = document.getElementById('customerDetails');
+const emptyCartMessage = document.getElementById('emptyCartMessage');
 const tabs = document.querySelectorAll('.tab');
 const viewCartBtn = document.getElementById('viewCart');
 const emptyCartBtn = document.getElementById('emptyCart');
 const checkoutBtn = document.getElementById('checkout');
 const submitOrderBtn = document.getElementById('submitOrder');
+
+// Form elements
 const fullNameInput = document.getElementById('fullName');
 const phoneNumberInput = document.getElementById('phoneNumber');
+const fullNameFeedback = document.getElementById('fullNameFeedback');
+const phoneNumberFeedback = document.getElementById('phoneNumberFeedback');
 
 // ===============================
 // Prevent Double-tap Zoom
@@ -278,8 +340,64 @@ document.addEventListener('focus', function(e) {
  */
 function updateCategoryPosition() {
     const headerHeight = appHeader.offsetHeight;
-    categoryWrapper.style.top = `${headerHeight}px`;
-    foodItemsContainer.style.marginTop = `${headerHeight + categoryWrapper.offsetHeight}px`;
+    const searchHeight = searchContainer.offsetHeight;
+    categoryWrapper.style.top = `${headerHeight + searchHeight}px`;
+    
+    // Update the margin for the main content
+    const categoryHeight = categoryWrapper.offsetHeight;
+    foodItemsContainer.style.marginTop = `${headerHeight + searchHeight + categoryHeight}px`;
+}
+
+// ===============================
+// Search Functionality (New)
+// ===============================
+
+/**
+ * Filter items based on search term
+ * @param {string} searchTerm - Term to search for
+ */
+function searchItems(searchTerm) {
+    // Show loading indicator
+    loadingIndicator.style.display = 'flex';
+    
+    // Hide no results message
+    noResultsMessage.style.display = 'none';
+    
+    // Normalize search term
+    const normalizedTerm = searchTerm.toLowerCase().trim();
+    
+    // Use setTimeout to allow UI to update before filtering
+    setTimeout(() => {
+        let visibleCount = 0;
+        
+        // Filter items based on name and description
+        foodItems.forEach(item => {
+            const itemName = item.dataset.name.toLowerCase();
+            const itemDesc = item.dataset.description.toLowerCase();
+            
+            if (normalizedTerm === '' || 
+                itemName.includes(normalizedTerm) || 
+                itemDesc.includes(normalizedTerm)) {
+                item.style.display = 'flex';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+        
+        // Update category tabs to show "All" as active when searching
+        if (normalizedTerm !== '') {
+            tabs.forEach(tab => tab.classList.remove('active'));
+        }
+        
+        // Hide loading indicator
+        loadingIndicator.style.display = 'none';
+        
+        // Show no results message if needed
+        if (visibleCount === 0) {
+            noResultsMessage.style.display = 'flex';
+        }
+    }, 300); // Small delay to show loading indicator
 }
 
 // ===============================
@@ -333,11 +451,15 @@ function closeModal(modal) {
  */
 function resetItemModal() {
     modalHeaderText.textContent = 'Ajouter au panier';
-    addToCartBtn.textContent = 'Ajouter au panier';
+    addToCartBtn.querySelector('.btn-text').textContent = 'Ajouter au panier';
     currentItemId = null;
     editMode = false;
     currentQuantity = 1;
-    quantitySpan.textContent = currentQuantity;
+    quantityInput.value = currentQuantity;
+    
+    // Reset quantity preset buttons
+    quantityPresetBtns.forEach(btn => btn.classList.remove('active'));
+    quantityPresetBtns[0].classList.add('active'); // Activate the first preset (1)
     
     // Enable/disable decrease button based on quantity
     updateQuantityControls();
@@ -454,6 +576,31 @@ function updateQuantityControls() {
 }
 
 /**
+ * Set quantity value and update UI
+ * @param {number} quantity - New quantity value
+ */
+function setQuantity(quantity) {
+    // Ensure quantity is at least 1
+    currentQuantity = Math.max(1, quantity);
+    
+    // Update input
+    quantityInput.value = currentQuantity;
+    
+    // Update preset buttons
+    quantityPresetBtns.forEach(btn => {
+        const btnQuantity = parseInt(btn.dataset.quantity);
+        if (btnQuantity === currentQuantity) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+    
+    // Update decrease button state
+    updateQuantityControls();
+}
+
+/**
  * Animate the cart button
  */
 function animateCartButton() {
@@ -506,9 +653,9 @@ function updateItemInCart() {
         
         // Show toast message
         if (result.newQuantity > result.oldQuantity) {
-            showToast(`Quantité de ${result.name} augmentée à ${result.newQuantity}`, 'info');
+            showToast(`Quantité de ${result.name} augmentée à ${result.newQuantity}`, 'success');
         } else if (result.newQuantity < result.oldQuantity) {
-            showToast(`Quantité de ${result.name} diminuée à ${result.newQuantity}`, 'info');
+            showToast(`Quantité de ${result.name} diminuée à ${result.newQuantity}`, 'success');
         } else {
             showToast(`Quantité de ${result.name} inchangée`, 'info');
         }
@@ -537,12 +684,22 @@ function editCartItem(itemId) {
     modalHeaderText.textContent = 'Modifier l\'article';
     modalItemName.textContent = item.name;
     modalItemDescription.textContent = '';
-    modalItemPrice.textContent = item.price.toFixed(2) + 'DH';
+    modalItemPrice.textContent = formatPrice(item.price);
     currentQuantity = item.quantity;
-    quantitySpan.textContent = currentQuantity;
+    quantityInput.value = currentQuantity;
     currentItemPrice = item.price;
     currentItemId = itemId;
     editMode = true;
+    
+    // Update quantity preset buttons
+    quantityPresetBtns.forEach(btn => {
+        const btnQuantity = parseInt(btn.dataset.quantity);
+        if (btnQuantity === currentQuantity) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
     
     // Try to find the original item to get its image
     const originalItem = Array.from(foodItems).find(foodItem => 
@@ -562,7 +719,7 @@ function editCartItem(itemId) {
     }
     
     // Change button text
-    addToCartBtn.textContent = 'Mettre à jour';
+    addToCartBtn.querySelector('.btn-text').textContent = 'Mettre à jour';
     
     // Update quantity controls
     updateQuantityControls();
@@ -595,16 +752,31 @@ function updateCartUI() {
     // Use requestAnimationFrame for smoother updates
     requestAnimationFrame(() => {
         // Update UI elements
-        cartTotalSpan.textContent = cartTotal.toFixed(2) + 'DH';
+        cartTotalSpan.textContent = formatPrice(cartTotal);
         cartItemsCount.textContent = cart.getItemCount();
-        basketTotalSpan.textContent = cartTotal.toFixed(2) + 'DH';
-        confirmationTotalSpan.textContent = cartTotal.toFixed(2) + 'DH';
+        basketTotalSpan.textContent = formatPrice(cartTotal);
+        confirmationTotalSpan.textContent = formatPrice(cartTotal);
         
         // Update cart button animation
         if (cart.getItemCount() > 0) {
             viewCartBtn.style.animation = 'pulse 2s infinite';
         } else {
             viewCartBtn.style.animation = 'none';
+        }
+        
+        // Toggle empty cart message
+        if (emptyCartMessage) {
+            emptyCartMessage.style.display = cart.isEmpty() ? 'flex' : 'none';
+        }
+        
+        // Update checkout button state
+        if (checkoutBtn) {
+            checkoutBtn.disabled = cart.isEmpty();
+            if (cart.isEmpty()) {
+                checkoutBtn.classList.add('disabled');
+            } else {
+                checkoutBtn.classList.remove('disabled');
+            }
         }
     });
 }
@@ -619,7 +791,7 @@ function renderOrderConfirmation() {
     // Add customer details
     customerDetails.innerHTML = `
         <p><strong>Nom du client:</strong> ${fullNameInput.value}</p>
-        <p><strong>Numéro de téléphone:</strong> ${phoneNumberInput.value}</p>
+        <p><strong>Numéro de téléphone:</strong> +212 ${formatPhoneNumber(phoneNumberInput.value)}</p>
     `;
     
     // Add order details
@@ -627,7 +799,7 @@ function renderOrderConfirmation() {
         const orderItemElement = document.createElement('div');
         orderItemElement.className = 'order-item';
         orderItemElement.innerHTML = `
-            ${item.name} x${item.quantity} = ${item.total.toFixed(2)}DH
+            ${item.name} x${item.quantity} = ${formatPrice(item.total)}
         `;
         orderDetailsList.appendChild(orderItemElement);
     });
@@ -637,12 +809,25 @@ function renderOrderConfirmation() {
  * Render cart items
  */
 function renderCartItems() {
-    cartItemsList.innerHTML = '';
+    // Clear previous items but preserve empty message
+    Array.from(cartItemsList.children).forEach(child => {
+        if (!child.classList.contains('empty-cart-message')) {
+            child.remove();
+        }
+    });
+    
     const items = cart.getItems();
     
     if (items.length === 0) {
-        cartItemsList.innerHTML = '<div class="empty-cart-message">Votre panier est vide</div>';
+        if (emptyCartMessage) {
+            emptyCartMessage.style.display = 'flex';
+        }
         return;
+    }
+    
+    // Hide empty cart message if items exist
+    if (emptyCartMessage) {
+        emptyCartMessage.style.display = 'none';
     }
     
     items.forEach(item => {
@@ -651,15 +836,53 @@ function renderCartItems() {
         cartItemElement.innerHTML = `
             <div class="item-info">
                 <div class="item-name">${item.name}</div>
-                <div class="item-price">${item.price.toFixed(2)}DH × ${item.quantity} = ${item.total.toFixed(2)}DH</div>
+                <div class="item-price">${formatPrice(item.price)} × ${item.quantity} = ${formatPrice(item.total)}</div>
             </div>
             <div class="item-controls">
-                <button class="edit-btn" data-id="${item.id}" title="Modifier">✏️</button>
-                <button class="remove-btn" data-id="${item.id}" title="Supprimer">🗑️</button>
+                <button class="edit-btn" data-id="${item.id}" title="Modifier" aria-label="Modifier ${item.name}">✏️</button>
+                <button class="remove-btn" data-id="${item.id}" title="Supprimer" aria-label="Supprimer ${item.name}">🗑️</button>
             </div>
         `;
         cartItemsList.appendChild(cartItemElement);
     });
+}
+
+/**
+ * Validate checkout form
+ * @returns {boolean} Form validation result
+ */
+function validateCheckoutForm() {
+    let isValid = true;
+    
+    // Validate name
+    if (!fullNameInput.value.trim()) {
+        fullNameFeedback.textContent = 'Le nom est requis';
+        fullNameInput.classList.add('error');
+        isValid = false;
+    } else if (fullNameInput.value.trim().length < 3) {
+        fullNameFeedback.textContent = 'Le nom doit contenir au moins 3 caractères';
+        fullNameInput.classList.add('error');
+        isValid = false;
+    } else {
+        fullNameFeedback.textContent = '';
+        fullNameInput.classList.remove('error');
+    }
+    
+    // Validate phone
+    if (!phoneNumberInput.value.trim()) {
+        phoneNumberFeedback.textContent = 'Le numéro de téléphone est requis';
+        phoneNumberInput.classList.add('error');
+        isValid = false;
+    } else if (!isValidPhoneNumber(phoneNumberInput.value)) {
+        phoneNumberFeedback.textContent = 'Numéro de téléphone invalide (9 chiffres requis)';
+        phoneNumberInput.classList.add('error');
+        isValid = false;
+    } else {
+        phoneNumberFeedback.textContent = '';
+        phoneNumberInput.classList.remove('error');
+    }
+    
+    return isValid;
 }
 
 // ===============================
@@ -671,6 +894,9 @@ function renderCartItems() {
  * @param {string} category - Category to filter by
  */
 function filterItemsByCategory(category) {
+    // Clear search
+    searchInput.value = '';
+    
     // Show loading indicator
     loadingIndicator.style.display = 'flex';
     
@@ -742,7 +968,7 @@ function filterItemsByCategory(category) {
         
         // Show no results message if needed
         if (visibleCount === 0) {
-            noResultsMessage.style.display = 'block';
+            noResultsMessage.style.display = 'flex';
         }
     }, 300); // Small delay to show loading indicator
 }
@@ -823,6 +1049,11 @@ document.addEventListener('DOMContentLoaded', () => {
     fullNameInput.value = localStorage.getItem('customerName') || '';
     phoneNumberInput.value = localStorage.getItem('customerPhone') || '';
     
+    // Format phone number on load
+    if (phoneNumberInput.value) {
+        phoneNumberInput.value = formatPhoneNumber(phoneNumberInput.value);
+    }
+    
     // Show welcome message on first visit
     if (!localStorage.getItem('hasVisited')) {
         setTimeout(() => {
@@ -870,7 +1101,11 @@ foodItemsContainer.addEventListener('click', (e) => {
     
     // Reset quantity
     currentQuantity = 1;
-    quantitySpan.textContent = currentQuantity;
+    quantityInput.value = currentQuantity;
+    
+    // Activate first preset button
+    quantityPresetBtns.forEach(btn => btn.classList.remove('active'));
+    document.querySelector('.quantity-preset[data-quantity="1"]').classList.add('active');
     
     // Set current item price for calculations
     try {
@@ -921,6 +1156,24 @@ addToCartBtn.addEventListener('click', function(e) {
     }, 500);
 });
 
+// Search functionality
+searchInput.addEventListener('input', debounce(function() {
+    searchItems(this.value);
+}, 300));
+
+// Clear search button
+clearSearchBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    searchInput.focus();
+    
+    // Refilter to current category
+    const activeTab = document.querySelector('.tab.active');
+    if (activeTab) {
+        const category = activeTab.dataset.category;
+        filterItemsByCategory(category);
+    }
+});
+
 // Category tabs click
 tabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -956,19 +1209,35 @@ scrollRight.addEventListener('click', () => {
 // Category tabs scroll
 categoryTabs.addEventListener('scroll', debounce(updateScrollIndicators, 50));
 
-// Quantity controls
+// Quantity controls with improved handling
 decreaseBtn.addEventListener('click', () => {
     if (currentQuantity > 1) {
-        currentQuantity--;
-        quantitySpan.textContent = currentQuantity;
-        updateQuantityControls();
+        setQuantity(currentQuantity - 1);
     }
 });
 
 increaseBtn.addEventListener('click', () => {
-    currentQuantity++;
-    quantitySpan.textContent = currentQuantity;
-    updateQuantityControls();
+    setQuantity(currentQuantity + 1);
+});
+
+// Direct quantity input handling
+quantityInput.addEventListener('input', function() {
+    let value = parseInt(this.value);
+    if (isNaN(value) || value < 1) {
+        value = 1;
+    } else if (value > 99) {
+        value = 99;
+    }
+    
+    setQuantity(value);
+});
+
+// Handle quantity preset buttons
+quantityPresetBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const quantity = parseInt(btn.dataset.quantity);
+        setQuantity(quantity);
+    });
 });
 
 // Cart management
@@ -1002,12 +1271,31 @@ modalItemImage.addEventListener('click', () => {
 });
 
 // Form inputs storage
-fullNameInput.addEventListener('change', () => {
+fullNameInput.addEventListener('input', () => {
+    fullNameFeedback.textContent = '';
+    fullNameInput.classList.remove('error');
+    
     localStorage.setItem('customerName', fullNameInput.value);
 });
 
-phoneNumberInput.addEventListener('change', () => {
-    localStorage.setItem('customerPhone', phoneNumberInput.value);
+phoneNumberInput.addEventListener('input', () => {
+    phoneNumberFeedback.textContent = '';
+    phoneNumberInput.classList.remove('error');
+    
+    // Format phone number as user types
+    const cursorPosition = phoneNumberInput.selectionStart;
+    const unformattedValue = phoneNumberInput.value.replace(/\D/g, '');
+    const formattedValue = formatPhoneNumber(unformattedValue);
+    
+    phoneNumberInput.value = formattedValue;
+    localStorage.setItem('customerPhone', unformattedValue);
+    
+    // Attempt to restore cursor position after formatting
+    if (phoneNumberInput === document.activeElement) {
+        // Calculate new cursor position
+        const newPosition = cursorPosition + (formattedValue.length - phoneNumberInput.value.length);
+        phoneNumberInput.setSelectionRange(newPosition, newPosition);
+    }
 });
 
 // Event delegation for cart item buttons
@@ -1029,23 +1317,8 @@ cartItemsList.addEventListener('click', (e) => {
 // Checkout process
 checkoutBtn.addEventListener('click', () => {
     // Validate form
-    if (!fullNameInput.value.trim()) {
-        showToast('Veuillez entrer votre nom complet', 'error');
-        fullNameInput.focus();
-        return;
-    }
-    
-    if (!phoneNumberInput.value.trim()) {
-        showToast('Veuillez entrer votre numéro de téléphone', 'error');
-        phoneNumberInput.focus();
-        return;
-    }
-    
-    // Validate phone number format
-    const phoneRegex = /^\+?[0-9]{8,15}$/;
-    if (!phoneRegex.test(phoneNumberInput.value.trim().replace(/\s/g, ''))) {
-        showToast('Veuillez entrer un numéro de téléphone valide', 'error');
-        phoneNumberInput.focus();
+    if (!validateCheckoutForm()) {
+        showToast('Veuillez corriger les erreurs du formulaire', 'error');
         return;
     }
     
@@ -1071,18 +1344,19 @@ submitOrderBtn.addEventListener('click', () => {
     let message = `*Nouvelle commande depuis l'application Msemen Concept*\n\n`;
     message += `*Détails du client:*\n`;
     message += `Nom: ${name}\n`;
-    message += `Téléphone: ${phone}\n\n`;
+    message += `Téléphone: +212 ${formatPhoneNumber(phone)}\n\n`;
     message += `*Détails de la commande:*\n`;
     
     cart.getItems().forEach(item => {
-        message += `- ${item.name} x${item.quantity} = ${item.total.toFixed(2)}DH\n`;
+        message += `- ${item.name} x${item.quantity} = ${formatPrice(item.total)}\n`;
     });
     
-    message += `\n*Total: ${cart.getTotal().toFixed(2)}DH*`;
+    message += `\n*Total: ${formatPrice(cart.getTotal())}*`;
     
     // Encode for WhatsApp URL
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/+212600000000?text=${encodedMessage}`; // Replace with actual number
+    const whatsappNumber = "+212600000000"; // This should be configurable
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
     
     // Open WhatsApp
     window.open(whatsappUrl, '_blank');
@@ -1172,5 +1446,11 @@ document.addEventListener('keydown', (e) => {
         } else {
             showToast('Votre panier est vide', 'info');
         }
+    }
+    
+    // CTRL+F to focus search
+    if (e.key === 'f' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        searchInput.focus();
     }
 });
