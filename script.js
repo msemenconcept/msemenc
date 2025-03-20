@@ -326,6 +326,7 @@ function updateItemInCart() {
         
         // Update cart display
         updateCartDisplay();
+        renderCartItems(); // Add this line to refresh the cart items display
         
         // Save cart to local storage
         localStorage.setItem('msemenCart', JSON.stringify(cartItems));
@@ -667,6 +668,10 @@ backToTopBtn.addEventListener('click', () => {
 // Make food items clickable to open modal
 foodItems.forEach(item => {
     item.addEventListener('click', (e) => {
+        // Ignore if clicking on a button
+        if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+            return;
+        }
         
         const name = item.dataset.name;
         const price = item.dataset.price;
