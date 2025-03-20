@@ -485,9 +485,74 @@ function editCartItem(itemId) {
     );
     
     if (originalItem) {
-        const imageSrc = originalItem.querySelector('.food-image').src;
-        modalItemImage.src = imageSrc;
-        modalItemImage.alt = item.name;
+        const imageElement = originalItem.querySelector('.food-image');
+        if (imageElement) {
+            const imageSrc = imageElement.src;
+            
+            // Clear previous styling
+            modalItemImage.style.display = "block";
+            modalItemImage.style.padding = "";
+            modalItemImage.style.backgroundColor = "";
+            
+            // Set the image with error handling
+            modalItemImage.src = imageSrc;
+            modalItemImage.alt = item.name;
+            
+            // Add error handling
+            modalItemImage.onerror = function() {
+                this.alt = "Image non disponible";
+                this.style.padding = "20px";
+                this.style.backgroundColor = "#f8f8f8";
+                
+                // Add a visible message
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'image-error-message';
+                errorMsg.textContent = "Image non disponible";
+                errorMsg.style.position = "absolute";
+                errorMsg.style.top = "50%";
+                errorMsg.style.left = "50%";
+                errorMsg.style.transform = "translate(-50%, -50%)";
+                errorMsg.style.color = "#888";
+                errorMsg.style.fontStyle = "italic";
+                errorMsg.style.fontSize = "14px";
+                
+                // Remove any previous error message
+                const previousMsg = document.querySelector('.image-error-message');
+                if (previousMsg) previousMsg.remove();
+                
+                this.closest('.modal-image-container').appendChild(errorMsg);
+            };
+        } else {
+            // Handle no image element
+            handleNoImage();
+        }
+    } else {
+        // Handle no original item found
+        handleNoImage();
+    }
+    
+    function handleNoImage() {
+        modalItemImage.src = '';
+        modalItemImage.alt = "Image non disponible";
+        modalItemImage.style.display = "none";
+        
+        // Add a visible message
+        const errorMsg = document.createElement('div');
+        errorMsg.className = 'image-error-message';
+        errorMsg.textContent = "Image non disponible";
+        errorMsg.style.position = "absolute";
+        errorMsg.style.top = "50%";
+        errorMsg.style.left = "50%";
+        errorMsg.style.transform = "translate(-50%, -50%)";
+        errorMsg.style.color = "#888";
+        errorMsg.style.fontStyle = "italic";
+        errorMsg.style.fontSize = "14px";
+        
+        // Remove any previous error message
+        const previousMsg = document.querySelector('.image-error-message');
+        if (previousMsg) previousMsg.remove();
+        
+        document.querySelector('.modal-image-container').appendChild(errorMsg);
     }
     
     // Change button text
@@ -611,15 +676,78 @@ foodItems.forEach(item => {
         const name = item.dataset.name;
         const price = item.dataset.price;
         const description = item.dataset.description;
-        // Get the image src from the item
-        const imageSrc = item.querySelector('.food-image').src;
+        
+        // Get the image src from the item with error handling
+        const imageElement = item.querySelector('.food-image');
+        const imageSrc = imageElement ? imageElement.src : '';
         
         modalItemName.textContent = name;
         modalItemDescription.textContent = description;
         modalItemPrice.textContent = price;
-        // Set the image src
-        modalItemImage.src = imageSrc;
-        modalItemImage.alt = name;
+        
+        // Set the image src with error handling
+        if (imageSrc) {
+            // First set a loading state
+            modalItemImage.alt = "Chargement de l'image...";
+            
+            // Show the image loading
+            modalItemImage.src = imageSrc;
+            
+            // Add error handling for the image
+            modalItemImage.onerror = function() {
+                this.alt = "Image non disponible";
+                this.style.padding = "20px";
+                this.style.backgroundColor = "#f8f8f8";
+                // Add a visible message inside the container
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'image-error-message';
+                errorMsg.textContent = "Image non disponible";
+                errorMsg.style.position = "absolute";
+                errorMsg.style.top = "50%";
+                errorMsg.style.left = "50%";
+                errorMsg.style.transform = "translate(-50%, -50%)";
+                errorMsg.style.color = "#888";
+                errorMsg.style.fontStyle = "italic";
+                errorMsg.style.fontSize = "14px";
+                
+                // Remove any previous error message
+                const previousMsg = document.querySelector('.image-error-message');
+                if (previousMsg) previousMsg.remove();
+                
+                this.closest('.modal-image-container').appendChild(errorMsg);
+            };
+            
+            // When image loads successfully
+            modalItemImage.onload = function() {
+                this.alt = name;
+                // Remove any error message if it exists
+                const errorMsg = document.querySelector('.image-error-message');
+                if (errorMsg) errorMsg.remove();
+            };
+        } else {
+            // Handle case where no image is found
+            modalItemImage.src = '';
+            modalItemImage.alt = "Image non disponible";
+            modalItemImage.style.display = "none";
+            
+            // Add a visible message inside the container
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'image-error-message';
+            errorMsg.textContent = "Image non disponible";
+            errorMsg.style.position = "absolute";
+            errorMsg.style.top = "50%";
+            errorMsg.style.left = "50%";
+            errorMsg.style.transform = "translate(-50%, -50%)";
+            errorMsg.style.color = "#888";
+            errorMsg.style.fontStyle = "italic";
+            errorMsg.style.fontSize = "14px";
+            
+            // Remove any previous error message
+            const previousMsg = document.querySelector('.image-error-message');
+            if (previousMsg) previousMsg.remove();
+            
+            document.querySelector('.modal-image-container').appendChild(errorMsg);
+        }
         
         // Reset quantity
         currentQuantity = 1;
