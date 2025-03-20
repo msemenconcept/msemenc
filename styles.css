@@ -99,68 +99,25 @@ header {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Enhanced Search */
-.search-container {
-    padding: 15px;
+/* Updated Category Tabs positioning - Now directly below header */
+.category-wrapper {
     position: sticky;
-    top: 76px;
+    top: 76px;  /* Position right after the header */
     z-index: 40;
     background-color: var(--white);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.search-bar {
-    width: 100%;
-    padding: 12px 15px;
-    border-radius: 30px;
-    border: 1px solid #e0e0e0;
-    display: flex;
-    align-items: center;
-    background-color: var(--white);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    transition: var(--transition);
-}
-
-.search-bar:focus-within {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(252, 186, 46, 0.2);
-}
-
-.search-bar input {
-    border: none;
-    outline: none;
-    width: 100%;
-    margin-left: 10px;
-    font-size: 14px;
-}
-
-.search-icon {
-    color: var(--primary-color);
-    font-weight: bold;
-    font-size: 18px;
-}
-
-.search-results-count {
-    color: var(--text-light);
-    font-size: 12px;
-    text-align: right;
-    padding: 5px 15px 0;
-    font-style: italic;
+    padding: 10px 0;
 }
 
 /* Enhanced Category Tabs with Horizontal Scroll Indication */
 .category-tabs {
     display: flex;
-    padding: 0 15px 15px;
+    padding: 5px 15px;
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
     gap: 10px;
-    position: sticky;
-    top: 137px;
-    z-index: 30;
     background-color: var(--white);
-    padding-top: 10px;
     /* Add scroll indication */
     -webkit-mask-image: linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent);
     mask-image: linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent);
@@ -214,7 +171,8 @@ header {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    padding: 0 15px 15px;
+    padding: 15px;
+    margin-top: 5px;
 }
 
 .food-item {
@@ -995,10 +953,6 @@ header {
 }
 
 /* Add scroll indicators to categories */
-.category-wrapper {
-    position: relative;
-}
-
 .scroll-indicator-left,
 .scroll-indicator-right {
     position: absolute;
@@ -1117,12 +1071,8 @@ header {
         padding: 15px;
     }
     
-    .search-container {
-        top: 66px;
-    }
-    
-    .category-tabs {
-        top: 127px;
+    .category-wrapper {
+        top: 66px; /* Adjust to match header height */
     }
 }
 
