@@ -1,4 +1,4 @@
-/* Enhanced Responsive Styles */
+/* Enhanced Responsive Styles - Updated Version */
 
 /* Improved Base Styles */
 * {
@@ -6,6 +6,25 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+}
+
+html {
+    scroll-behavior: smooth;
+    touch-action: manipulation; /* Prevent double-tap to zoom */
+    height: 100%;
+    -webkit-text-size-adjust: 100%; /* Prevent font size adjustment on orientation change */
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    min-height: 100vh;
+    height: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    position: relative; /* Create positioning context */
+    width: 100%;
 }
 
 :root {
@@ -30,18 +49,10 @@
     --radius-sm: 8px;
     --radius-lg: 16px;
     --transition: all 0.3s ease;
+    --fast-transition: all 0.15s ease;
     --max-width: 600px;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    background-color: var(--bg-light);
-    color: var(--text-dark);
-    line-height: 1.6;
-    min-height: 100vh;
+    --header-height: 76px; /* Fixed header height for consistency */
+    --category-height: 60px; /* Fixed category height for consistency */
 }
 
 .app-container {
@@ -53,19 +64,26 @@ body {
     padding-bottom: 80px;
     background-color: var(--white);
     box-shadow: var(--shadow);
+    overflow: hidden; /* Prevent overflow issues */
 }
 
-/* Enhanced Header */
+/* Enhanced Header - Fixed Position to prevent wiggling */
 header {
     background-color: var(--primary-color);
     padding: 18px 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: sticky;
+    position: fixed; /* Changed from sticky to fixed */
     top: 0;
-    z-index: 50;
+    left: 50%;
+    transform: translateX(-50%); /* Center the header */
+    z-index: 100; /* Increased z-index */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: var(--max-width);
+    height: var(--header-height);
+    will-change: transform; /* Optimize for animations */
 }
 
 .logo-circle {
@@ -80,6 +98,7 @@ header {
     position: absolute;
     left: 20px;
     box-shadow: var(--shadow);
+    z-index: 1;
 }
 
 .logo-circle img {
@@ -97,19 +116,38 @@ header {
     font-weight: 600;
     letter-spacing: 0.5px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    margin: 0; /* Prevent unwanted margin */
+    white-space: nowrap; /* Prevent line break */
 }
 
-/* Updated Category Tabs positioning - Now directly below header */
+/* FIXED: Category Tabs positioning - now fixed instead of sticky to prevent wiggling */
 .category-wrapper {
-    position: sticky;
-    top: 76px;  /* Position right after the header */
-    z-index: 40;
+    position: fixed; /* Changed from sticky to fixed */
+    top: var(--header-height); /* Position right after the header */
+    left: 50%;
+    transform: translateX(-50%); /* Center the tabs */
+    z-index: 90; /* Lower than header but higher than content */
     background-color: var(--white);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     padding: 10px 0;
+    width: 100%;
+    max-width: var(--max-width);
+    height: var(--category-height);
+    transition: transform 0.3s ease; /* Smooth transition for any changes */
+    will-change: transform; /* Optimize for animations */
 }
 
-/* Enhanced Category Tabs with Horizontal Scroll Indication */
+/* Add padding to main content to account for fixed header and category */
+.food-items {
+    margin-top: calc(var(--header-height) + var(--category-height));
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    position: relative; /* Create stacking context */
+}
+
+/* Enhanced Category Tabs with Horizontal Scroll */
 .category-tabs {
     display: flex;
     padding: 5px 15px;
@@ -121,6 +159,9 @@ header {
     /* Add scroll indication */
     -webkit-mask-image: linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent);
     mask-image: linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent);
+    scroll-behavior: smooth; /* Smooth scrolling */
+    scroll-snap-type: x mandatory; /* Better snap behavior */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
 
 .category-tabs::-webkit-scrollbar {
@@ -152,6 +193,9 @@ header {
     opacity: 0.8;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     flex-shrink: 0;
+    scroll-snap-align: start; /* Snap alignment */
+    user-select: none; /* Prevent text selection */
+    position: relative; /* For active indicator */
 }
 
 .tab:hover {
@@ -166,15 +210,26 @@ header {
     transform: translateY(-2px);
 }
 
-/* Enhanced Food Items with Fixed Layout */
-.food-items {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 15px;
-    margin-top: 5px;
+/* Improved active tab indicator */
+.tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 3px;
 }
 
+/* Enhanced Focus Styles for accessibility */
+.tab:focus-visible {
+    outline: 2px solid var(--primary-dark);
+    outline-offset: 2px;
+}
+
+/* Enhanced Food Items with Fixed Layout */
 .food-item {
     background-color: var(--bg-item);
     border-radius: var(--radius);
@@ -184,6 +239,8 @@ header {
     position: relative;
     box-shadow: var(--shadow);
     transition: var(--transition);
+    transform: translateZ(0); /* Force hardware acceleration */
+    will-change: transform; /* Optimize for animations */
 }
 
 .food-item:hover {
@@ -191,6 +248,12 @@ header {
     box-shadow: var(--shadow-hover);
 }
 
+.food-item:focus-visible {
+    outline: 2px solid var(--primary-dark);
+    outline-offset: 2px;
+}
+
+/* Improved image loading with placeholder */
 .food-image {
     width: 70px;
     height: 70px;
@@ -200,6 +263,8 @@ header {
     border: 2px solid var(--white);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     flex-shrink: 0;
+    background-color: #f0f0f0; /* Placeholder color */
+    transition: opacity 0.3s ease; /* Smooth transition when loaded */
 }
 
 /* Fixed layout for description and price */
@@ -281,16 +346,24 @@ header {
     transform: translateY(-50%) scale(0.95);
 }
 
-/* Enhanced Bottom Bar */
+.add-btn:focus-visible {
+    outline: 2px solid var(--primary-dark);
+    outline-offset: 2px;
+}
+
+/* Enhanced Bottom Bar - fixed position for better mobile experience */
 .bottom-bar {
     position: fixed;
     bottom: 0;
+    left: 50%;
+    transform: translateX(-50%); /* Center the bar */
     width: 100%;
     max-width: var(--max-width);
     padding: 15px;
     background-color: var(--white);
     box-shadow: var(--shadow-bottom);
-    z-index: 100;
+    z-index: 100; /* High z-index to stay on top */
+    will-change: transform; /* Optimize for animations */
 }
 
 .cart-box {
@@ -306,6 +379,7 @@ header {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
+    user-select: none; /* Prevent text selection */
 }
 
 .cart-box::before {
@@ -325,6 +399,11 @@ header {
 
 .cart-box:hover {
     background-color: var(--secondary-color);
+}
+
+.cart-box:focus-visible {
+    outline: 2px solid var(--primary-dark);
+    outline-offset: 2px;
 }
 
 .cart-info {
@@ -356,7 +435,7 @@ header {
     font-size: 16px;
 }
 
-/* Enhanced Modals */
+/* Enhanced Modals with better performance */
 .modal {
     display: none;
     position: fixed;
@@ -370,6 +449,8 @@ header {
     align-items: center;
     animation: fadeIn 0.3s;
     backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px); /* For Safari */
+    will-change: opacity; /* Optimize for animations */
 }
 
 @keyframes fadeIn {
@@ -386,6 +467,9 @@ header {
     overflow-y: auto;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     animation: slideUp 0.3s;
+    will-change: transform, opacity; /* Optimize for animations */
+    transform: translateZ(0); /* Force hardware acceleration */
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 @keyframes slideUp {
@@ -429,6 +513,11 @@ header {
 .modal-close-btn:hover {
     color: var(--danger);
     background-color: rgba(244, 67, 54, 0.1);
+}
+
+.modal-close-btn:focus-visible {
+    outline: 2px solid var(--danger);
+    outline-offset: 2px;
 }
 
 .modal-body {
@@ -504,6 +593,11 @@ header {
     transform: scale(0.95);
 }
 
+.quantity-btn:focus-visible {
+    outline: 2px solid var(--primary-dark);
+    outline-offset: 2px;
+}
+
 .quantity-btn:disabled {
     background-color: #ccc;
     cursor: not-allowed;
@@ -556,7 +650,12 @@ header {
     transform: scale(0.98);
 }
 
-/* Cart Items */
+.add-to-cart-btn:focus-visible {
+    outline: 2px solid var(--primary-dark);
+    outline-offset: 2px;
+}
+
+/* Cart Items with improved scrolling */
 .cart-actions {
     display: flex;
     justify-content: flex-end;
@@ -583,11 +682,17 @@ header {
     transform: scale(0.95);
 }
 
+.empty-cart-btn:focus-visible {
+    outline: 2px solid var(--danger-dark);
+    outline-offset: 2px;
+}
+
 .cart-items {
     margin-bottom: 20px;
     max-height: 40vh;
     overflow-y: auto;
     padding-right: 5px;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
 
 .cart-items::-webkit-scrollbar {
@@ -618,6 +723,7 @@ header {
     border-radius: var(--radius-sm);
     margin-bottom: 10px;
     transition: var(--transition);
+    transform: translateZ(0); /* Force hardware acceleration */
 }
 
 .cart-item:hover {
@@ -627,7 +733,7 @@ header {
 
 .item-info {
     flex: 1;
-    min-width: 0;
+    min-width: 0; /* Prevent overflow */
 }
 
 .item-name {
@@ -669,10 +775,20 @@ header {
     transform: scale(1.1);
 }
 
+.edit-btn:focus-visible {
+    outline: 2px solid var(--text-dark);
+    outline-offset: 2px;
+}
+
 .remove-btn:hover {
     background-color: rgba(244, 67, 54, 0.1);
     color: var(--danger);
     transform: scale(1.1);
+}
+
+.remove-btn:focus-visible {
+    outline: 2px solid var(--danger);
+    outline-offset: 2px;
 }
 
 .empty-cart-message {
@@ -696,7 +812,7 @@ header {
     text-align: right;
 }
 
-/* Enhanced Checkout Form */
+/* Enhanced Checkout Form with better validation styles */
 .checkout-form {
     margin-top: 20px;
 }
@@ -724,6 +840,15 @@ header {
 .form-group input:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 2px rgba(252, 186, 46, 0.2);
+    outline: none;
+}
+
+.form-group input:invalid:not(:placeholder-shown) {
+    border-color: var(--danger);
+}
+
+.form-group input:valid:not(:placeholder-shown) {
+    border-color: var(--success);
 }
 
 .checkout-btn {
@@ -764,6 +889,11 @@ header {
 
 .checkout-btn:active {
     transform: scale(0.98);
+}
+
+.checkout-btn:focus-visible {
+    outline: 2px solid var(--success-dark);
+    outline-offset: 2px;
 }
 
 /* Enhanced Order Confirmation */
@@ -840,11 +970,16 @@ header {
     transform: scale(0.98);
 }
 
+.submit-order-btn:focus-visible {
+    outline: 2px solid #1a9247;
+    outline-offset: 2px;
+}
+
 .whatsapp-icon {
     font-size: 20px;
 }
 
-/* Back to top button */
+/* Back to top button with improved visibility */
 .back-to-top {
     position: fixed;
     bottom: 100px;
@@ -863,6 +998,8 @@ header {
     visibility: hidden;
     transition: var(--transition);
     z-index: 99;
+    font-size: 20px;
+    transform: translateZ(0); /* Force hardware acceleration */
 }
 
 .back-to-top.visible {
@@ -875,12 +1012,21 @@ header {
     transform: translateY(-3px);
 }
 
-/* Loading Indicator */
+.back-to-top:focus-visible {
+    outline: 2px solid var(--primary-dark);
+    outline-offset: 2px;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Enhanced Loading Indicator */
 .loading {
     display: none;
     align-items: center;
     justify-content: center;
     padding: 20px;
+    width: 100%;
+    height: 100px;
 }
 
 .loading-spinner {
@@ -890,22 +1036,27 @@ header {
     border-radius: 50%;
     border-top-color: var(--primary-color);
     animation: spin 1s infinite linear;
+    will-change: transform; /* Optimize for animations */
 }
 
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
 
-/* No results message */
+/* Enhanced No results message */
 .no-results {
     text-align: center;
     color: var(--text-light);
     padding: 30px 15px;
     font-style: italic;
     display: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: var(--radius);
+    margin: 20px 0;
+    border: 1px dashed #ddd;
 }
 
-/* Toast Notifications */
+/* Enhanced Toast Notifications */
 .toast-container {
     position: fixed;
     top: 20px;
@@ -915,6 +1066,7 @@ header {
     flex-direction: column;
     gap: 10px;
     max-width: 300px;
+    pointer-events: none; /* Allow clicks through the container */
 }
 
 .toast {
@@ -928,6 +1080,9 @@ header {
     gap: 10px;
     animation: slideInRight 0.3s, fadeOut 0.3s 2.7s forwards;
     font-size: 14px;
+    pointer-events: auto; /* Make the toast clickable */
+    transform: translateZ(0); /* Force hardware acceleration */
+    will-change: transform, opacity; /* Optimize for animations */
 }
 
 .toast.success {
@@ -952,52 +1107,57 @@ header {
     to { opacity: 0; }
 }
 
-/* Add scroll indicators to categories */
+/* Enhanced scroll indicators with improved touch targets */
 .scroll-indicator-left,
 .scroll-indicator-right {
     position: absolute;
     top: 0;
     height: 100%;
-    width: 25px;
-    pointer-events: none;
+    width: 40px; /* Wider for better touch target */
     z-index: 31;
     display: flex;
     align-items: center;
+    justify-content: center;
     opacity: 0.7;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+    user-select: none; /* Prevent text selection */
 }
 
 .scroll-indicator-left {
     left: 0;
     background: linear-gradient(to right, var(--white), transparent);
-    justify-content: flex-start;
 }
 
 .scroll-indicator-right {
     right: 0;
     background: linear-gradient(to left, var(--white), transparent);
-    justify-content: flex-end;
 }
 
 .scroll-indicator-icon {
     color: var(--primary-color);
-    font-size: 20px;
+    font-size: 24px; /* Larger icon */
     margin: 0 5px;
-}
-
-/* Visual improvements for active tabs */
-.tab.active::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.7); /* Better visibility */
+    border-radius: 50%;
     width: 30px;
-    height: 3px;
-    background-color: var(--primary-color);
-    border-radius: 3px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Product Image in Modal */
+.scroll-indicator-left:hover,
+.scroll-indicator-right:hover {
+    opacity: 1;
+}
+
+.scroll-indicator-left:hover .scroll-indicator-icon,
+.scroll-indicator-right:hover .scroll-indicator-icon {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Product Image in Modal with improved loading experience */
 .modal-image-container {
     position: relative;
     width: 100%;
@@ -1010,7 +1170,6 @@ header {
     align-items: center;
     justify-content: center;
     padding: 8px; /* Add some padding around the image */
-    /* Add a subtle border or outline to ensure the container is visible even without an image */
     border: 1px solid rgba(0,0,0,0.1);
 }
 
@@ -1053,7 +1212,7 @@ header {
     opacity: 1;
 }
 
-/* Fullscreen Image Modal */
+/* Fullscreen Image Modal with improved transitions */
 .fullscreen-image-container {
     width: 100%;
     height: 100%;
@@ -1071,6 +1230,7 @@ header {
     border-radius: var(--radius);
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
     animation: fadeZoomIn 0.3s;
+    will-change: transform, opacity; /* Optimize for animations */
 }
 
 @keyframes fadeZoomIn {
@@ -1093,12 +1253,44 @@ header {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
+.fullscreen-close-btn:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
 /* Enhanced Modal Content for Image */
 #itemModal .modal-content {
     max-width: 450px; /* Slightly wider to accommodate image */
 }
 
-/* Responsive Styles */
+/* Success Animation for Action Feedback */
+@keyframes successPulse {
+    0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+}
+
+.success-action {
+    animation: successPulse 0.8s ease-out;
+}
+
+/* Image Error Message Styling */
+.image-error-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #888;
+    font-style: italic;
+    font-size: 14px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 8px;
+    max-width: 80%;
+}
+
+/* Responsive Styles with fixes for mobile wiggles */
 @media (min-width: 481px) and (max-width: 768px) {
     .food-description {
         -webkit-line-clamp: 2;
@@ -1120,10 +1312,18 @@ header {
 }
 
 @media (max-width: 480px) {
+    :root {
+        --header-height: 66px; /* Adjusted for smaller screens */
+    }
+    
+    header {
+        padding: 15px;
+    }
+    
     .food-description {
-        -webkit-line-clamp: 2; /* Changed from 1 to 2 for better readability */
-        font-size: 12px; /* Smaller font for better fit */
-        line-height: 1.4; /* Tighter line height */
+        -webkit-line-clamp: 2;
+        font-size: 12px;
+        line-height: 1.4;
     }
     
     .food-image {
@@ -1132,7 +1332,7 @@ header {
     }
     
     .food-details {
-        padding-right: 110px; /* Further increased from 90px */
+        padding-right: 110px;
     }
     
     .modal-content {
@@ -1157,7 +1357,7 @@ header {
     .food-price {
         font-size: 12px;
         padding: 3px 8px;
-        right: 45px; /* Moved left from 50px */
+        right: 45px;
         min-width: 55px;
     }
     
@@ -1166,14 +1366,6 @@ header {
         height: 28px;
         font-size: 16px;
         right: 10px;
-    }
-    
-    header {
-        padding: 15px;
-    }
-    
-    .category-wrapper {
-        top: 66px; /* Adjust to match header height */
     }
     
     .modal-image-container {
@@ -1192,13 +1384,17 @@ header {
 
 /* For very small screens */
 @media (max-width: 360px) {
+    :root {
+        --header-height: 60px; /* Further adjusted for tiny screens */
+    }
+    
     .food-image {
-        width: 45px; /* Made smaller */
+        width: 45px;
         height: 45px;
     }
     
     .food-details {
-        padding-right: 100px; /* Further increased */
+        padding-right: 100px;
     }
     
     .food-title {
@@ -1213,7 +1409,7 @@ header {
     .food-price {
         font-size: 11px;
         padding: 2px 6px;
-        right: 40px; /* Moved left from 45px */
+        right: 40px;
         min-width: 50px;
     }
     
@@ -1224,7 +1420,6 @@ header {
         right: 8px;
     }
     
-    /* Improve spacing overall for tiny screens */
     .food-item {
         padding: 12px 10px;
     }
@@ -1236,9 +1431,14 @@ header {
     .modal-product-image {
         max-height: 130px;
     }
-    
-    .modal-image-container::after {
-        font-size: 10px;
-        padding: 3px 6px;
-    }
+}
+
+/* Add smooth iOS momentum scrolling */
+* {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent text size adjustment on orientation change */
+html {
+    -webkit-text-size-adjust: 100%;
 }
