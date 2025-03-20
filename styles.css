@@ -102,14 +102,11 @@ header {
 /* Updated Category Tabs positioning - Now directly below header */
 .category-wrapper {
     position: sticky;
-    top: 76px;
-    z-index: 100; /* Increased z-index from 40 to 100 */
+    top: 76px;  /* Position right after the header */
+    z-index: 40;
     background-color: var(--white);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     padding: 10px 0;
-    width: 100%;
-    max-width: var(--max-width);
-    margin: 0 auto;
 }
 
 /* Enhanced Category Tabs with Horizontal Scroll Indication */
@@ -174,7 +171,7 @@ header {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    padding-top: 20px; /* Increased padding at the top */
+    padding: 15px;
     margin-top: 5px;
 }
 
@@ -185,7 +182,6 @@ header {
     display: flex;
     align-items: flex-start;
     position: relative;
-    z-index: 30; /* Lower than category-wrapper */
     box-shadow: var(--shadow);
     transition: var(--transition);
 }
@@ -1014,6 +1010,8 @@ header {
     align-items: center;
     justify-content: center;
     padding: 8px; /* Add some padding around the image */
+    /* Add a subtle border or outline to ensure the container is visible even without an image */
+    border: 1px solid rgba(0,0,0,0.1);
 }
 
 .modal-product-image {
@@ -1028,41 +1026,31 @@ header {
     border-radius: 16px; /* Increased and fixed value for more obvious rounding */
     border: 3px solid var(--white);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    cursor: pointer; /* Indicate that the image is clickable */
 }
 
-/* Image Zoom Controls */
-.image-zoom-controls {
+.modal-product-image:hover {
+    transform: scale(1.03); /* Subtle zoom effect on hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+/* Image hover instructions - subtle hint that image is clickable */
+.modal-image-container::after {
+    content: 'Cliquez pour agrandir';
     position: absolute;
     bottom: 10px;
     right: 10px;
-    display: flex;
-    gap: 8px;
-    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-.zoom-btn {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: none;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 16px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    color: var(--accent-color);
-    transition: var(--transition);
-}
-
-.zoom-btn:hover {
-    background-color: var(--white);
-    transform: scale(1.1);
-}
-
-.zoom-btn:active {
-    transform: scale(0.95);
+.modal-image-container:hover::after {
+    opacity: 1;
 }
 
 /* Fullscreen Image Modal */
@@ -1185,7 +1173,7 @@ header {
     }
     
     .category-wrapper {
-        top: 66px; /* Match your current mobile adjustment */
+        top: 66px; /* Adjust to match header height */
     }
     
     .modal-image-container {
@@ -1196,10 +1184,9 @@ header {
         max-height: 160px;
     }
     
-    .zoom-btn {
-        width: 32px;
-        height: 32px;
-        font-size: 14px;
+    .modal-image-container::after {
+        font-size: 10px;
+        padding: 3px 6px;
     }
 }
 
@@ -1239,7 +1226,7 @@ header {
     
     /* Improve spacing overall for tiny screens */
     .food-item {
-        padding-top: 15px; /* Slightly less padding on mobile */
+        padding: 12px 10px;
     }
     
     .modal-image-container {
@@ -1248,5 +1235,10 @@ header {
     
     .modal-product-image {
         max-height: 130px;
+    }
+    
+    .modal-image-container::after {
+        font-size: 10px;
+        padding: 3px 6px;
     }
 }
