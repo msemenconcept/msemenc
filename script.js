@@ -1355,7 +1355,7 @@ submitOrderBtn.addEventListener('click', () => {
     
     // Encode for WhatsApp URL
     const encodedMessage = encodeURIComponent(message);
-    const whatsappNumber = "+212614882875"; // This should be configurable
+    const whatsappNumber = "+212614882878"; // This should be configurable
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
     
     // Open WhatsApp
