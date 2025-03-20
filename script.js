@@ -243,6 +243,32 @@ const fullNameInput = document.getElementById('fullName');
 const phoneNumberInput = document.getElementById('phoneNumber');
 
 // ===============================
+// Prevent Double-tap Zoom
+// ===============================
+
+// Prevent double-tap zoom on iOS devices
+(function preventDoubleTapZoom() {
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(event) {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, false);
+})();
+
+// Prevent focus zoom
+document.addEventListener('focus', function(e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+        document.documentElement.style.touchAction = 'none';
+        setTimeout(function() {
+            document.documentElement.style.touchAction = '';
+        }, 100);
+    }
+}, true);
+
+// ===============================
 // Category & Header Position Fix
 // ===============================
 
@@ -312,9 +338,6 @@ function resetItemModal() {
     editMode = false;
     currentQuantity = 1;
     quantitySpan.textContent = currentQuantity;
-    
-    // Reset addToCartBtn function
-    addToCartBtn.onclick = addItemToCart;
     
     // Enable/disable decrease button based on quantity
     updateQuantityControls();
@@ -452,7 +475,7 @@ function addItemToCart() {
     const name = modalItemName.textContent;
     const price = currentItemPrice;
     
-    // Add to cart using the new class
+    // Add to cart using the cart class
     cart.addItem(name, price, currentQuantity);
     
     // Update UI
@@ -540,9 +563,6 @@ function editCartItem(itemId) {
     
     // Change button text
     addToCartBtn.textContent = 'Mettre à jour';
-    
-    // Override add to cart button functionality
-    addToCartBtn.onclick = updateItemInCart;
     
     // Update quantity controls
     updateQuantityControls();
@@ -639,22 +659,6 @@ function renderCartItems() {
             </div>
         `;
         cartItemsList.appendChild(cartItemElement);
-    });
-    
-    // Event delegation for cart item buttons
-    cartItemsList.addEventListener('click', (e) => {
-        const editBtn = e.target.closest('.edit-btn');
-        const removeBtn = e.target.closest('.remove-btn');
-        
-        if (editBtn) {
-            const itemId = parseInt(editBtn.dataset.id);
-            editCartItem(itemId);
-        } else if (removeBtn) {
-            const itemId = parseInt(removeBtn.dataset.id);
-            if (confirm(`Êtes-vous sûr de vouloir supprimer cet article de votre panier ?`)) {
-                removeCartItem(itemId);
-            }
-        }
     });
 }
 
@@ -845,6 +849,9 @@ foodItemsContainer.addEventListener('click', (e) => {
     // Skip if not a food item
     if (!foodItem) return;
     
+    // Reset modal state first
+    resetItemModal();
+    
     // Get item data
     const name = foodItem.dataset.name;
     const price = foodItem.dataset.price;
@@ -866,13 +873,52 @@ foodItemsContainer.addEventListener('click', (e) => {
     quantitySpan.textContent = currentQuantity;
     
     // Set current item price for calculations
-    currentItemPrice = parseFloat(price.replace('DH', ''));
+    try {
+        // Better price parsing with fallback
+        currentItemPrice = parseFloat(price.replace('DH', '').trim());
+        if (isNaN(currentItemPrice)) {
+            throw new Error('Invalid price format');
+        }
+    } catch (error) {
+        console.error('Error parsing price:', error);
+        currentItemPrice = 0;
+        showToast('Erreur de prix. Veuillez réessayer.', 'error');
+        return; // Don't open modal if price is invalid
+    }
     
     // Update quantity controls
     updateQuantityControls();
     
-    // Show modal
-    openModal(itemModal);
+    // Add a small delay before opening the modal to ensure all calculations are complete
+    setTimeout(() => {
+        // Show modal
+        openModal(itemModal);
+    }, 50);
+});
+
+// Fix for Add to Cart Button - using addEventListener instead of onclick
+addToCartBtn.addEventListener('click', function(e) {
+    // Prevent multiple clicks
+    e.preventDefault();
+    
+    // Add visual feedback
+    addToCartBtn.classList.add('button-click');
+    
+    // Disable the button temporarily to prevent double-clicks
+    addToCartBtn.disabled = true;
+    
+    // Check if in edit mode
+    if (editMode) {
+        updateItemInCart();
+    } else {
+        addItemToCart();
+    }
+    
+    // Re-enable the button after a short delay
+    setTimeout(() => {
+        addToCartBtn.disabled = false;
+        addToCartBtn.classList.remove('button-click');
+    }, 500);
 });
 
 // Category tabs click
@@ -962,6 +1008,22 @@ fullNameInput.addEventListener('change', () => {
 
 phoneNumberInput.addEventListener('change', () => {
     localStorage.setItem('customerPhone', phoneNumberInput.value);
+});
+
+// Event delegation for cart item buttons
+cartItemsList.addEventListener('click', (e) => {
+    const editBtn = e.target.closest('.edit-btn');
+    const removeBtn = e.target.closest('.remove-btn');
+    
+    if (editBtn) {
+        const itemId = parseInt(editBtn.dataset.id);
+        editCartItem(itemId);
+    } else if (removeBtn) {
+        const itemId = parseInt(removeBtn.dataset.id);
+        if (confirm(`Êtes-vous sûr de vouloir supprimer cet article de votre panier ?`)) {
+            removeCartItem(itemId);
+        }
+    }
 });
 
 // Checkout process
@@ -1112,27 +1174,3 @@ document.addEventListener('keydown', (e) => {
         }
     }
 });
-
-// Add this to your script.js file, at the top of the event listeners section
-
-// Prevent double-tap zoom on iOS devices
-(function preventDoubleTapZoom() {
-    let lastTouchEnd = 0;
-    document.addEventListener('touchend', function(event) {
-        const now = Date.now();
-        if (now - lastTouchEnd <= 300) {
-            event.preventDefault();
-        }
-        lastTouchEnd = now;
-    }, false);
-})();
-
-// Prevent focus zoom
-document.addEventListener('focus', function(e) {
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
-        document.documentElement.style.touchAction = 'none';
-        setTimeout(function() {
-            document.documentElement.style.touchAction = '';
-        }, 100);
-    }
-}, true);
