@@ -46,10 +46,15 @@ const addButtons = document.querySelectorAll('.add-btn');
 const itemModal = document.getElementById('itemModal');
 const basketModal = document.getElementById('basketModal');
 const confirmationModal = document.getElementById('confirmationModal');
+const fullImageModal = document.getElementById('fullImageModal');
 const modalHeaderText = document.getElementById('modal-header-text');
 const modalItemName = document.getElementById('modal-item-name');
 const modalItemDescription = document.getElementById('modal-item-description');
 const modalItemPrice = document.getElementById('modal-item-price');
+const modalItemImage = document.getElementById('modal-item-image');
+const fullscreenImage = document.getElementById('fullscreen-image');
+const fullscreenBtn = document.getElementById('fullscreen');
+const closeFullImageModalBtn = document.getElementById('closeFullImageModal');
 const quantitySpan = document.getElementById('quantity');
 const decreaseBtn = document.getElementById('decrease');
 const increaseBtn = document.getElementById('increase');
@@ -84,6 +89,10 @@ closeBasketBtn.addEventListener('click', () => {
 
 closeConfirmationBtn.addEventListener('click', () => {
     confirmationModal.style.display = 'none';
+});
+
+closeFullImageModalBtn.addEventListener('click', () => {
+    fullImageModal.style.display = 'none';
 });
 
 // Reset item modal to default state
@@ -227,6 +236,9 @@ window.addEventListener('click', (e) => {
     if (e.target === confirmationModal) {
         confirmationModal.style.display = 'none';
     }
+    if (e.target === fullImageModal) {
+        fullImageModal.style.display = 'none';
+    }
 });
 
 // Quantity control
@@ -242,6 +254,16 @@ increaseBtn.addEventListener('click', () => {
     currentQuantity++;
     quantitySpan.textContent = currentQuantity;
     updateQuantityControls();
+});
+
+// Fullscreen button functionality
+fullscreenBtn.addEventListener('click', () => {
+    // Set the fullscreen image src to the current modal image
+    fullscreenImage.src = modalItemImage.src;
+    fullscreenImage.alt = modalItemImage.alt;
+    
+    // Show the fullscreen modal
+    fullImageModal.style.display = 'flex';
 });
 
 // Add to cart function
@@ -457,6 +479,17 @@ function editCartItem(itemId) {
     currentItemId = itemId;
     editMode = true;
     
+    // Try to find the original item to get its image
+    const originalItem = Array.from(foodItems).find(foodItem => 
+        foodItem.dataset.name === item.name
+    );
+    
+    if (originalItem) {
+        const imageSrc = originalItem.querySelector('.food-image').src;
+        modalItemImage.src = imageSrc;
+        modalItemImage.alt = item.name;
+    }
+    
     // Change button text
     addToCartBtn.textContent = 'Mettre à jour';
     
@@ -578,10 +611,15 @@ foodItems.forEach(item => {
         const name = item.dataset.name;
         const price = item.dataset.price;
         const description = item.dataset.description;
+        // Get the image src from the item
+        const imageSrc = item.querySelector('.food-image').src;
         
         modalItemName.textContent = name;
         modalItemDescription.textContent = description;
         modalItemPrice.textContent = price;
+        // Set the image src
+        modalItemImage.src = imageSrc;
+        modalItemImage.alt = name;
         
         // Reset quantity
         currentQuantity = 1;
@@ -602,7 +640,9 @@ foodItems.forEach(item => {
 document.addEventListener('keydown', (e) => {
     // ESC to close modals
     if (e.key === 'Escape') {
-        if (itemModal.style.display === 'flex') {
+        if (fullImageModal.style.display === 'flex') {
+            fullImageModal.style.display = 'none';
+        } else if (itemModal.style.display === 'flex') {
             itemModal.style.display = 'none';
             resetItemModal();
         } else if (basketModal.style.display === 'flex') {
