@@ -1475,3 +1475,12 @@ document.getElementById('fullscreen-image').addEventListener('click', (e) => {
     e.stopPropagation();
     closeModal(fullImageModal);
 });
+
+// Add this to your script.js
+document.getElementById('categoryTabs').addEventListener('touchmove', function(e) {
+  if (e.cancelable) {
+    if (Math.abs(e.touches[0].clientY - initialY) > Math.abs(e.touches[0].clientX - initialX)) {
+      e.preventDefault(); // Prevent scrolling if vertical movement is greater than horizontal
+    }
+  }
+}, { passive: false });
