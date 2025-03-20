@@ -31,6 +31,7 @@ body {
 
 :root {
     --primary-color: #FCBA2E;
+    --primary-light: #FECF65;
     --primary-dark: #E9A617;
     --secondary-color: #F9A826;
     --accent-color: #5D4037;
@@ -40,9 +41,13 @@ body {
     --bg-item: #FFF8E6;
     --white: #FFFFFF;
     --success: #4CAF50;
+    --success-light: #A5D6A7;
     --success-dark: #3e8e41;
     --danger: #F44336;
+    --danger-light: #FFCDD2;
     --danger-dark: #d32f2f;
+    --warning: #FF9800;
+    --info: #2196F3;
     --whatsapp: #25D366;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     --shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15);
@@ -55,6 +60,8 @@ body {
     --max-width: 600px;
     --header-height: 76px; /* Fixed header height for consistency */
     --category-height: 60px; /* Fixed category height for consistency */
+    --search-height: 60px; /* Height for search bar */
+    --min-touch-target: 44px; /* Minimum touch target size */
 }
 
 .app-container {
@@ -122,10 +129,66 @@ header {
     white-space: nowrap; /* Prevent line break */
 }
 
+/* Search container - new addition */
+.search-container {
+    position: fixed;
+    top: var(--header-height);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 95; /* Between header and categories */
+    width: 100%;
+    max-width: var(--max-width);
+    padding: 10px 15px;
+    background-color: var(--white);
+    height: var(--search-height);
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+#searchInput {
+    width: 100%;
+    height: var(--min-touch-target);
+    padding: 0 40px 0 15px;
+    border: 1px solid #ddd;
+    border-radius: var(--radius);
+    font-size: 16px;
+    background-color: var(--bg-light);
+    transition: var(--transition);
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(252, 186, 46, 0.2);
+}
+
+.clear-search-btn {
+    position: absolute;
+    right: 25px;
+    height: 36px;
+    width: 36px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.clear-search-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--danger);
+}
+
 /* FIXED: Category Tabs positioning - now fixed instead of sticky to prevent wiggling */
 .category-wrapper {
     position: fixed; /* Changed from sticky to fixed */
-    top: var(--header-height); /* Position right after the header */
+    top: calc(var(--header-height) + var(--search-height)); /* Position after search */
     left: 50%;
     transform: translateX(-50%); /* Center the tabs */
     z-index: 90; /* Lower than header but higher than content */
@@ -139,9 +202,9 @@ header {
     will-change: transform; /* Optimize for animations */
 }
 
-/* Add padding to main content to account for fixed header and category */
+/* Add padding to main content to account for fixed header, search, and category */
 .food-items {
-    margin-top: calc(var(--header-height) + var(--category-height));
+    margin-top: calc(var(--header-height) + var(--search-height) + var(--category-height));
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -156,14 +219,16 @@ header {
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    gap: 10px;
+    gap: 12px; /* Increased gap between tabs */
     background-color: var(--white);
     /* Add scroll indication */
-    -webkit-mask-image: linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent);
-    mask-image: linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 25px, black calc(100% - 25px), transparent);
+    mask-image: linear-gradient(to right, transparent, black 25px, black calc(100% - 25px), transparent);
     scroll-behavior: smooth; /* Smooth scrolling */
     scroll-snap-type: x mandatory; /* Better snap behavior */
     -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    padding-left: 25px; /* Increased padding to prevent overlap with scroll indicator */
+    padding-right: 25px;
 }
 
 .category-tabs::-webkit-scrollbar {
@@ -173,13 +238,13 @@ header {
 .category-tabs::after {
     content: '';
     display: block;
-    min-width: 10px;
+    min-width: 15px;
 }
 
 .category-tabs::before {
     content: '';
     display: block;
-    min-width: 10px;
+    min-width: 15px;
 }
 
 .tab {
@@ -198,6 +263,11 @@ header {
     scroll-snap-align: start; /* Snap alignment */
     user-select: none; /* Prevent text selection */
     position: relative; /* For active indicator */
+    min-height: 36px; /* Ensure consistent height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px; /* Ensure minimum width for tap target */
 }
 
 .tab:hover {
@@ -219,7 +289,7 @@ header {
     bottom: -8px;
     left: 50%;
     transform: translateX(-50%);
-    width: 30px;
+    width: 40px; /* Wider indicator */
     height: 3px;
     background-color: var(--primary-color);
     border-radius: 3px;
@@ -273,7 +343,7 @@ header {
 .food-details {
     flex: 1;
     min-width: 0; /* Helps with text overflow */
-    padding-right: 120px; /* Further increased padding to prevent price overlap */
+    padding-right: 130px; /* Further increased padding to prevent price overlap */
     max-width: 100%;
     position: relative; /* Ensure positioning context */
 }
@@ -302,14 +372,14 @@ header {
 
 .food-price {
     position: absolute;
-    right: 60px;
+    right: 70px; /* Increased for better spacing */
     top: 50%;
     transform: translateY(-50%);
     background-color: var(--primary-color);
     color: var(--white);
-    padding: 4px 10px;
+    padding: 6px 10px;
     border-radius: var(--radius-sm);
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     min-width: 70px;
@@ -325,11 +395,11 @@ header {
     transform: translateY(-50%);
     background-color: var(--primary-color);
     color: var(--white);
-    width: 32px;
-    height: 32px;
+    width: 44px; /* Increased to minimum touch target size */
+    height: 44px; /* Increased to minimum touch target size */
     border-radius: 50%;
     border: none;
-    font-size: 18px;
+    font-size: 22px; /* Slightly larger for better visibility */
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -382,6 +452,7 @@ header {
     position: relative;
     overflow: hidden;
     user-select: none; /* Prevent text selection */
+    height: var(--min-touch-target); /* Ensure minimum height */
 }
 
 .cart-box::before {
@@ -416,7 +487,7 @@ header {
 }
 
 .cart-icon {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 #cart-items-count {
@@ -434,7 +505,7 @@ header {
 
 .cart-price {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px; /* Increased for better visibility */
 }
 
 /* Enhanced Modals with better performance */
@@ -464,7 +535,7 @@ header {
     background-color: var(--white);
     border-radius: var(--radius-lg);
     width: 90%;
-    max-width: 400px;
+    max-width: 450px; /* Increased from 400px */
     max-height: 90vh;
     overflow-y: auto;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -504,8 +575,8 @@ header {
     cursor: pointer;
     color: var(--text-light);
     transition: var(--transition);
-    width: 32px;
-    height: 32px;
+    width: 44px; /* Increased to minimum touch target size */
+    height: 44px; /* Increased to minimum touch target size */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -541,12 +612,17 @@ header {
     color: var(--text-light);
     margin-bottom: 8px;
     font-size: 14px;
+    line-height: 1.5;
 }
 
 .modal-item-price {
     font-weight: 600;
     color: var(--primary-color) !important;
-    font-size: 16px !important;
+    font-size: 18px !important; /* Increased for better visibility */
+    background-color: var(--bg-item);
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
 }
 
 .quantity-control {
@@ -555,7 +631,8 @@ header {
     border-radius: var(--radius);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
 .quantity-control > span {
@@ -567,20 +644,20 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 10px;
 }
 
 .quantity-btn {
     background-color: var(--primary-color);
     color: var(--white);
-    width: 44px; /* Increased for better touch target */
-    height: 44px; /* Increased for better touch target */
+    width: 44px; /* Minimum touch target size */
+    height: 44px; /* Minimum touch target size */
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
     border: none;
     box-shadow: var(--shadow);
     transition: var(--transition);
@@ -605,11 +682,53 @@ header {
     cursor: not-allowed;
 }
 
-.quantity {
+/* New quantity input style */
+.quantity-input {
     font-weight: 600;
     font-size: 18px;
-    width: 30px;
+    width: 60px;
     text-align: center;
+    border: 1px solid #ddd;
+    border-radius: var(--radius-sm);
+    height: 44px;
+    -moz-appearance: textfield; /* Hide spinner in Firefox */
+}
+
+.quantity-input::-webkit-inner-spin-button, 
+.quantity-input::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.quantity-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(252, 186, 46, 0.2);
+}
+
+/* New quick select buttons */
+.quantity-quick-select {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.quantity-preset {
+    border: 1px solid var(--primary-color);
+    background: transparent;
+    color: var(--primary-color);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.quantity-preset:hover, .quantity-preset.active {
+    background-color: var(--primary-color);
+    color: var(--white);
 }
 
 .add-to-cart-btn {
@@ -622,11 +741,15 @@ header {
     cursor: pointer;
     font-weight: 600;
     font-size: 16px;
-    margin-top: 20px;
     box-shadow: var(--shadow);
     transition: var(--transition);
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: var(--min-touch-target); /* Ensure min height */
 }
 
 .add-to-cart-btn::before {
@@ -684,6 +807,14 @@ header {
     animation: spin 0.8s linear infinite;
 }
 
+/* Button icon and text */
+.btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
 @keyframes button-pop {
     0% { transform: scale(1); }
     50% { transform: scale(0.98); }
@@ -711,6 +842,10 @@ header {
     font-size: 14px;
     font-weight: 500;
     transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: var(--min-touch-target); /* Ensure minimum height */
 }
 
 .empty-cart-btn:hover {
@@ -732,6 +867,9 @@ header {
     overflow-y: auto;
     padding-right: 5px;
     -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    background-color: var(--bg-light);
+    border-radius: var(--radius);
+    padding: 10px;
 }
 
 .cart-items::-webkit-scrollbar {
@@ -758,11 +896,12 @@ header {
     align-items: center;
     padding: 15px;
     border-bottom: 1px solid #eee;
-    background-color: #fafafa;
+    background-color: #ffffff;
     border-radius: var(--radius-sm);
     margin-bottom: 10px;
     transition: var(--transition);
     transform: translateZ(0); /* Force hardware acceleration */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .cart-item:hover {
@@ -773,6 +912,7 @@ header {
 .item-info {
     flex: 1;
     min-width: 0; /* Prevent overflow */
+    padding-right: 10px; /* Ensure spacing from controls */
 }
 
 .item-name {
@@ -791,7 +931,7 @@ header {
 
 .item-controls {
     display: flex;
-    gap: 10px;
+    gap: 15px; /* Increased for better touch targets */
     margin-left: 10px;
 }
 
@@ -801,8 +941,8 @@ header {
     cursor: pointer;
     font-size: 16px;
     transition: var(--transition);
-    width: 44px; /* Increased for better touch target */
-    height: 44px; /* Increased for better touch target */
+    width: 44px; /* Minimum touch target size */
+    height: 44px; /* Minimum touch target size */
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -830,11 +970,28 @@ header {
     outline-offset: 2px;
 }
 
+/* Improved empty cart message */
 .empty-cart-message {
     text-align: center;
     color: var(--text-light);
     padding: 30px 0;
-    font-style: italic;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.empty-cart-icon {
+    font-size: 40px;
+    color: var(--primary-light);
+    opacity: 0.8;
+}
+
+.empty-cart-help {
+    font-size: 13px;
+    opacity: 0.7;
+    max-width: 250px;
+    margin: 0 auto;
 }
 
 .cart-summary {
@@ -857,7 +1014,8 @@ header {
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px; /* Increased for better spacing */
+    position: relative;
 }
 
 .form-group label {
@@ -869,11 +1027,11 @@ header {
 
 .form-group input {
     width: 100%;
-    padding: 12px;
+    padding: 12px 15px;
     border: 1px solid #ddd;
     border-radius: var(--radius-sm);
     font-size: 16px !important; /* Prevents iOS zoom on focus */
-    height: 44px; /* Minimum touch target size */
+    height: var(--min-touch-target); /* Minimum touch target size */
     transition: var(--transition);
     max-height: 100%; /* Ensure it doesn't overflow */
 }
@@ -882,6 +1040,43 @@ header {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 2px rgba(252, 186, 46, 0.2);
     outline: none;
+}
+
+/* New phone input group */
+.phone-input-group {
+    display: flex;
+    align-items: center;
+}
+
+.country-code {
+    background-color: #f5f5f5;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-right: none;
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+    font-weight: 500;
+    height: var(--min-touch-target);
+    display: flex;
+    align-items: center;
+}
+
+.phone-input-group input {
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    flex: 1;
+}
+
+.form-feedback {
+    color: var(--danger);
+    font-size: 12px;
+    margin-top: 5px;
+    min-height: 18px; /* Reserve space to prevent layout shift */
+}
+
+.form-hint {
+    color: var(--text-light);
+    font-size: 12px;
+    margin-top: 5px;
+    opacity: 0.8;
 }
 
 .form-group input:invalid:not(:placeholder-shown) {
@@ -907,6 +1102,10 @@ header {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
+    height: var(--min-touch-target); /* Ensure minimum height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .checkout-btn::before {
@@ -945,11 +1144,42 @@ header {
     margin-bottom: 20px;
 }
 
-.order-title {
+/* New success message */
+.order-success-message {
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.success-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--success);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.order-success-message p {
+    font-size: 18px;
     font-weight: 600;
     color: var(--success);
+}
+
+.order-title {
+    font-weight: 600;
+    color: var(--accent-color);
     margin-bottom: 15px;
     font-size: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .order-details, .customer-details {
@@ -957,11 +1187,19 @@ header {
 }
 
 .order-item {
-    margin-left: 10px;
     margin-bottom: 8px;
-    padding: 8px;
-    background-color: rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    background-color: white;
     border-radius: var(--radius-sm);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.customer-details {
+    background-color: white;
+    padding: 15px;
+    border-radius: var(--radius-sm);
+    margin-top: 15px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 .customer-details p {
@@ -986,6 +1224,7 @@ header {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
+    height: var(--min-touch-target); /* Ensure minimum height */
 }
 
 .submit-order-btn::before {
@@ -1027,8 +1266,8 @@ header {
     right: 20px;
     background-color: var(--primary-color);
     color: white;
-    width: 44px; /* Increased for better touch target */
-    height: 44px; /* Increased for better touch target */
+    width: var(--min-touch-target); /* Minimum touch target size */
+    height: var(--min-touch-target); /* Minimum touch target size */
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1039,7 +1278,6 @@ header {
     visibility: hidden;
     transition: var(--transition);
     z-index: 99;
-    font-size: 20px;
     transform: translateZ(0); /* Force hardware acceleration */
 }
 
@@ -1058,6 +1296,10 @@ header {
     outline-offset: 2px;
     opacity: 1;
     visibility: visible;
+}
+
+.back-to-top-icon {
+    font-size: 20px;
 }
 
 /* Enhanced Loading Indicator */
@@ -1089,12 +1331,25 @@ header {
     text-align: center;
     color: var(--text-light);
     padding: 30px 15px;
-    font-style: italic;
     display: none;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: var(--bg-light);
     border-radius: var(--radius);
     margin: 20px 0;
     border: 1px dashed #ddd;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.no-results-icon {
+    font-size: 40px;
+    color: var(--text-light);
+    opacity: 0.5;
+}
+
+.no-results-help {
+    font-size: 13px;
+    opacity: 0.7;
 }
 
 /* Enhanced Toast Notifications */
@@ -1124,18 +1379,40 @@ header {
     pointer-events: auto; /* Make the toast clickable */
     transform: translateZ(0); /* Force hardware acceleration */
     will-change: transform, opacity; /* Optimize for animations */
+    border-left: 4px solid var(--primary-color);
 }
 
 .toast.success {
-    border-left: 4px solid var(--success);
+    border-left-color: var(--success);
+}
+
+.toast.success::before {
+    content: '✓';
+    color: var(--success);
+    font-weight: bold;
+    margin-right: 6px;
 }
 
 .toast.error {
-    border-left: 4px solid var(--danger);
+    border-left-color: var(--danger);
+}
+
+.toast.error::before {
+    content: '✕';
+    color: var(--danger);
+    font-weight: bold;
+    margin-right: 6px;
 }
 
 .toast.info {
-    border-left: 4px solid var(--primary-color);
+    border-left-color: var(--info);
+}
+
+.toast.info::before {
+    content: 'ℹ';
+    color: var(--info);
+    font-weight: bold;
+    margin-right: 6px;
 }
 
 @keyframes slideInRight {
@@ -1154,7 +1431,7 @@ header {
     position: absolute;
     top: 0;
     height: 100%;
-    width: 40px; /* Wider for better touch target */
+    width: 44px; /* Minimum touch target size */
     z-index: 31;
     display: flex;
     align-items: center;
@@ -1181,8 +1458,8 @@ header {
     margin: 0 5px;
     background-color: rgba(255, 255, 255, 0.7); /* Better visibility */
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1206,21 +1483,23 @@ header {
     border-radius: 18px; /* Slightly larger than the image radius */
     overflow: hidden;
     background-color: var(--bg-light);
-    height: 220px;
+    height: auto; /* Changed from fixed height to aspect ratio */
+    aspect-ratio: 4/3; /* Added aspect ratio for responsive sizing */
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 8px; /* Add some padding around the image */
     border: 1px solid rgba(0,0,0,0.1);
+    max-height: 250px; /* Maximum height */
 }
 
 .modal-product-image {
     display: block;
     max-width: 100%;
-    max-height: 200px;
+    max-height: 100%;
     width: auto;
     height: auto;
-    object-fit: cover;
+    object-fit: contain; /* Changed from cover to contain */
     transition: transform 0.3s ease;
     transform-origin: center center;
     border-radius: 16px; /* Increased and fixed value for more obvious rounding */
@@ -1286,8 +1565,8 @@ header {
     background-color: rgba(255, 255, 255, 0.2);
     color: var(--white);
     font-size: 28px;
-    width: 44px; /* Increased for better touch target */
-    height: 44px; /* Increased for better touch target */
+    width: var(--min-touch-target); /* Minimum touch target size */
+    height: var(--min-touch-target); /* Minimum touch target size */
 }
 
 .fullscreen-close-btn:hover {
@@ -1297,11 +1576,6 @@ header {
 .fullscreen-close-btn:focus-visible {
     outline: 2px solid white;
     outline-offset: 2px;
-}
-
-/* Enhanced Modal Content for Image */
-#itemModal .modal-content {
-    max-width: 450px; /* Slightly wider to accommodate image */
 }
 
 /* Success Animation for Action Feedback */
@@ -1344,6 +1618,15 @@ textarea {
     -webkit-overflow-scrolling: touch;
 }
 
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
 /* Responsive Styles with fixes for mobile wiggles */
 @media (min-width: 481px) and (max-width: 768px) {
     .food-description {
@@ -1356,18 +1639,19 @@ textarea {
     }
     
     .food-details {
-        padding-right: 120px; /* Further increased to prevent overlap */
+        padding-right: 130px; /* Increased to prevent overlap */
     }
     
     .food-price {
         min-width: 65px;
-        right: 55px; /* Adjusted position */
+        right: 70px; /* Adjusted position */
     }
 }
 
 @media (max-width: 480px) {
     :root {
         --header-height: 66px; /* Adjusted for smaller screens */
+        --search-height: 56px; /* Adjusted for smaller screens */
     }
     
     header {
@@ -1381,12 +1665,12 @@ textarea {
     }
     
     .food-image {
-        width: 55px;
-        height: 55px;
+        width: 60px;
+        height: 60px;
     }
     
     .food-details {
-        padding-right: 110px;
+        padding-right: 125px; /* Increased to ensure enough space */
     }
     
     .modal-content {
@@ -1396,6 +1680,7 @@ textarea {
     .tab {
         padding: 8px 15px;
         font-size: 13px;
+        min-width: 90px; /* Ensure minimum size for categories */
     }
     
     .app-title {
@@ -1409,37 +1694,47 @@ textarea {
     }
     
     .food-price {
-        font-size: 12px;
-        padding: 3px 8px;
-        right: 45px;
-        min-width: 55px;
+        font-size: 13px;
+        padding: 4px 8px;
+        right: 60px; /* Increased space from add button */
+        min-width: 60px;
     }
     
     .add-btn {
-        width: 28px;
-        height: 28px;
-        font-size: 16px;
+        width: 44px; /* Maintained minimum touch target */
+        height: 44px; /* Maintained minimum touch target */
+        font-size: 20px;
         right: 10px;
     }
     
-    .modal-image-container {
-        height: 180px;
-    }
-    
-    .modal-product-image {
-        max-height: 160px;
-    }
-    
-    .modal-image-container::after {
-        font-size: 10px;
-        padding: 3px 6px;
-    }
-    
     /* Make sure form elements are large enough for finger touch */
-    .form-group input {
-        height: 44px; /* Minimum touch target size */
-        padding: 12px;
+    .form-group input, 
+    .country-code {
+        height: var(--min-touch-target); /* Minimum touch target size */
+        padding: 10px 12px;
         font-size: 16px !important; /* Reinforcing specific size for inputs */
+    }
+    
+    /* Adjust quantity controls for mobile */
+    .quantity-buttons {
+        gap: 8px;
+    }
+    
+    .quantity-input {
+        width: 50px;
+    }
+    
+    .quantity-quick-select {
+        gap: 8px;
+    }
+    
+    /* Ensure all buttons maintain minimum touch size */
+    .quantity-btn,
+    .quantity-preset,
+    .edit-btn,
+    .remove-btn {
+        min-width: var(--min-touch-target);
+        min-height: var(--min-touch-target);
     }
 }
 
@@ -1450,12 +1745,12 @@ textarea {
     }
     
     .food-image {
-        width: 45px;
-        height: 45px;
+        width: 55px;
+        height: 55px;
     }
     
     .food-details {
-        padding-right: 100px;
+        padding-right: 120px; /* Adjusted for smaller screens */
     }
     
     .food-title {
@@ -1468,28 +1763,36 @@ textarea {
     }
     
     .food-price {
-        font-size: 11px;
-        padding: 2px 6px;
-        right: 40px;
-        min-width: 50px;
+        font-size: 12px;
+        padding: 3px 6px;
+        right: 55px; /* Ensured spacing from add button */
+        min-width: 55px;
     }
     
     .add-btn {
-        width: 26px;
-        height: 26px;
-        font-size: 14px;
-        right: 8px;
+        width: var(--min-touch-target); /* Maintained minimum touch target */
+        height: var(--min-touch-target); /* Maintained minimum touch target */
+        font-size: 18px;
+        right: 5px;
     }
     
     .food-item {
         padding: 12px 10px;
     }
     
-    .modal-image-container {
-        height: 150px;
+    /* Adjust card layout for very small screens */
+    .cart-item {
+        padding: 12px;
     }
     
-    .modal-product-image {
-        max-height: 130px;
+    .item-controls {
+        gap: 5px;
+    }
+    
+    /* Smaller but still accessible quick select buttons */
+    .quantity-preset {
+        width: 38px;
+        height: 38px;
+        font-size: 14px;
     }
 }
