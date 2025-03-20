@@ -1429,7 +1429,7 @@ header {
 /* Enhanced scroll indicators with improved touch targets */
 .scroll-indicator-left,
 .scroll-indicator-right {
-	display: none !important;
+    display: none !important;
     position: absolute;
     top: 0;
     height: 100%;
@@ -1445,11 +1445,13 @@ header {
 }
 
 .scroll-indicator-left {
+    display: none !important;
     left: 0;
     background: linear-gradient(to right, var(--white), transparent);
 }
 
 .scroll-indicator-right {
+    display: none !important;
     right: 0;
     background: linear-gradient(to left, var(--white), transparent);
 }
