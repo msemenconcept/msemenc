@@ -281,7 +281,6 @@ const quantityInput = document.getElementById('quantity');
 const decreaseBtn = document.getElementById('decrease');
 const increaseBtn = document.getElementById('increase');
 const addToCartBtn = document.getElementById('addToCart');
-const quantityPresetBtns = document.querySelectorAll('.quantity-preset');
 
 // Cart elements
 const cartTotalSpan = document.getElementById('cart-total');
@@ -303,6 +302,10 @@ const fullNameInput = document.getElementById('fullName');
 const phoneNumberInput = document.getElementById('phoneNumber');
 const fullNameFeedback = document.getElementById('fullNameFeedback');
 const phoneNumberFeedback = document.getElementById('phoneNumberFeedback');
+
+// Get both mobile tabs and desktop sidebar links
+const mobileTabs = document.querySelectorAll('.tab');
+const desktopLinks = document.querySelectorAll('.sidebar-nav a');
 
 // ===============================
 // Prevent Double-tap Zoom
@@ -457,10 +460,6 @@ function resetItemModal() {
     currentQuantity = 1;
     quantityInput.value = currentQuantity;
     
-    // Reset quantity preset buttons
-    quantityPresetBtns.forEach(btn => btn.classList.remove('active'));
-    quantityPresetBtns[0].classList.add('active'); // Activate the first preset (1)
-    
     // Enable/disable decrease button based on quantity
     updateQuantityControls();
 }
@@ -586,16 +585,6 @@ function setQuantity(quantity) {
     // Update input
     quantityInput.value = currentQuantity;
     
-    // Update preset buttons
-    quantityPresetBtns.forEach(btn => {
-        const btnQuantity = parseInt(btn.dataset.quantity);
-        if (btnQuantity === currentQuantity) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
-    });
-    
     // Update decrease button state
     updateQuantityControls();
 }
@@ -690,16 +679,6 @@ function editCartItem(itemId) {
     currentItemPrice = item.price;
     currentItemId = itemId;
     editMode = true;
-    
-    // Update quantity preset buttons
-    quantityPresetBtns.forEach(btn => {
-        const btnQuantity = parseInt(btn.dataset.quantity);
-        if (btnQuantity === currentQuantity) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
-    });
     
     // Try to find the original item to get its image
     const originalItem = Array.from(foodItems).find(foodItem => 
@@ -974,6 +953,30 @@ function filterItemsByCategory(category) {
 }
 
 /**
+ * Function to update active state on both mobile and desktop navigation
+ * @param {string} category - Category to set as active
+ */
+function updateActiveNavigation(category) {
+    // Update mobile tabs
+    mobileTabs.forEach(tab => {
+        if (tab.dataset.category === category) {
+            tab.classList.add('active');
+        } else {
+            tab.classList.remove('active');
+        }
+    });
+    
+    // Update desktop navigation
+    desktopLinks.forEach(link => {
+        if (link.dataset.category === category) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+}
+
+/**
  * Update scroll indicators visibility
  */
 function updateScrollIndicators() {
@@ -1103,10 +1106,6 @@ foodItemsContainer.addEventListener('click', (e) => {
     currentQuantity = 1;
     quantityInput.value = currentQuantity;
     
-    // Activate first preset button
-    quantityPresetBtns.forEach(btn => btn.classList.remove('active'));
-    document.querySelector('.quantity-preset[data-quantity="1"]').classList.add('active');
-    
     // Set current item price for calculations
     try {
         // Better price parsing with fallback
@@ -1177,14 +1176,8 @@ clearSearchBtn.addEventListener('click', () => {
 // Category tabs click
 tabs.forEach(tab => {
     tab.addEventListener('click', () => {
-        // Remove active class from all tabs
-        tabs.forEach(t => t.classList.remove('active'));
-        
-        // Add active class to clicked tab
-        tab.classList.add('active');
-        
-        // Filter items by category
         const category = tab.dataset.category;
+        updateActiveNavigation(category);
         filterItemsByCategory(category);
     });
     
@@ -1193,6 +1186,24 @@ tabs.forEach(tab => {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             tab.click();
+        }
+    });
+});
+
+// Desktop sidebar links click events
+desktopLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent the default anchor behavior
+        const category = link.dataset.category;
+        updateActiveNavigation(category);
+        filterItemsByCategory(category);
+    });
+    
+    // Keyboard access for desktop links
+    link.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            link.click();
         }
     });
 });
@@ -1230,14 +1241,6 @@ quantityInput.addEventListener('input', function() {
     }
     
     setQuantity(value);
-});
-
-// Handle quantity preset buttons
-quantityPresetBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const quantity = parseInt(btn.dataset.quantity);
-        setQuantity(quantity);
-    });
 });
 
 // Cart management
