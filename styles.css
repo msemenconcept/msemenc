@@ -1,6 +1,11 @@
-/* Enhanced Responsive Styles - Updated Version */
+/* ===========================================
+   MSEMEN CONCEPT - RESPONSIVE CSS
+   This file contains styles for both mobile and desktop
+============================================= */
 
-/* Improved Base Styles */
+/* ===========================================
+   BASE STYLES & VARIABLES
+============================================= */
 * {
     margin: 0;
     padding: 0;
@@ -18,7 +23,7 @@ html {
 }
 
 body {
-    background-image: url('https://i.postimg.cc/cJkP0WKY/Untitled-design.png'); /* Replace with your image URL */
+    background-image: url('https://i.postimg.cc/cJkP0WKY/Untitled-design.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -34,6 +39,7 @@ body {
 }
 
 :root {
+    /* Color variables */
     --primary-color: #FCBA2E;
     --primary-light: #FECF65;
     --primary-dark: #E9A617;
@@ -53,21 +59,37 @@ body {
     --warning: #FF9800;
     --info: #2196F3;
     --whatsapp: #25D366;
+    
+    /* Shadow variables */
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     --shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15);
     --shadow-bottom: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    
+    /* Border radius variables */
     --radius: 12px;
     --radius-sm: 8px;
     --radius-lg: 16px;
+    
+    /* Animation variables */
     --transition: all 0.3s ease;
     --fast-transition: all 0.15s ease;
+    
+    /* Layout variables */
     --max-width: 600px;
-    --header-height: 76px; /* Fixed header height for consistency */
-    --category-height: 60px; /* Fixed category height for consistency */
-    --search-height: 60px; /* Height for search bar */
-    --min-touch-target: 44px; /* Minimum touch target size */
+    --header-height: 76px;
+    --category-height: 60px;
+    --search-height: 60px;
+    --min-touch-target: 44px;
+    
+    /* Desktop variables - will only apply on larger screens */
+    --desktop-header-height: 80px;
+    --desktop-sidebar-width: 250px;
+    --desktop-content-padding: 30px;
 }
 
+/* ===========================================
+   LAYOUT & CONTAINER STYLES
+============================================= */
 .app-container {
     max-width: var(--max-width);
     width: 100%;
@@ -80,23 +102,50 @@ body {
     overflow: hidden; /* Prevent overflow issues */
 }
 
-/* Enhanced Header - Fixed Position to prevent wiggling */
+/* Content wrapper - holds sidebar and main content */
+.content-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column; /* Stack vertically on mobile */
+}
+
+/* Sidebar - hidden on mobile */
+.sidebar {
+    display: none; /* Hidden on mobile by default */
+}
+
+/* ===========================================
+   HEADER STYLES
+============================================= */
 header {
     background-color: var(--primary-color);
     padding: 18px 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: fixed; /* Changed from sticky to fixed */
+    position: fixed;
     top: 0;
     left: 50%;
-    transform: translateX(-50%); /* Center the header */
-    z-index: 100; /* Increased z-index */
+    transform: translateX(-50%);
+    z-index: 100;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: var(--max-width);
     height: var(--header-height);
     will-change: transform; /* Optimize for animations */
+}
+
+.header-content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
 }
 
 .logo-circle {
@@ -109,7 +158,7 @@ header {
     justify-content: center;
     font-weight: 600;
     position: absolute;
-    left: 20px;
+    left: 0;
     box-shadow: var(--shadow);
     z-index: 1;
 }
@@ -129,17 +178,17 @@ header {
     font-weight: 600;
     letter-spacing: 0.5px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-    margin: 0; /* Prevent unwanted margin */
-    white-space: nowrap; /* Prevent line break */
+    margin: 0;
+    white-space: nowrap;
 }
 
-/* Search container - new addition */
+/* Search container */
 .search-container {
     position: fixed;
     top: var(--header-height);
     left: 50%;
     transform: translateX(-50%);
-    z-index: 95; /* Between header and categories */
+    z-index: 95;
     width: 100%;
     max-width: var(--max-width);
     padding: 10px 15px;
@@ -189,7 +238,9 @@ header {
     color: var(--danger);
 }
 
-/* MODIFIED: Category Wrapper - Fixed height and overflow handling */
+/* ===========================================
+   CATEGORY NAVIGATION
+============================================= */
 .category-wrapper {
     position: fixed;
     top: calc(var(--header-height) + var(--search-height));
@@ -204,53 +255,34 @@ header {
     height: var(--category-height) !important;
     transition: transform 0.3s ease;
     will-change: transform;
-    overflow: hidden; /* Prevent any overflow from causing scrolling */
+    overflow: hidden;
 }
 
-/* Add padding to main content to account for fixed header, search, and category */
-.food-items {
-    margin-top: calc(var(--header-height) + var(--search-height) + var(--category-height));
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 15px;
-    position: relative; /* Create stacking context */
-}
-
-/* IMPROVED: Category Tabs - Fixed for horizontal-only scrolling */
 .category-tabs {
     display: flex;
     padding: 5px 15px;
     overflow-x: auto;
-    overflow-y: hidden !important; /* Prevent vertical scrolling */
+    overflow-y: hidden !important;
     scrollbar-width: none;
     -ms-overflow-style: none;
     gap: 12px;
     background-color: var(--white);
-    /* Removed mask image that created fading effect */
     -webkit-mask-image: none;
     mask-image: none;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     width: 100%;
-    touch-action: pan-x !important; /* Only allow horizontal touch movement */
-    height: 40px !important; /* Fixed height for consistent scrolling */
-    align-items: center; /* Center items vertically */
-    transform: translateZ(0); /* Force hardware acceleration */
+    touch-action: pan-x !important;
+    height: 40px !important;
+    align-items: center;
+    transform: translateZ(0);
 }
 
 .category-tabs::-webkit-scrollbar {
     display: none;
 }
 
-/* Removed pseudo-elements that created space for scroll indicators */
-.category-tabs::after,
-.category-tabs::before {
-    content: none;
-}
-
-/* HIDDEN: Scroll indicators completely */
 .scroll-indicator-left,
 .scroll-indicator-right {
     display: none !important;
@@ -267,12 +299,10 @@ header {
     border: 0 !important;
 }
 
-/* Hide the indicator icons too */
 .scroll-indicator-icon {
     display: none !important;
 }
 
-/* IMPROVED: Tab with fixed height */
 .tab {
     background-color: var(--primary-color);
     color: var(--white);
@@ -286,14 +316,14 @@ header {
     opacity: 0.8;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     flex-shrink: 0;
-    scroll-snap-align: start; /* Snap alignment */
-    user-select: none; /* Prevent text selection */
-    position: relative; /* For active indicator */
-    height: 36px !important; /* Fixed height for tabs */
+    scroll-snap-align: start;
+    user-select: none;
+    position: relative;
+    height: 36px !important;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 80px; /* Ensure minimum width for tap target */
+    min-width: 80px;
 }
 
 .tab:hover {
@@ -308,26 +338,35 @@ header {
     transform: translateY(-2px);
 }
 
-/* Improved active tab indicator */
 .tab.active::after {
     content: '';
     position: absolute;
     bottom: -8px;
     left: 50%;
     transform: translateX(-50%);
-    width: 40px; /* Wider indicator */
+    width: 40px;
     height: 3px;
     background-color: var(--primary-color);
     border-radius: 3px;
 }
 
-/* Enhanced Focus Styles for accessibility */
 .tab:focus-visible {
     outline: 2px solid var(--primary-dark);
     outline-offset: 2px;
 }
 
-/* Enhanced Food Items with Fixed Layout */
+/* ===========================================
+   FOOD ITEMS
+============================================= */
+.food-items {
+    margin-top: calc(var(--header-height) + var(--search-height) + var(--category-height));
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    position: relative;
+}
+
 .food-item {
     background-color: var(--bg-item);
     border-radius: var(--radius);
@@ -337,8 +376,8 @@ header {
     position: relative;
     box-shadow: var(--shadow);
     transition: var(--transition);
-    transform: translateZ(0); /* Force hardware acceleration */
-    will-change: transform; /* Optimize for animations */
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 .food-item:hover {
@@ -351,7 +390,6 @@ header {
     outline-offset: 2px;
 }
 
-/* Improved image loading with placeholder */
 .food-image {
     width: 70px;
     height: 70px;
@@ -361,17 +399,16 @@ header {
     border: 2px solid var(--white);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     flex-shrink: 0;
-    background-color: #f0f0f0; /* Placeholder color */
-    transition: opacity 0.3s ease; /* Smooth transition when loaded */
+    background-color: #f0f0f0;
+    transition: opacity 0.3s ease;
 }
 
-/* Fixed layout for description and price */
 .food-details {
     flex: 1;
-    min-width: 0; /* Helps with text overflow */
-    padding-right: 130px; /* Further increased padding to prevent price overlap */
+    min-width: 0;
+    padding-right: 130px;
     max-width: 100%;
-    position: relative; /* Ensure positioning context */
+    position: relative;
 }
 
 .food-title {
@@ -392,13 +429,13 @@ header {
     -webkit-box-orient: vertical;
     overflow: hidden;
     word-break: break-word;
-    max-height: 2.8em; /* Hard limit on height to avoid overflow */
+    max-height: 2.8em;
     transition: var(--transition);
 }
 
 .food-price {
     position: absolute;
-    right: 70px; /* Increased for better spacing */
+    right: 70px;
     top: 50%;
     transform: translateY(-50%);
     background-color: var(--primary-color);
@@ -411,7 +448,7 @@ header {
     min-width: 70px;
     text-align: center;
     z-index: 2;
-    white-space: nowrap; /* Prevent price from wrapping */
+    white-space: nowrap;
 }
 
 .add-btn {
@@ -421,11 +458,11 @@ header {
     transform: translateY(-50%);
     background-color: var(--primary-color);
     color: var(--white);
-    width: 44px; /* Increased to minimum touch target size */
-    height: 44px; /* Increased to minimum touch target size */
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     border: none;
-    font-size: 22px; /* Slightly larger for better visibility */
+    font-size: 22px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -449,19 +486,21 @@ header {
     outline-offset: 2px;
 }
 
-/* Enhanced Bottom Bar - fixed position for better mobile experience */
+/* ===========================================
+   BOTTOM BAR & CART
+============================================= */
 .bottom-bar {
     position: fixed;
     bottom: 0;
     left: 50%;
-    transform: translateX(-50%); /* Center the bar */
+    transform: translateX(-50%);
     width: 100%;
     max-width: var(--max-width);
     padding: 15px;
     background-color: var(--white);
     box-shadow: var(--shadow-bottom);
-    z-index: 100; /* High z-index to stay on top */
-    will-change: transform; /* Optimize for animations */
+    z-index: 100;
+    will-change: transform;
 }
 
 .cart-box {
@@ -477,8 +516,8 @@ header {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
-    user-select: none; /* Prevent text selection */
-    height: var(--min-touch-target); /* Ensure minimum height */
+    user-select: none;
+    height: var(--min-touch-target);
 }
 
 .cart-box::before {
@@ -531,10 +570,12 @@ header {
 
 .cart-price {
     font-weight: 600;
-    font-size: 18px; /* Increased for better visibility */
+    font-size: 18px;
 }
 
-/* Enhanced Modals with better performance */
+/* ===========================================
+   MODALS
+============================================= */
 .modal {
     display: none;
     position: fixed;
@@ -548,8 +589,8 @@ header {
     align-items: center;
     animation: fadeIn 0.3s;
     backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px); /* For Safari */
-    will-change: opacity; /* Optimize for animations */
+    -webkit-backdrop-filter: blur(3px);
+    will-change: opacity;
 }
 
 @keyframes fadeIn {
@@ -561,14 +602,14 @@ header {
     background-color: var(--white);
     border-radius: var(--radius-lg);
     width: 90%;
-    max-width: 450px; /* Increased from 400px */
+    max-width: 450px;
     max-height: 90vh;
     overflow-y: auto;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     animation: slideUp 0.3s;
-    will-change: transform, opacity; /* Optimize for animations */
-    transform: translateZ(0); /* Force hardware acceleration */
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    overflow-x: hidden;
 }
 
 @keyframes slideUp {
@@ -601,8 +642,8 @@ header {
     cursor: pointer;
     color: var(--text-light);
     transition: var(--transition);
-    width: 44px; /* Increased to minimum touch target size */
-    height: 44px; /* Increased to minimum touch target size */
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -623,6 +664,7 @@ header {
     padding: 20px;
 }
 
+/* Product Item Modal Styles */
 .modal-item-info {
     margin-bottom: 20px;
 }
@@ -644,7 +686,7 @@ header {
 .modal-item-price {
     font-weight: 600;
     color: var(--primary-color) !important;
-    font-size: 18px !important; /* Increased for better visibility */
+    font-size: 18px !important;
     background-color: var(--bg-item);
     display: inline-block;
     padding: 5px 10px;
@@ -676,8 +718,8 @@ header {
 .quantity-btn {
     background-color: var(--primary-color);
     color: var(--white);
-    width: 44px; /* Minimum touch target size */
-    height: 44px; /* Minimum touch target size */
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -708,7 +750,6 @@ header {
     cursor: not-allowed;
 }
 
-/* New quantity input style */
 .quantity-input {
     font-weight: 600;
     font-size: 18px;
@@ -717,7 +758,7 @@ header {
     border: 1px solid #ddd;
     border-radius: var(--radius-sm);
     height: 44px;
-    -moz-appearance: textfield; /* Hide spinner in Firefox */
+    -moz-appearance: textfield;
 }
 
 .quantity-input::-webkit-inner-spin-button, 
@@ -732,7 +773,6 @@ header {
     box-shadow: 0 0 0 2px rgba(252, 186, 46, 0.2);
 }
 
-/* New quick select buttons */
 .quantity-quick-select {
     display: flex;
     justify-content: center;
@@ -775,7 +815,7 @@ header {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    height: var(--min-touch-target); /* Ensure min height */
+    height: var(--min-touch-target);
 }
 
 .add-to-cart-btn::before {
@@ -806,7 +846,6 @@ header {
     outline-offset: 2px;
 }
 
-/* Button states for better feedback */
 .add-to-cart-btn:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
@@ -833,7 +872,6 @@ header {
     animation: spin 0.8s linear infinite;
 }
 
-/* Button icon and text */
 .btn-icon {
     display: flex;
     align-items: center;
@@ -851,7 +889,9 @@ header {
     animation: button-pop 0.3s ease;
 }
 
-/* Cart Items with improved scrolling */
+/* ===========================================
+   CART & CHECKOUT
+============================================= */
 .cart-actions {
     display: flex;
     justify-content: flex-end;
@@ -871,7 +911,7 @@ header {
     display: flex;
     align-items: center;
     gap: 8px;
-    height: var(--min-touch-target); /* Ensure minimum height */
+    height: var(--min-touch-target);
 }
 
 .empty-cart-btn:hover {
@@ -892,7 +932,7 @@ header {
     max-height: 40vh;
     overflow-y: auto;
     padding-right: 5px;
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
     background-color: var(--bg-light);
     border-radius: var(--radius);
     padding: 10px;
@@ -926,7 +966,7 @@ header {
     border-radius: var(--radius-sm);
     margin-bottom: 10px;
     transition: var(--transition);
-    transform: translateZ(0); /* Force hardware acceleration */
+    transform: translateZ(0);
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
@@ -937,8 +977,8 @@ header {
 
 .item-info {
     flex: 1;
-    min-width: 0; /* Prevent overflow */
-    padding-right: 10px; /* Ensure spacing from controls */
+    min-width: 0;
+    padding-right: 10px;
 }
 
 .item-name {
@@ -957,7 +997,7 @@ header {
 
 .item-controls {
     display: flex;
-    gap: 15px; /* Increased for better touch targets */
+    gap: 15px;
     margin-left: 10px;
 }
 
@@ -967,8 +1007,8 @@ header {
     cursor: pointer;
     font-size: 16px;
     transition: var(--transition);
-    width: 44px; /* Minimum touch target size */
-    height: 44px; /* Minimum touch target size */
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -996,7 +1036,6 @@ header {
     outline-offset: 2px;
 }
 
-/* Improved empty cart message */
 .empty-cart-message {
     text-align: center;
     color: var(--text-light);
@@ -1034,13 +1073,15 @@ header {
     text-align: right;
 }
 
-/* Enhanced Checkout Form with better validation styles */
+/* ===========================================
+   CHECKOUT FORM
+============================================= */
 .checkout-form {
     margin-top: 20px;
 }
 
 .form-group {
-    margin-bottom: 20px; /* Increased for better spacing */
+    margin-bottom: 20px;
     position: relative;
 }
 
@@ -1056,10 +1097,10 @@ header {
     padding: 12px 15px;
     border: 1px solid #ddd;
     border-radius: var(--radius-sm);
-    font-size: 16px !important; /* Prevents iOS zoom on focus */
-    height: var(--min-touch-target); /* Minimum touch target size */
+    font-size: 16px !important;
+    height: var(--min-touch-target);
     transition: var(--transition);
-    max-height: 100%; /* Ensure it doesn't overflow */
+    max-height: 100%;
 }
 
 .form-group input:focus {
@@ -1068,7 +1109,6 @@ header {
     outline: none;
 }
 
-/* New phone input group */
 .phone-input-group {
     display: flex;
     align-items: center;
@@ -1095,7 +1135,7 @@ header {
     color: var(--danger);
     font-size: 12px;
     margin-top: 5px;
-    min-height: 18px; /* Reserve space to prevent layout shift */
+    min-height: 18px;
 }
 
 .form-hint {
@@ -1128,7 +1168,7 @@ header {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
-    height: var(--min-touch-target); /* Ensure minimum height */
+    height: var(--min-touch-target);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1162,7 +1202,9 @@ header {
     outline-offset: 2px;
 }
 
-/* Enhanced Order Confirmation */
+/* ===========================================
+   ORDER CONFIRMATION
+============================================= */
 .order-confirmation {
     background-color: #f0f8ff;
     padding: 20px;
@@ -1170,7 +1212,6 @@ header {
     margin-bottom: 20px;
 }
 
-/* New success message */
 .order-success-message {
     text-align: center;
     margin-bottom: 20px;
@@ -1250,7 +1291,7 @@ header {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
-    height: var(--min-touch-target); /* Ensure minimum height */
+    height: var(--min-touch-target);
 }
 
 .submit-order-btn::before {
@@ -1285,15 +1326,17 @@ header {
     font-size: 20px;
 }
 
-/* Back to top button with improved visibility */
+/* ===========================================
+   BACK TO TOP BUTTON
+============================================= */
 .back-to-top {
     position: fixed;
     bottom: 100px;
     right: 20px;
     background-color: var(--primary-color);
     color: white;
-    width: var(--min-touch-target); /* Minimum touch target size */
-    height: var(--min-touch-target); /* Minimum touch target size */
+    width: var(--min-touch-target);
+    height: var(--min-touch-target);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1304,7 +1347,7 @@ header {
     visibility: hidden;
     transition: var(--transition);
     z-index: 99;
-    transform: translateZ(0); /* Force hardware acceleration */
+    transform: translateZ(0);
 }
 
 .back-to-top.visible {
@@ -1328,7 +1371,9 @@ header {
     font-size: 20px;
 }
 
-/* Enhanced Loading Indicator */
+/* ===========================================
+   LOADING & NO RESULTS
+============================================= */
 .loading {
     display: none;
     align-items: center;
@@ -1345,14 +1390,13 @@ header {
     border-radius: 50%;
     border-top-color: var(--primary-color);
     animation: spin 1s infinite linear;
-    will-change: transform; /* Optimize for animations */
+    will-change: transform;
 }
 
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
 
-/* Enhanced No results message */
 .no-results {
     text-align: center;
     color: var(--text-light);
@@ -1378,7 +1422,9 @@ header {
     opacity: 0.7;
 }
 
-/* Enhanced Toast Notifications */
+/* ===========================================
+   TOAST NOTIFICATIONS
+============================================= */
 .toast-container {
     position: fixed;
     top: 20px;
@@ -1388,7 +1434,7 @@ header {
     flex-direction: column;
     gap: 10px;
     max-width: 300px;
-    pointer-events: none; /* Allow clicks through the container */
+    pointer-events: none;
 }
 
 .toast {
@@ -1402,9 +1448,9 @@ header {
     gap: 10px;
     animation: slideInRight 0.3s, fadeOut 0.3s 2.7s forwards;
     font-size: 14px;
-    pointer-events: auto; /* Make the toast clickable */
-    transform: translateZ(0); /* Force hardware acceleration */
-    will-change: transform, opacity; /* Optimize for animations */
+    pointer-events: auto;
+    transform: translateZ(0);
+    will-change: transform, opacity;
     border-left: 4px solid var(--primary-color);
 }
 
@@ -1451,22 +1497,24 @@ header {
     to { opacity: 0; }
 }
 
-/* Product Image in Modal with improved loading experience */
+/* ===========================================
+   PRODUCT IMAGES
+============================================= */
 .modal-image-container {
     position: relative;
     width: 100%;
     margin-bottom: 20px;
-    border-radius: 18px; /* Slightly larger than the image radius */
+    border-radius: 18px;
     overflow: hidden;
     background-color: var(--bg-light);
-    height: auto; /* Changed from fixed height to aspect ratio */
-    aspect-ratio: 4/3; /* Added aspect ratio for responsive sizing */
+    height: auto;
+    aspect-ratio: 4/3;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px; /* Add some padding around the image */
+    padding: 8px;
     border: 1px solid rgba(0,0,0,0.1);
-    max-height: 250px; /* Maximum height */
+    max-height: 250px;
 }
 
 .modal-product-image {
@@ -1475,21 +1523,20 @@ header {
     max-height: 100%;
     width: auto;
     height: auto;
-    object-fit: contain; /* Changed from cover to contain */
+    object-fit: contain;
     transition: transform 0.3s ease;
     transform-origin: center center;
-    border-radius: 16px; /* Increased and fixed value for more obvious rounding */
+    border-radius: 16px;
     border: 3px solid var(--white);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-    cursor: pointer; /* Indicate that the image is clickable */
+    cursor: pointer;
 }
 
 .modal-product-image:hover {
-    transform: scale(1.03); /* Subtle zoom effect on hover */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+    transform: scale(1.03);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Image hover instructions - subtle hint that image is clickable */
 .modal-image-container::after {
     content: 'Cliquez pour agrandir';
     position: absolute;
@@ -1508,7 +1555,6 @@ header {
     opacity: 1;
 }
 
-/* Fullscreen Image Modal with improved transitions */
 .fullscreen-image-container {
     width: 100%;
     height: 100%;
@@ -1526,7 +1572,7 @@ header {
     border-radius: var(--radius);
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
     animation: fadeZoomIn 0.3s;
-    will-change: transform, opacity; /* Optimize for animations */
+    will-change: transform, opacity;
 }
 
 @keyframes fadeZoomIn {
@@ -1541,8 +1587,8 @@ header {
     background-color: rgba(255, 255, 255, 0.2);
     color: var(--white);
     font-size: 28px;
-    width: var(--min-touch-target); /* Minimum touch target size */
-    height: var(--min-touch-target); /* Minimum touch target size */
+    width: var(--min-touch-target);
+    height: var(--min-touch-target);
 }
 
 .fullscreen-close-btn:hover {
@@ -1554,7 +1600,9 @@ header {
     outline-offset: 2px;
 }
 
-/* Success Animation for Action Feedback */
+/* ===========================================
+   SUCCESS ANIMATIONS
+============================================= */
 @keyframes successPulse {
     0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
     70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
@@ -1565,7 +1613,6 @@ header {
     animation: successPulse 0.8s ease-out;
 }
 
-/* Image Error Message Styling */
 .image-error-message {
     position: absolute;
     top: 50%;
@@ -1581,12 +1628,15 @@ header {
     max-width: 80%;
 }
 
+/* ===========================================
+   ACCESSIBILITY AND DEVICE OPTIMIZATIONS
+============================================= */
 /* Prevent zoom on touch devices */
 input, 
 select, 
 textarea {
-  font-size: 16px !important; /* Prevents iOS zoom on focus */
-  max-height: 100%;
+    font-size: 16px !important;
+    max-height: 100%;
 }
 
 /* Add smooth iOS momentum scrolling */
@@ -1596,179 +1646,648 @@ textarea {
 
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-  }
-}
-
-/* Responsive Styles with fixes for mobile wiggles */
-@media (min-width: 481px) and (max-width: 768px) {
-    .food-description {
-        -webkit-line-clamp: 2;
-    }
-    
-    .food-image {
-        width: 65px;
-        height: 65px;
-    }
-    
-    .food-details {
-        padding-right: 130px; /* Increased to prevent overlap */
-    }
-    
-    .food-price {
-        min-width: 65px;
-        right: 70px; /* Adjusted position */
+    * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
     }
 }
 
-@media (max-width: 480px) {
+/* ===========================================
+   SIDEBAR STYLES (DESKTOP ONLY)
+============================================= */
+.sidebar {
+    display: none; /* Hidden by default, shown in desktop media query */
+    background-color: var(--white);
+    border-right: 1px solid #eee;
+    padding: 20px 0;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav li {
+    margin-bottom: 5px;
+}
+
+.sidebar-nav a {
+    display: block;
+    padding: 10px 20px;
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: var(--transition);
+    border-left: 3px solid transparent;
+    font-weight: 500;
+}
+
+.sidebar-nav a:hover {
+    background-color: rgba(252, 186, 46, 0.1);
+    color: var(--primary-color);
+}
+
+.sidebar-nav a.active {
+    background-color: rgba(252, 186, 46, 0.2);
+    color: var(--primary-color);
+    border-left-color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* ===========================================
+   RESPONSIVE STYLES
+============================================= */
+/* Tablet styles */
+@media (min-width: 768px) and (max-width: 1023px) {
     :root {
-        --header-height: 66px; /* Adjusted for smaller screens */
-        --search-height: 56px; /* Adjusted for smaller screens */
+        --max-width: 100%;
+        --desktop-header-height: 80px;
+    }
+    
+    .app-container {
+        margin: 0;
+        border-radius: 0;
+        max-width: 100%;
+        box-shadow: none;
     }
     
     header {
-        padding: 15px;
+        position: relative;
+        left: 0;
+        transform: none;
+        max-width: 100%;
+        width: 100%;
+        height: var(--desktop-header-height);
+        padding: 0 25px;
     }
     
-    .food-description {
-        -webkit-line-clamp: 2;
-        font-size: 12px;
-        line-height: 1.4;
+    .header-content {
+        justify-content: space-between;
     }
     
-    .food-image {
-        width: 60px;
-        height: 60px;
-    }
-    
-    .food-details {
-        padding-right: 125px; /* Increased to ensure enough space */
-    }
-    
-    .modal-content {
-        width: 95%;
-    }
-    
-    .tab {
-        padding: 8px 15px;
-        font-size: 13px;
-        min-width: 90px; /* Ensure minimum size for categories */
-    }
-    
-    .app-title {
-        font-size: 20px;
+    .logo-container {
+        position: relative;
     }
     
     .logo-circle {
-        width: 35px;
-        height: 35px;
-        font-size: 12px;
+        position: relative;
+        left: 0;
+        margin-right: 15px;
     }
     
-    .food-price {
-        font-size: 13px;
-        padding: 4px 8px;
-        right: 60px; /* Increased space from add button */
-        min-width: 60px;
+    .app-title {
+        font-size: 24px;
     }
     
-    .add-btn {
-        width: 44px; /* Maintained minimum touch target */
-        height: 44px; /* Maintained minimum touch target */
-        font-size: 20px;
-        right: 10px;
+    .search-container {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: none;
+        max-width: 300px;
+        width: 300px;
+        background: transparent;
+        box-shadow: none;
+        z-index: 10;
+        height: auto;
     }
     
-    /* Make sure form elements are large enough for finger touch */
-    .form-group input, 
-    .country-code {
-        height: var(--min-touch-target); /* Minimum touch target size */
-        padding: 10px 12px;
-        font-size: 16px !important; /* Reinforcing specific size for inputs */
+    #searchInput {
+        background-color: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
+        color: white;
     }
     
-    /* Adjust quantity controls for mobile */
-    .quantity-buttons {
-        gap: 8px;
+    #searchInput::placeholder {
+        color: rgba(255, 255, 255, 0.7);
     }
     
-    .quantity-input {
-        width: 50px;
+    .clear-search-btn {
+        color: white;
     }
     
-    .quantity-quick-select {
-        gap: 8px;
+    .category-wrapper {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: none;
+        max-width: 100%;
+        width: 100%;
+        height: auto !important;
+        background-color: var(--white);
+        z-index: 5;
     }
     
-    /* Ensure all buttons maintain minimum touch size */
-    .quantity-btn,
-    .quantity-preset,
-    .edit-btn,
-    .remove-btn {
-        min-width: var(--min-touch-target);
-        min-height: var(--min-touch-target);
-    }
-}
-
-/* For very small screens */
-@media (max-width: 360px) {
-    :root {
-        --header-height: 60px; /* Further adjusted for tiny screens */
+    .category-tabs {
+        justify-content: center;
+        overflow-x: auto;
+        padding: 10px 20px;
+        height: auto !important;
     }
     
-    .food-image {
-        width: 55px;
-        height: 55px;
+    .tab {
+        height: auto !important;
+        padding: 10px 20px;
+        min-width: 100px;
     }
     
-    .food-details {
-        padding-right: 120px; /* Adjusted for smaller screens */
-    }
-    
-    .food-title {
-        font-size: 13px;
-    }
-    
-    .food-description {
-        font-size: 11px;
-        -webkit-line-clamp: 2;
-    }
-    
-    .food-price {
-        font-size: 12px;
-        padding: 3px 6px;
-        right: 55px; /* Ensured spacing from add button */
-        min-width: 55px;
-    }
-    
-    .add-btn {
-        width: var(--min-touch-target); /* Maintained minimum touch target */
-        height: var(--min-touch-target); /* Maintained minimum touch target */
-        font-size: 18px;
-        right: 5px;
+    .food-items {
+        margin-top: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 20px;
+        padding: 20px;
     }
     
     .food-item {
-        padding: 12px 10px;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        height: 100%;
     }
     
-    /* Adjust card layout for very small screens */
-    .cart-item {
-        padding: 12px;
+    .food-image {
+        width: 120px;
+        height: 120px;
+        margin: 0 0 15px 0;
     }
     
-    .item-controls {
-        gap: 5px;
+    .food-details {
+        padding-right: 0;
+        width: 100%;
     }
     
-    /* Smaller but still accessible quick select buttons */
-    .quantity-preset {
-        width: 38px;
-        height: 38px;
+    .food-title {
+        font-size: 18px;
+        white-space: normal;
+        text-align: center;
+    }
+    
+    .food-description {
+        margin-bottom: 60px;
+        -webkit-line-clamp: 3;
+        text-align: center;
+    }
+    
+    .food-price {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        top: auto;
+        right: auto;
+        transform: translateX(-50%);
+    }
+    
+    .add-btn {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        top: auto;
+        transform: none;
+    }
+    
+    .bottom-bar {
+        max-width: 100%;
+    }
+    
+    .modal-content {
+        max-width: 500px;
+    }
+    
+    /* Improved image display on tablet */
+    .modal-image-container {
+        max-height: 300px;
+    }
+}
+
+/* Desktop styles */
+@media (min-width: 1024px) {
+    :root {
+        --max-width: 100%;
+        --desktop-header-height: 80px;
+        --desktop-sidebar-width: 250px;
+    }
+    
+    .app-container {
+        margin: 0;
+        border-radius: 0;
+        max-width: 100%;
+        box-shadow: none;
+    }
+    
+    header {
+        position: relative;
+        left: 0;
+        transform: none;
+        max-width: 100%;
+        width: 100%;
+        height: var(--desktop-header-height);
+        padding: 0 40px;
+    }
+    
+    .header-content {
+        justify-content: space-between;
+    }
+    
+    .logo-container {
+        position: relative;
+    }
+    
+    .logo-circle {
+        position: relative;
+        left: 0;
+        margin-right: 15px;
+        width: 50px;
+        height: 50px;
+    }
+    
+    .app-title {
+        font-size: 28px;
+    }
+    
+    .search-container {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: none;
+        max-width: 300px;
+        width: 300px;
+        background: transparent;
+        box-shadow: none;
+        z-index: 10;
+        height: auto;
+    }
+    
+    #searchInput {
+        background-color: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
+        color: white;
+    }
+    
+    #searchInput::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .clear-search-btn {
+        color: white;
+    }
+    
+    /* Show sidebar for desktop, hide mobile tabs */
+    .sidebar {
+        display: block;
+        width: var(--desktop-sidebar-width);
+        position: sticky;
+        top: 0;
+        height: calc(100vh - var(--desktop-header-height));
+        overflow-y: auto;
+    }
+    
+    .category-wrapper {
+        display: none; /* Hide on desktop */
+    }
+    
+    .content-wrapper {
+        flex-direction: row;
+    }
+    
+    .main-content {
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .food-items {
+        margin-top: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 25px;
+        padding: 30px;
+    }
+    
+    .food-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 25px;
+        height: 100%;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .food-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .food-image {
+        width: 140px;
+        height: 140px;
+        margin: 0 0 20px 0;
+        transition: transform 0.3s;
+    }
+    
+    .food-item:hover .food-image {
+        transform: scale(1.05);
+    }
+    
+    .food-details {
+        padding-right: 0;
+        width: 100%;
+    }
+    
+    .food-title {
+        font-size: 18px;
+        white-space: normal;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    
+    .food-description {
+        margin-bottom: 70px;
+        -webkit-line-clamp: 3;
+        text-align: center;
         font-size: 14px;
     }
+    
+    .food-price {
+        position: absolute;
+        bottom: 25px;
+        left: 50%;
+        top: auto;
+        right: auto;
+        transform: translateX(-50%);
+        font-size: 16px;
+        padding: 8px 15px;
+    }
+    
+    .add-btn {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        top: auto;
+        transform: none;
+        opacity: 0.9;
+        transition: opacity 0.3s, transform 0.3s;
+    }
+    
+    .food-item:hover .add-btn {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    
+    .bottom-bar {
+        left: auto;
+        right: 40px;
+        transform: none;
+        max-width: 260px;
+        padding: 0;
+        bottom: 40px;
+    }
+    
+    .cart-box {
+        border-radius: var(--radius);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Enhanced modals for desktop */
+    .modal-content {
+        max-width: 600px;
+        width: 80%;
+    }
+    
+    #basketModal .modal-content {
+        max-width: 800px;
+    }
+    
+    #basketModal .modal-body {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+    
+    .cart-actions {
+        grid-column: 1 / -1;
+    }
+    
+    .cart-items {
+        margin-bottom: 0;
+        max-height: 60vh;
+    }
+    
+    .cart-summary {
+        margin: 20px 0 0 0;
+    }
+    
+    .checkout-form {
+        margin-top: 0;
+        border-left: 1px solid #eee;
+        padding-left: 30px;
+    }
+    
+    /* Improved images for desktop */
+    .modal-image-container {
+        max-height: 350px;
+    }
+    
+    /* Better toast positioning for desktop */
+    .toast-container {
+        bottom: 30px;
+        top: auto;
+        right: 30px;
+    }
+    
+    /* Back to top button positioning */
+    .back-to-top {
+        right: 40px;
+        bottom: 130px;
+    }
+}
+
+/* Very large desktop screens */
+@media (min-width: 1400px) {
+    .food-items {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        padding: 40px;
+    }
+    
+    .modal-content {
+        max-width: 700px;
+    }
+    
+    #basketModal .modal-content {
+        max-width: 900px;
+    }
+}
+
+/* Add these CSS rules to the bottom of your CSS file to fix the desktop spacing issue */
+
+@media (min-width: 768px) {
+  /* Fix excessive space at the top of product grid */
+  .food-items {
+    margin-top: 0 !important; /* Override the mobile margin */
+    padding-top: 20px; /* Add reasonable padding for desktop */
+  }
+  
+  /* Make sure the content wrapper doesn't have extra spacing */
+  .content-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  /* Ensure the main content area flows properly */
+  .main-content {
+    flex: 1;
+    padding-top: 0;
+    overflow: hidden; /* Prevent any overflow issues */
+  }
+  
+  /* Adjust spacing in the sidebar to align with products */
+  .sidebar {
+    padding-top: 20px; /* Match the product grid padding */
+  }
+  
+  /* Fix any header margin that might be contributing to the gap */
+  header + .content-wrapper {
+    margin-top: 0;
+  }
+  
+  /* If header has bottom margin, remove it for desktop */
+  header {
+    margin-bottom: 0;
+  }
+}
+
+/* Additional targeted fix for larger screens */
+@media (min-width: 1024px) {
+  /* Further refinements for larger desktops */
+  .food-items {
+    padding-top: 10px; /* Slightly less padding on larger screens */
+  }
+  
+  /* Keep the sidebar and main content aligned properly */
+  .content-wrapper {
+    align-items: flex-start;
+  }
+}
+
+/* Revert cart/basket styling to match mobile version on desktop */
+
+/* Desktop cart positioning */
+@media (min-width: 768px) {
+    /* Make bottom bar consistent with mobile */
+    .bottom-bar {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 100%; /* Full width on desktop */
+        padding: 15px;
+        background-color: var(--white);
+        box-shadow: var(--shadow-bottom);
+        z-index: 100;
+    }
+    
+    /* Keep the cart box styling consistent */
+    .cart-box {
+        max-width: 1200px; /* Limit width on very large screens */
+        margin: 0 auto; /* Center within the bottom bar */
+    }
+    
+    /* Modal changes for consistent styling */
+    #basketModal .modal-content {
+        max-width: 600px; /* More moderate size */
+    }
+    
+    /* Remove two-column layout for cart items */
+    #basketModal .modal-body {
+        display: block; /* Revert to single column */
+    }
+    
+    /* Keep cart items and checkout form together */
+    .cart-items {
+        margin-bottom: 20px;
+        max-height: 40vh;
+    }
+    
+    .checkout-form {
+        margin-top: 20px;
+        border-left: none;
+        padding-left: 0;
+    }
+    
+    /* Back to top button positioning fix for full-width cart */
+    .back-to-top {
+        bottom: 100px; /* Like mobile version */
+    }
+}
+
+/* Additional cart modal styling to match your screenshot */
+.modal {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    background-color: var(--white);
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+/* Cart items styling more like your screenshot */
+.cart-item {
+    background-color: white;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+
+/* Edit and remove buttons styling */
+.edit-btn, .remove-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+}
+
+/* Form styling to match your screenshot */
+.form-group input {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 15px;
+}
+
+/* Phone input group */
+.phone-input-group {
+    display: flex;
+}
+
+.country-code {
+    border: 1px solid #ddd;
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    padding: 10px 15px;
+    background-color: #f5f5f5;
+}
+
+.phone-input-group input {
+    border-radius: 0 8px 8px 0;
+}
+
+/* Submit order button styling */
+.checkout-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+    border: none;
+    font-weight: 500;
+    margin-top: 20px;
 }
