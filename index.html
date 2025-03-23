@@ -43,6 +43,7 @@
 					<ul>
 						<li><a href="#concept" data-category="concept" class="active">Concept</a></li>
 						<li><a href="#sales" data-category="sales">Salés</a></li>
+						<li><a href="#ramadan" data-category="ramadan">Spécial Ramadan</a></li>
 						<li><a href="#standards" data-category="standards">Standards</a></li>
 						<li><a href="#boissons-chauds" data-category="boissons-chauds">Boissons Chauds</a></li>
 						<li><a href="#boissons-fraiches" data-category="boissons-fraiches">Boissons Fraiches</a></li>
@@ -58,10 +59,11 @@
                     <nav class="category-tabs" id="categoryTabs" aria-label="Catégories de nourriture">
                         <div class="tab active" data-category="concept" role="button" tabindex="0" aria-selected="true">Concept</div>
                         <div class="tab" data-category="sales" role="button" tabindex="0" aria-selected="false">Salés</div>
-                        <div class="tab" data-category="standards" role="button" tabindex="0" aria-selected="false">Standards</div>
+                        <div class="tab" data-category="ramadan" role="button" tabindex="0" aria-selected="false">Spécial Ramadan</div>
+						<div class="tab" data-category="standards" role="button" tabindex="0" aria-selected="false">Standards</div>
                         <div class="tab" data-category="boissons-chauds" role="button" tabindex="0" aria-selected="false">Boissons Chauds</div>
                         <div class="tab" data-category="boissons-fraiches" role="button" tabindex="0" aria-selected="false">Boissons Fraiches</div>
-                    </nav>
+					</nav>
                     <div class="scroll-indicator-right" id="scrollRight"><span class="scroll-indicator-icon">›</span></div>
                 </div>
 
@@ -211,6 +213,47 @@
                         <div class="food-price">8.00DH</div>
                         <button class="add-btn" aria-label="Ajouter Jus de Citron au panier">+</button>
                     </div>
+					
+					<!-- Ajouter ces nouveaux produits dans le conteneur "food-items" -->
+					<div class="food-item ramadan-item" data-name="Briouates au poulet" data-price="5.00DH" data-description="Délicieux briouates croustillants farcis de poulet tendre, épices marocaines." role="button" tabindex="0">
+						<img data-src="https://i.postimg.cc/placeholder-briouates.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="" class="food-image">
+						<div class="food-details">
+							<h3 class="food-title">Briouates au poulet</h3>
+							<p class="food-description">Délicieux briouates croustillants farcis de poulet tendre, épices marocaines.</p>
+						</div>
+						<div class="food-price">5.00DH</div>
+						<button class="add-btn" aria-label="Ajouter Briouates au poulet au panier">+</button>
+					</div>
+					
+					<div class="food-item ramadan-item" data-name="Mini Pizza" data-price="5.00DH" data-description="Petites pizzas savoureuses garnies de sauce tomate maison." role="button" tabindex="0">
+						<img data-src="https://i.postimg.cc/placeholder-mini-pizza.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="" class="food-image">
+						<div class="food-details">
+							<h3 class="food-title">Mini Pizza</h3>
+							<p class="food-description">Petites pizzas savoureuses garnies de sauce tomate maison.</p>
+						</div>
+						<div class="food-price">5.00DH</div>
+						<button class="add-btn" aria-label="Ajouter Mini Pizza au panier">+</button>
+					</div>
+					
+					<div class="food-item ramadan-item" data-name="Chausson au thon" data-price="4.00DH" data-description="Pâte feuilletée dorée renfermant un délicieux mélange de thon." role="button" tabindex="0">
+						<img data-src="https://i.postimg.cc/placeholder-chausson.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="" class="food-image">
+						<div class="food-details">
+							<h3 class="food-title">Chausson au thon</h3>
+							<p class="food-description">Pâte feuilletée dorée renfermant un délicieux mélange de thon.</p>
+						</div>
+						<div class="food-price">4.00DH</div>
+						<button class="add-btn" aria-label="Ajouter Chausson au thon au panier">+</button>
+					</div>
+					
+					<div class="food-item ramadan-item" data-name="Mini Quiche au poulet" data-price="5.00DH" data-description="Tartelettes crémeuses garnies de poulet tendre et fromage gratiné." role="button" tabindex="0">
+						<img data-src="https://i.postimg.cc/placeholder-quiche.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="" class="food-image">
+						<div class="food-details">
+							<h3 class="food-title">Mini Quiche au poulet</h3>
+							<p class="food-description">Tartelettes crémeuses garnies de poulet tendre et fromage gratiné.</p>
+						</div>
+						<div class="food-price">5.00DH</div>
+						<button class="add-btn" aria-label="Ajouter Mini Quiche au poulet au panier">+</button>
+					</div>
                     
                     <!-- Loading indicator -->
                     <div id="loadingIndicator" class="loading">
