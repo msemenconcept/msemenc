@@ -808,6 +808,8 @@ function renderCartItems() {
     if (emptyCartMessage) {
         emptyCartMessage.style.display = 'none';
     }
+	
+	
     
     items.forEach(item => {
         const cartItemElement = document.createElement('div');
@@ -892,7 +894,8 @@ function filterItemsByCategory(category) {
                 if (!item.classList.contains('standard-item') && 
                     !item.classList.contains('sale-item') && 
                     !item.classList.contains('boisson-chaude-item') && 
-                    !item.classList.contains('boisson-fraiche-item')) {
+                    !item.classList.contains('boisson-fraiche-item') &&
+                    !item.classList.contains('ramadan-item')) { // Add this line to exclude ramadan items
                     item.style.display = 'flex';
                     visibleCount++;
                 } else {
@@ -935,7 +938,20 @@ function filterItemsByCategory(category) {
                     item.style.display = 'none';
                 }
             });
-        } else {
+        } 
+        // ADD THIS NEW BLOCK for Ramadan category
+        else if (category === 'ramadan') {
+            foodItems.forEach(item => {
+                if (item.classList.contains('ramadan-item')) {
+                    item.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+        // END OF ADDITION
+        else {
             // For any other categories, just hide all items
             foodItems.forEach(item => {
                 item.style.display = 'none';
