@@ -8,195 +8,223 @@
     <link rel="stylesheet" href="styles.css">
     <meta name="theme-color" content="#FCBA2E">
     <meta name="description" content="Commandez de délicieux msemen avec diverses garnitures et saveurs. Livraison rapide et service de qualité.">
-    <!-- Add favicon support -->
+    <!-- Favicon support -->
     <link rel="icon" type="image/png" href="https://i.postimg.cc/D0Y2DQx1/logo-clear.png">
-    <!-- Add apple touch icon -->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 </head>
 <body>
     <div class="app-container">
-        <header id="app-header">
-            <div class="logo-circle"><img src="https://i.postimg.cc/D0Y2DQx1/logo-clear.png" alt="Logo Msemen Concept"></div>
-            <h1 class="app-title">Msemen Concept</h1>
+        <!-- Main Header -->
+        <header id="app-header" class="main-header">
+            <div class="header-content">
+                <div class="logo-container">
+                    <div class="logo-circle">
+                        <img src="https://i.postimg.cc/D0Y2DQx1/logo-clear.png" alt="Logo Msemen Concept">
+                    </div>
+                    <h1 class="app-title">Msemen Concept</h1>
+                </div>
+                
+                <!-- Added search bar with responsive wrapper -->
+                <div class="search-container" id="searchContainer">
+                    <input type="search" id="searchInput" placeholder="Rechercher un produit..." aria-label="Rechercher un produit">
+                    <button id="clearSearch" class="clear-search-btn" aria-label="Effacer la recherche">&times;</button>
+                </div>
+            </div>
         </header>
 
-        <!-- Added search bar -->
-        <div class="search-container" id="searchContainer">
-            <input type="search" id="searchInput" placeholder="Rechercher un produit..." aria-label="Rechercher un produit">
-            <button id="clearSearch" class="clear-search-btn" aria-label="Effacer la recherche">&times;</button>
+        <!-- Navigation and Content Wrapper -->
+        <div class="content-wrapper">
+            <!-- Sidebar for desktop (hidden on mobile) -->
+            <aside class="sidebar">
+				<nav class="sidebar-nav">
+					<ul>
+						<li><a href="#concept" data-category="concept" class="active">Concept</a></li>
+						<li><a href="#sales" data-category="sales">Salés</a></li>
+						<li><a href="#standards" data-category="standards">Standards</a></li>
+						<li><a href="#boissons-chauds" data-category="boissons-chauds">Boissons Chauds</a></li>
+						<li><a href="#boissons-fraiches" data-category="boissons-fraiches">Boissons Fraiches</a></li>
+					</ul>
+				</nav>
+			</aside>
+
+            <!-- Main Content Area -->
+            <main class="main-content">
+                <!-- Category Navigation (shown on mobile) -->
+                <div class="category-wrapper" id="category-wrapper">
+                    <div class="scroll-indicator-left" id="scrollLeft"><span class="scroll-indicator-icon">‹</span></div>
+                    <nav class="category-tabs" id="categoryTabs" aria-label="Catégories de nourriture">
+                        <div class="tab active" data-category="concept" role="button" tabindex="0" aria-selected="true">Concept</div>
+                        <div class="tab" data-category="sales" role="button" tabindex="0" aria-selected="false">Salés</div>
+                        <div class="tab" data-category="standards" role="button" tabindex="0" aria-selected="false">Standards</div>
+                        <div class="tab" data-category="boissons-chauds" role="button" tabindex="0" aria-selected="false">Boissons Chauds</div>
+                        <div class="tab" data-category="boissons-fraiches" role="button" tabindex="0" aria-selected="false">Boissons Fraiches</div>
+                    </nav>
+                    <div class="scroll-indicator-right" id="scrollRight"><span class="scroll-indicator-icon">›</span></div>
+                </div>
+
+                <!-- Food Items Container -->
+                <div class="food-items" id="foodItemsContainer">
+                    <!-- Concept Items -->
+                    <div class="food-item" data-name="Concept Poulet" data-price="12.00DH" data-description="Délicieux msemen farci de poulet tendre et d'oignons caramélisés, garni d'amandes concassées." role="button" tabindex="0">
+                        <img data-src="https://i.postimg.cc/rFDvV2h1/concept-poulet.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Concept Poulet" class="food-image">
+                        <div class="food-details">
+                            <h3 class="food-title">Concept Poulet</h3>
+                            <p class="food-description">Délicieux msemen farci de poulet tendre et d'oignons caramélisés, garni d'amandes concassées.</p>
+                        </div>
+                        <div class="food-price">12.00DH</div>
+                        <button class="add-btn" aria-label="Ajouter Concept Poulet au panier">+</button>
+                    </div>
+
+                    <div class="food-item" data-name="Concept Viande Hachée" data-price="17.00DH" data-description="Msemen savoureux farci de viande hachée marocaine, d'oignons caramélisés et d'épices aromatiques." role="button" tabindex="0">
+                        <img data-src="https://i.postimg.cc/c19pGLc1/concept-vh.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Concept Viande Hachée" class="food-image">
+                        <div class="food-details">
+                            <h3 class="food-title">Concept Viande Hachée</h3>
+                            <p class="food-description">Msemen savoureux farci de viande hachée à la marocaine, d'oignons caramélisés et d'épices aromatiques.</p>
+                        </div>
+                        <div class="food-price">17.00DH</div>
+                        <button class="add-btn" aria-label="Ajouter Concept Viande Hachée au panier">+</button>
+                    </div>
+
+                    <div class="food-item" data-name="Concept Nutella" data-price="10.00DH" data-description="Msemen farci de Nutella et de noix concassées. Une douceur parfaite à tout moment." role="button" tabindex="0">
+                        <img data-src="https://i.postimg.cc/hv56L2GQ/concept-nutella.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Concept Nutella" class="food-image">
+                        <div class="food-details">
+                            <h3 class="food-title">Concept Nutella</h3>
+                            <p class="food-description">Msemen farci de Nutella et de noix concassées. Une douceur parfaite à tout moment.</p>
+                        </div>
+                        <div class="food-price">10.00DH</div>
+                        <button class="add-btn" aria-label="Ajouter Concept Nutella au panier">+</button>
+                    </div>
+                    
+                    <!-- Salés Items -->
+                    <div class="food-item sale-item" data-name="Salé Légumes et Fromage" data-price="3.00DH" data-description="Une pâtisserie salée à base de pâte Msemen farcie de légumes frais et de délicieux fromage." role="button" tabindex="0">
+                        <img data-src="https://i.postimg.cc/NGmdpGPP/sale-legume.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Salé Légumes et Fromage" class="food-image">
+                        <div class="food-details">
+                            <h3 class="food-title">Salé Légumes et Fromage</h3>
+                            <p class="food-description">Une pâtisserie salée à base de pâte Msemen farcie de légumes frais et de délicieux fromage.</p>
+                        </div>
+                        <div class="food-price">3.00DH</div>
+                        <button class="add-btn" aria-label="Ajouter Salé Légumes et Fromage au panier">+</button>
+                    </div>
+                    
+                    <div class="food-item sale-item" data-name="Salé Poulet" data-price="4.00DH" data-description="Une pâtisserie salée à base de pâte Msemen farcie de légumes et de morceaux de poulet tendre." role="button" tabindex="0">
+                        <img data-src="https://i.postimg.cc/MTthT62D/sale-poulet.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Salé Poulet" class="food-image">
+                        <div class="food-details">
+                            <h3 class="food-title">Salé Poulet</h3>
+                            <p class="food-description">Une pâtisserie salée à base de pâte Msemen farcie des morceaux de poulet tendre.</p>
+                        </div>
+                        <div class="food-price">4.00DH</div>
+                        <button class="add-btn" aria-label="Ajouter Salé Poulet au panier">+</button>
+                    </div>
+                    
+                    <div class="food-item sale-item" data-name="Salé Viande Hachée" data-price="5.00DH" data-description="Une pâtisserie salée à base de pâte Msemen farcie de légumes et de viande hachée assaisonnée." role="button" tabindex="0">
+                        <img data-src="https://i.postimg.cc/C519n3wV/sale-vh.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Salé Viande Hachée" class="food-image">
+                        <div class="food-details">
+                            <h3 class="food-title">Salé Viande Hachée</h3>
+                            <p class="food-description">Une pâtisserie salée à base de pâte Msemen farcie de viande hachée assaisonnée.</p>
+                        </div>
+                        <div class="food-price">5.00DH</div>
+                        <button class="add-btn" aria-label="Ajouter Salé Viande Hachée au panier">+</button>
+                    </div>
+
+                    <!-- Standards Items -->
+                    <div class="food-item standard-item" data-name="Rghifa Normal" data-price="1.50DH" data-description="Msemen marocain traditionnel, une crêpe feuilletée de forme carrée." role="button" tabindex="0">
+                        <img data-src="https://i.postimg.cc/SRh7w8t1/rghifa-1.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Rghifa Normal" class="food-image">
+                        <div class="food-details">
+                            <h3 class="food-title">Rghifa Normal</h3>
+                            <p class="food-description">Msemen marocain traditionnel.</p>
+                        </div>
+                        <div class="food-price">1.50DH</div>
+                        <button class="add-btn" aria-label="Ajouter Rghifa Normal au panier">+</button>
+                    </div>
+
+                    <div class="food-item standard-item" data-name="Rghifa Zrae" data-price="1.50DH" data-description="Msemen marocain traditionnel préparé avec de la farine complète pour une option plus saine avec une saveur de noix." role="button" tabindex="0">
+                        <img data-src="https://i.postimg.cc/j24QK5px/rghifa-complet.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Rghifa Zrae" class="food-image">
+                        <div class="food-details">
+                            <h3 class="food-title">Rghifa Zrae</h3>
+                            <p class="food-description">Msemen marocain traditionnel préparé avec de la farine complète pour une option plus saine.</p>
+                        </div>
+                        <div class="food-price">1.50DH</div>
+                        <button class="add-btn" aria-label="Ajouter Rghifa Zrae au panier">+</button>
+                    </div>
+
+                    <div class="food-item standard-item" data-name="Meloui Normal" data-price="2.00DH" data-description="Meloui marocain traditionnel, une crêpe feuilletée ronde à texture moelleuse. Parfait avec du miel ou de la confiture." role="button" tabindex="0">
+                        <img data-src="https://i.postimg.cc/9M3G7ZVX/meloui-2.webp" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Meloui Normal" class="food-image">
+                        <div class="food-details">
+                            <h3 class="food-title">Meloui Normal</h3>
+                            <p class="food-description">Meloui marocain traditionnel.</p>
+                        </div>
+                        <div class="food-price">2.00DH</div>
+                        <button class="add-btn" aria-label="Ajouter Meloui Normal au panier">+</button>
+                    </div>
+
+                    <div class="food-item standard-item" data-name="Meloui Zrae" data-price="2.00DH" data-description="Meloui marocain traditionnel préparé avec de la farine complète. Option plus saine avec une saveur riche et terreuse." role="button" tabindex="0">
+                        <img data-src="https://i.postimg.cc/B6DBYNN1/meloui-1.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Meloui Zrae" class="food-image">
+                        <div class="food-details">
+                            <h3 class="food-title">Meloui Zrae</h3>
+                            <p class="food-description">Meloui marocain traditionnel préparé avec de la farine complète. Option plus saine avec une saveur riche.</p>
+                        </div>
+                        <div class="food-price">2.00DH</div>
+                        <button class="add-btn" aria-label="Ajouter Meloui Zrae au panier">+</button>
+                    </div>
+
+                    <!-- Boissons Chauds Items -->
+                    <div class="food-item boisson-chaude-item" data-name="Café normal" data-price="8.00DH" data-description="Expresso riche préparé avec des grains d'Arabica de qualité supérieure. Fort et aromatique." role="button" tabindex="0">
+                        <img data-src="https://i.postimg.cc/QdhNHMRL/cafe.webp" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Café normal" class="food-image">
+                        <div class="food-details">
+                            <h3 class="food-title">Café normal</h3>
+                            <p class="food-description">Expresso riche préparé avec des grains d'Arabica de qualité supérieure. Fort et aromatique.</p>
+                        </div>
+                        <div class="food-price">8.00DH</div>
+                        <button class="add-btn" aria-label="Ajouter Café normal au panier">+</button>
+                    </div>
+
+                    <div class="food-item boisson-chaude-item" data-name="Café au lait" data-price="9.00DH" data-description="Café onctueux servi avec du lait chaud. Un équilibre parfait entre un café fort et un lait crémeux." role="button" tabindex="0">
+                        <img data-src="https://i.postimg.cc/tJFyg0kC/dolcevita-cortado-macchiato-sans-sucre-dolce-vita.webp" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Café au lait" class="food-image">
+                        <div class="food-details">
+                            <h3 class="food-title">Café au lait</h3>
+                            <p class="food-description">Café onctueux servi avec du lait chaud. Un équilibre parfait entre un café fort et un lait crémeux.</p>
+                        </div>
+                        <div class="food-price">9.00DH</div>
+                        <button class="add-btn" aria-label="Ajouter Café au lait au panier">+</button>
+                    </div>
+
+                    <div class="food-item boisson-chaude-item" data-name="Thé" data-price="8.00DH" data-description="Thé à la menthe marocain traditionnel. Un mélange rafraîchissant de thé vert, de feuilles de menthe fraîche et de sucre." role="button" tabindex="0">
+                        <img data-src="https://i.postimg.cc/L6z69PQB/the-a-la-menthe-Palais-Faraj-1.webp" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Thé" class="food-image">
+                        <div class="food-details">
+                            <h3 class="food-title">Thé</h3>
+                            <p class="food-description">Thé à la menthe marocain traditionnel. Un mélange rafraîchissant de thé vert, de feuilles de menthe fraîche et de sucre.</p>
+                        </div>
+                        <div class="food-price">8.00DH</div>
+                        <button class="add-btn" aria-label="Ajouter Thé au panier">+</button>
+                    </div>
+
+                    <!-- Boissons Fraiches Items -->
+                    <div class="food-item boisson-fraiche-item" data-name="Jus de Citron" data-price="8.00DH" data-description="Jus de citron fraîchement pressé avec une touche de douceur. Rafraîchissant et riche en vitamines." role="button" tabindex="0">
+                        <img data-src="https://i.postimg.cc/fT4RQCCR/zitronensaft-titelbild.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Jus de Citron" class="food-image">
+                        <div class="food-details">
+                            <h3 class="food-title">Jus de Citron</h3>
+                            <p class="food-description">Jus de citron fraîchement pressé avec une touche de douceur. Rafraîchissant et riche en vitamines.</p>
+                        </div>
+                        <div class="food-price">8.00DH</div>
+                        <button class="add-btn" aria-label="Ajouter Jus de Citron au panier">+</button>
+                    </div>
+                    
+                    <!-- Loading indicator -->
+                    <div id="loadingIndicator" class="loading">
+                        <div class="loading-spinner"></div>
+                    </div>
+                    
+                    <!-- No results message -->
+                    <div id="noResultsMessage" class="no-results">
+                        <div class="no-results-icon">🔍</div>
+                        <p>Aucun article correspondant.</p>
+                        <p class="no-results-help">Essayez un autre terme ou catégorie.</p>
+                    </div>
+                </div>
+            </main>
         </div>
 
-        <div class="category-wrapper" id="category-wrapper">
-            <div class="scroll-indicator-left" id="scrollLeft"><span class="scroll-indicator-icon">‹</span></div>
-            <nav class="category-tabs" id="categoryTabs" aria-label="Catégories de nourriture">
-                <div class="tab active" data-category="concept" role="button" tabindex="0" aria-selected="true">Concept</div>
-				<div class="tab" data-category="sales" role="button" tabindex="0" aria-selected="false">Salés</div>
-                <div class="tab" data-category="standards" role="button" tabindex="0" aria-selected="false">Standards</div>
-                <div class="tab" data-category="boissons-chauds" role="button" tabindex="0" aria-selected="false">Boissons Chauds</div>
-                <div class="tab" data-category="boissons-fraiches" role="button" tabindex="0" aria-selected="false">Boissons Fraiches</div>
-            </nav>
-            <div class="scroll-indicator-right" id="scrollRight"><span class="scroll-indicator-icon">›</span></div>
-        </div>
-
-        <main class="food-items" id="foodItemsContainer">
-            <!-- Concept Items -->
-            <div class="food-item" data-name="Concept Poulet" data-price="12.00DH" data-description="Délicieux msemen farci de poulet tendre et d'oignons caramélisés, garni d'amandes concassées." role="button" tabindex="0">
-                <img data-src="https://i.postimg.cc/rFDvV2h1/concept-poulet.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Concept Poulet" class="food-image">
-                <div class="food-details">
-                    <h3 class="food-title">Concept Poulet</h3>
-                    <p class="food-description">Délicieux msemen farci de poulet tendre et d'oignons caramélisés, garni d'amandes concassées.</p>
-                </div>
-                <div class="food-price">12.00DH</div>
-                <button class="add-btn" aria-label="Ajouter Concept Poulet au panier">+</button>
-            </div>
-
-            <div class="food-item" data-name="Concept Viande Hachée" data-price="17.00DH" data-description="Msemen savoureux farci de viande hachée marocaine, d'oignons caramélisés et d'épices aromatiques." role="button" tabindex="0">
-                <img data-src="https://i.postimg.cc/c19pGLc1/concept-vh.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Concept Viande Hachée" class="food-image">
-                <div class="food-details">
-                    <h3 class="food-title">Concept Viande Hachée</h3>
-                    <p class="food-description">Msemen savoureux farci de viande hachée à la marocaine, d'oignons caramélisés et d'épices aromatiques.</p>
-                </div>
-                <div class="food-price">17.00DH</div>
-                <button class="add-btn" aria-label="Ajouter Concept Viande Hachée au panier">+</button>
-            </div>
-
-            <div class="food-item" data-name="Concept Nutella" data-price="10.00DH" data-description="Msemen farci de Nutella et de noix concassées. Une douceur parfaite à tout moment." role="button" tabindex="0">
-                <img data-src="https://i.postimg.cc/hv56L2GQ/concept-nutella.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Concept Nutella" class="food-image">
-                <div class="food-details">
-                    <h3 class="food-title">Concept Nutella</h3>
-                    <p class="food-description">Msemen farci de Nutella et de noix concassées. Une douceur parfaite à tout moment.</p>
-                </div>
-                <div class="food-price">10.00DH</div>
-                <button class="add-btn" aria-label="Ajouter Concept Nutella au panier">+</button>
-            </div>
-			
-			<!-- Salés Items -->
-            <div class="food-item sale-item" data-name="Salé Légumes et Fromage" data-price="3.00DH" data-description="Une pâtisserie salée à base de pâte Msemen farcie de légumes frais et de délicieux fromage." role="button" tabindex="0">
-                <img data-src="https://i.postimg.cc/NGmdpGPP/sale-legume.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Salé Légumes et Fromage" class="food-image">
-                <div class="food-details">
-                    <h3 class="food-title">Salé Légumes et Fromage</h3>
-                    <p class="food-description">Une pâtisserie salée à base de pâte Msemen farcie de légumes frais et de délicieux fromage.</p>
-                </div>
-                <div class="food-price">3.00DH</div>
-                <button class="add-btn" aria-label="Ajouter Salé Légumes et Fromage au panier">+</button>
-            </div>
-			
-			<div class="food-item sale-item" data-name="Salé Poulet" data-price="4.00DH" data-description="Une pâtisserie salée à base de pâte Msemen farcie de légumes et de morceaux de poulet tendre." role="button" tabindex="0">
-                <img data-src="https://i.postimg.cc/MTthT62D/sale-poulet.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Salé Poulet" class="food-image">
-                <div class="food-details">
-                    <h3 class="food-title">Salé Poulet</h3>
-                    <p class="food-description">Une pâtisserie salée à base de pâte Msemen farcie des morceaux de poulet tendre.</p>
-                </div>
-                <div class="food-price">4.00DH</div>
-                <button class="add-btn" aria-label="Ajouter Salé Poulet au panier">+</button>
-            </div>
-            
-            <div class="food-item sale-item" data-name="Salé Viande Hachée" data-price="5.00DH" data-description="Une pâtisserie salée à base de pâte Msemen farcie de légumes et de viande hachée assaisonnée." role="button" tabindex="0">
-                <img data-src="https://i.postimg.cc/C519n3wV/sale-vh.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Salé Viande Hachée" class="food-image">
-                <div class="food-details">
-                    <h3 class="food-title">Salé Viande Hachée</h3>
-                    <p class="food-description">Une pâtisserie salée à base de pâte Msemen farcie de viande hachée assaisonnée.</p>
-                </div>
-                <div class="food-price">5.00DH</div>
-                <button class="add-btn" aria-label="Ajouter Salé Viande Hachée au panier">+</button>
-            </div>
-
-            <!-- Standards Items (New) -->
-            <div class="food-item standard-item" data-name="Rghifa Normal" data-price="1.50DH" data-description="Msemen marocain traditionnel, une crêpe feuilletée de forme carrée." role="button" tabindex="0">
-                <img data-src="https://i.postimg.cc/SRh7w8t1/rghifa-1.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Rghifa Normal" class="food-image">
-                <div class="food-details">
-                    <h3 class="food-title">Rghifa Normal</h3>
-                    <p class="food-description">Msemen marocain traditionnel.</p>
-                </div>
-                <div class="food-price">1.50DH</div>
-                <button class="add-btn" aria-label="Ajouter Rghifa Normal au panier">+</button>
-            </div>
-
-            <div class="food-item standard-item" data-name="Rghifa Zrae" data-price="1.50DH" data-description="Msemen marocain traditionnel préparé avec de la farine complète pour une option plus saine avec une saveur de noix." role="button" tabindex="0">
-                <img data-src="https://i.postimg.cc/j24QK5px/rghifa-complet.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Rghifa Zrae" class="food-image">
-                <div class="food-details">
-                    <h3 class="food-title">Rghifa Zrae</h3>
-                    <p class="food-description">Msemen marocain traditionnel préparé avec de la farine complète pour une option plus saine.</p>
-                </div>
-                <div class="food-price">1.50DH</div>
-                <button class="add-btn" aria-label="Ajouter Rghifa Zrae au panier">+</button>
-            </div>
-
-            <div class="food-item standard-item" data-name="Meloui Normal" data-price="2.00DH" data-description="Meloui marocain traditionnel, une crêpe feuilletée ronde à texture moelleuse. Parfait avec du miel ou de la confiture." role="button" tabindex="0">
-                <img data-src="https://i.postimg.cc/9M3G7ZVX/meloui-2.webp" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Meloui Normal" class="food-image">
-                <div class="food-details">
-                    <h3 class="food-title">Meloui Normal</h3>
-                    <p class="food-description">Meloui marocain traditionnel.</p>
-                </div>
-                <div class="food-price">2.00DH</div>
-                <button class="add-btn" aria-label="Ajouter Meloui Normal au panier">+</button>
-            </div>
-
-            <div class="food-item standard-item" data-name="Meloui Zrae" data-price="2.00DH" data-description="Meloui marocain traditionnel préparé avec de la farine complète. Option plus saine avec une saveur riche et terreuse." role="button" tabindex="0">
-                <img data-src="https://i.postimg.cc/B6DBYNN1/meloui-1.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Meloui Zrae" class="food-image">
-                <div class="food-details">
-                    <h3 class="food-title">Meloui Zrae</h3>
-                    <p class="food-description">Meloui marocain traditionnel préparé avec de la farine complète. Option plus saine avec une saveur riche.</p>
-                </div>
-                <div class="food-price">2.00DH</div>
-                <button class="add-btn" aria-label="Ajouter Meloui Zrae au panier">+</button>
-            </div>
-
-            <!-- Boissons Chauds Items -->
-            <div class="food-item boisson-chaude-item" data-name="Café normal" data-price="8.00DH" data-description="Expresso riche préparé avec des grains d'Arabica de qualité supérieure. Fort et aromatique." role="button" tabindex="0">
-                <img data-src="https://i.postimg.cc/QdhNHMRL/cafe.webp" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Café normal" class="food-image">
-                <div class="food-details">
-                    <h3 class="food-title">Café normal</h3>
-                    <p class="food-description">Expresso riche préparé avec des grains d'Arabica de qualité supérieure. Fort et aromatique.</p>
-                </div>
-                <div class="food-price">8.00DH</div>
-                <button class="add-btn" aria-label="Ajouter Café normal au panier">+</button>
-            </div>
-
-            <div class="food-item boisson-chaude-item" data-name="Café au lait" data-price="9.00DH" data-description="Café onctueux servi avec du lait chaud. Un équilibre parfait entre un café fort et un lait crémeux." role="button" tabindex="0">
-                <img data-src="https://i.postimg.cc/tJFyg0kC/dolcevita-cortado-macchiato-sans-sucre-dolce-vita.webp" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Café au lait" class="food-image">
-                <div class="food-details">
-                    <h3 class="food-title">Café au lait</h3>
-                    <p class="food-description">Café onctueux servi avec du lait chaud. Un équilibre parfait entre un café fort et un lait crémeux.</p>
-                </div>
-                <div class="food-price">9.00DH</div>
-                <button class="add-btn" aria-label="Ajouter Café au lait au panier">+</button>
-            </div>
-
-            <div class="food-item boisson-chaude-item" data-name="Thé" data-price="8.00DH" data-description="Thé à la menthe marocain traditionnel. Un mélange rafraîchissant de thé vert, de feuilles de menthe fraîche et de sucre." role="button" tabindex="0">
-                <img data-src="https://i.postimg.cc/L6z69PQB/the-a-la-menthe-Palais-Faraj-1.webp" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Thé" class="food-image">
-                <div class="food-details">
-                    <h3 class="food-title">Thé</h3>
-                    <p class="food-description">Thé à la menthe marocain traditionnel. Un mélange rafraîchissant de thé vert, de feuilles de menthe fraîche et de sucre.</p>
-                </div>
-                <div class="food-price">8.00DH</div>
-                <button class="add-btn" aria-label="Ajouter Thé au panier">+</button>
-            </div>
-
-            <!-- Boissons Fraiches Items -->
-            <div class="food-item boisson-fraiche-item" data-name="Jus de Citron" data-price="8.00DH" data-description="Jus de citron fraîchement pressé avec une touche de douceur. Rafraîchissant et riche en vitamines." role="button" tabindex="0">
-                <img data-src="https://i.postimg.cc/fT4RQCCR/zitronensaft-titelbild.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Jus de Citron" class="food-image">
-                <div class="food-details">
-                    <h3 class="food-title">Jus de Citron</h3>
-                    <p class="food-description">Jus de citron fraîchement pressé avec une touche de douceur. Rafraîchissant et riche en vitamines.</p>
-                </div>
-                <div class="food-price">8.00DH</div>
-                <button class="add-btn" aria-label="Ajouter Jus de Citron au panier">+</button>
-            </div>
-            
-            <!-- Loading indicator will be added by JS -->
-            <div id="loadingIndicator" class="loading">
-                <div class="loading-spinner"></div>
-            </div>
-            
-            <!-- Improved no results message with illustration -->
-            <div id="noResultsMessage" class="no-results">
-                <div class="no-results-icon">🔍</div>
-                <p>Aucun article correspondant.</p>
-                <p class="no-results-help">Essayez un autre terme ou catégorie.</p>
-            </div>
-        </main>
-
+        <!-- Cart Button (Bottom Bar) -->
         <div class="bottom-bar">
             <div class="cart-box" id="viewCart" role="button" tabindex="0" aria-label="Voir le panier">
                 <div class="cart-info">
@@ -210,7 +238,7 @@
         </div>
     </div>
 
-    <!-- Modal for adding items to cart - improved layout -->
+    <!-- Modal for adding items to cart -->
     <div class="modal" id="itemModal" role="dialog" aria-labelledby="modal-header-text" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
@@ -233,12 +261,6 @@
                         <input type="number" class="quantity-input" id="quantity" min="1" max="99" value="1" aria-label="Quantité">
                         <button class="quantity-btn" id="increase" aria-label="Augmenter la quantité">+</button>
                     </div>
-                    <!-- Added quick quantity selectors -->
-                    <div class="quantity-quick-select">
-                        <button class="quantity-preset" data-quantity="1">1</button>
-                        <button class="quantity-preset" data-quantity="2">2</button>
-                        <button class="quantity-preset" data-quantity="5">5</button>
-                    </div>
                 </div>
                 <button class="add-to-cart-btn" id="addToCart">
                     <span class="btn-icon">+</span>
@@ -248,7 +270,7 @@
         </div>
     </div>
 
-    <!-- Modal for basket/checkout - improved layout -->
+    <!-- Modal for basket/checkout -->
     <div class="modal" id="basketModal" role="dialog" aria-labelledby="basket-header-text" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
@@ -275,7 +297,7 @@
                 <div class="cart-summary">
                     <div class="cart-total">Total: <span id="basketTotal" aria-live="polite">0.00DH</span></div>
                 </div>
-                <!-- Improved checkout form with better validation -->
+                <!-- Checkout form -->
                 <div class="checkout-form">
                     <div class="form-group">
                         <label for="fullName">Nom complet</label>
@@ -297,7 +319,7 @@
         </div>
     </div>
 
-    <!-- Order confirmation modal - improved layout -->
+    <!-- Order confirmation modal -->
     <div class="modal" id="confirmationModal" role="dialog" aria-labelledby="confirmation-header-text" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
@@ -327,7 +349,7 @@
         </div>
     </div>
 
-    <!-- Fullscreen image modal - improved -->
+    <!-- Fullscreen image modal -->
     <div class="modal" id="fullImageModal" role="dialog" aria-hidden="true">
         <div class="fullscreen-image-container">
             <img id="fullscreen-image" src="" alt="Product image in full view">
@@ -335,7 +357,7 @@
         </div>
     </div>
 
-    <!-- Back to top button - improved -->
+    <!-- Back to top button -->
     <div class="back-to-top" id="backToTopBtn" aria-label="Retour en haut">
         <span class="back-to-top-icon">↑</span>
     </div>
