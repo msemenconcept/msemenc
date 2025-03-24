@@ -1,0 +1,210 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 20 30% 29%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 20 30% 29%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 30% 29%;
+
+    --primary: 41 90% 59%;
+    --primary-foreground: 20 30% 29%;
+
+    --secondary: 20 30% 29%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 40 33% 92%;
+    --muted-foreground: 20 30% 29%;
+
+    --accent: 41 90% 59%;
+    --accent-foreground: 20 30% 29%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 20 30% 90%;
+    --input: 20 30% 90%;
+    --ring: 41 90% 59%;
+
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-poppins overflow-x-hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-playfair;
+  }
+}
+
+@layer components {
+  .hero-section {
+    @apply relative min-h-[500px] flex items-center justify-center bg-cover bg-center;
+  }
+
+  .hero-overlay {
+    @apply absolute inset-0 bg-secondary/70 backdrop-blur-[2px];
+  }
+
+  .hero-content {
+    @apply relative z-10 text-white text-center p-8;
+  }
+
+  .section-container {
+    @apply container mx-auto py-16 px-4 md:px-8;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-secondary mb-2;
+  }
+
+  .section-subtitle {
+    @apply text-primary text-lg mb-8;
+  }
+
+  .feature-card {
+    @apply bg-white rounded-lg p-6 shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-2;
+  }
+
+  .product-card {
+    @apply bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300;
+  }
+
+  .product-image {
+    @apply w-full h-48 object-cover object-center;
+  }
+
+  .product-info {
+    @apply p-4;
+  }
+
+  .product-title {
+    @apply text-xl font-medium text-secondary;
+  }
+
+  .product-price {
+    @apply text-xl font-bold text-primary mt-2;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-secondary font-medium py-2 px-4 rounded transition-all hover:bg-primary-dark hover:-translate-y-1 duration-300;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-white font-medium py-2 px-4 rounded transition-all hover:bg-secondary/90 hover:-translate-y-1 duration-300;
+  }
+
+  .badge {
+    @apply inline-block bg-beige text-secondary text-xs px-2 py-1 rounded-full shadow-sm;
+  }
+
+  .nav-link {
+    @apply relative text-secondary hover:text-primary transition-colors duration-300 after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+  }
+
+  .nav-link-active {
+    @apply text-primary after:scale-x-100;
+  }
+
+  .social-icon {
+    @apply text-secondary hover:text-primary transition-colors hover:scale-110 transform duration-300;
+  }
+
+  /* Glass effect */
+  .glass-effect {
+    @apply backdrop-blur-md bg-white/10 border border-white/10;
+  }
+
+  /* Custom scrollbar */
+  .custom-scrollbar {
+    @apply scrollbar-thin scrollbar-thumb-primary scrollbar-track-gray-200;
+  }
+
+  /* Hover underline animation */
+  .hover-underline {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full;
+  }
+  
+  /* Button ripple effect */
+  .btn-ripple {
+    @apply relative overflow-hidden;
+  }
+  
+  .btn-ripple::after {
+    @apply content-[''] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-full w-full scale-0 rounded-full bg-white/20 transition-all duration-500;
+  }
+  
+  .btn-ripple:active::after {
+    @apply scale-100 opacity-0 transition-all duration-500;
+  }
+}
+
+/* Custom keyframes for animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes pulse-shadow {
+  0% { box-shadow: 0 0 0 0 rgba(244, 188, 58, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(244, 188, 58, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(244, 188, 58, 0); }
+}
+
+.animate-pulse-shadow {
+  animation: pulse-shadow 2s infinite;
+}
+
+/* Custom scrollbar */
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #F4BC3A #f1f1f1;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #F4BC3A;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #FCBA2E;
+}
