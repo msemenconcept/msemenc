@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MSemen Concept Store</title>
     <link href="/css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="bg-gray-50">
     <!-- Header -->
@@ -13,105 +14,246 @@
             <div class="flex items-center justify-between">
                 <div class="text-2xl font-bold text-gray-800">MSemen Concept</div>
                 <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-gray-600 hover:text-gray-900">Home</a>
-                    <a href="#products" class="text-gray-600 hover:text-gray-900">Products</a>
-                    <a href="#about" class="text-gray-600 hover:text-gray-900">About</a>
-                    <a href="#contact" class="text-gray-600 hover:text-gray-900">Contact</a>
+                    <a href="#home" class="text-gray-600 hover:text-gray-900 transition duration-300">Home</a>
+                    <a href="#products" class="text-gray-600 hover:text-gray-900 transition duration-300">Products</a>
+                    <a href="#about" class="text-gray-600 hover:text-gray-900 transition duration-300">About</a>
+                    <a href="#contact" class="text-gray-600 hover:text-gray-900 transition duration-300">Contact</a>
                 </div>
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-600 hover:text-gray-900 focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
             </div>
         </nav>
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="pt-24 pb-12 md:pt-32 md:pb-24">
+    <section id="home" class="pt-24 pb-12 md:pt-32 md:pb-24 bg-gradient-to-r from-blue-50 to-indigo-50">
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row items-center">
                 <div class="md:w-1/2 mb-8 md:mb-0">
-                    <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
-                        Welcome to MSemen Concept Store
+                    <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-4 leading-tight">
+                        Discover Your Style at MSemen Concept
                     </h1>
-                    <p class="text-xl text-gray-600 mb-8">
-                        Discover our unique collection of premium products designed for your lifestyle.
+                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                        Experience the perfect blend of elegance and comfort with our curated collection of premium lifestyle products.
                     </p>
-                    <a href="#products" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
-                        Explore Products
-                    </a>
+                    <div class="flex space-x-4">
+                        <a href="#products" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105">
+                            Explore Products
+                        </a>
+                        <a href="#contact" class="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-lg hover:bg-blue-50 transition duration-300">
+                            Contact Us
+                        </a>
+                    </div>
                 </div>
                 <div class="md:w-1/2">
                     <img src="https://images.pexels.com/photos/3965557/pexels-photo-3965557.jpeg" 
                          alt="Store showcase" 
-                         class="rounded-lg shadow-xl">
+                         class="rounded-lg shadow-xl transform hover:scale-105 transition duration-500">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section id="products" class="py-12 bg-white">
+    <section id="products" class="py-16 bg-white">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Our Featured Products</h2>
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-4">Our Featured Products</h2>
+            <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Discover our handpicked selection of premium products designed to elevate your lifestyle.</p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-gray-50 rounded-lg p-6 shadow-md">
-                    <img src="https://images.pexels.com/photos/4464821/pexels-photo-4464821.jpeg" 
-                         alt="Product 1" 
-                         class="w-full h-48 object-cover rounded-lg mb-4">
+                <div class="bg-gray-50 rounded-lg p-6 shadow-md transform hover:scale-105 transition duration-300">
+                    <div class="relative">
+                        <img src="https://images.pexels.com/photos/4464821/pexels-photo-4464821.jpeg" 
+                             alt="Product 1" 
+                             class="w-full h-48 object-cover rounded-lg mb-4">
+                        <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm">New</div>
+                    </div>
                     <h3 class="text-xl font-semibold mb-2">Premium Collection</h3>
-                    <p class="text-gray-600">Explore our handpicked premium products.</p>
+                    <p class="text-gray-600 mb-4">Explore our handpicked premium products crafted for excellence.</p>
+                    <a href="#" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                        Learn More
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
                 </div>
-                <div class="bg-gray-50 rounded-lg p-6 shadow-md">
-                    <img src="https://images.pexels.com/photos/5709661/pexels-photo-5709661.jpeg" 
-                         alt="Product 2" 
-                         class="w-full h-48 object-cover rounded-lg mb-4">
+                <div class="bg-gray-50 rounded-lg p-6 shadow-md transform hover:scale-105 transition duration-300">
+                    <div class="relative">
+                        <img src="https://images.pexels.com/photos/5709661/pexels-photo-5709661.jpeg" 
+                             alt="Product 2" 
+                             class="w-full h-48 object-cover rounded-lg mb-4">
+                        <div class="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded-full text-sm">Popular</div>
+                    </div>
                     <h3 class="text-xl font-semibold mb-2">New Arrivals</h3>
-                    <p class="text-gray-600">Check out our latest additions.</p>
+                    <p class="text-gray-600 mb-4">Be the first to discover our latest additions to the collection.</p>
+                    <a href="#" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                        Learn More
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
                 </div>
-                <div class="bg-gray-50 rounded-lg p-6 shadow-md">
-                    <img src="https://images.pexels.com/photos/5709656/pexels-photo-5709656.jpeg" 
-                         alt="Product 3" 
-                         class="w-full h-48 object-cover rounded-lg mb-4">
+                <div class="bg-gray-50 rounded-lg p-6 shadow-md transform hover:scale-105 transition duration-300">
+                    <div class="relative">
+                        <img src="https://images.pexels.com/photos/5709656/pexels-photo-5709656.jpeg" 
+                             alt="Product 3" 
+                             class="w-full h-48 object-cover rounded-lg mb-4">
+                        <div class="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-full text-sm">Best Seller</div>
+                    </div>
                     <h3 class="text-xl font-semibold mb-2">Best Sellers</h3>
-                    <p class="text-gray-600">Our most popular items.</p>
+                    <p class="text-gray-600 mb-4">Shop our most loved and highly rated products.</p>
+                    <a href="#" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                        Learn More
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <img src="https://images.pexels.com/photos/7679720/pexels-photo-7679720.jpeg" 
+                         alt="About us" 
+                         class="rounded-lg shadow-xl">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">About MSemen Concept</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        At MSemen Concept, we believe in delivering exceptional quality and style to our customers. Our carefully curated collection represents the perfect blend of contemporary design and timeless elegance.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-green-500 text-xl"></i>
+                            <span class="text-gray-700">Premium Quality</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-truck text-blue-500 text-xl"></i>
+                            <span class="text-gray-700">Fast Delivery</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-undo text-purple-500 text-xl"></i>
+                            <span class="text-gray-700">Easy Returns</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-headset text-red-500 text-xl"></i>
+                            <span class="text-gray-700">24/7 Support</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-12 bg-gray-50">
+    <section id="contact" class="py-16 bg-white">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">Contact Us</h2>
-            <div class="max-w-lg mx-auto">
-                <form class="space-y-6">
-                    <div>
-                        <label for="name" class="block text-gray-700 mb-2">Name</label>
-                        <input type="text" id="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-4">Get in Touch</h2>
+            <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Have questions about our products or services? We're here to help!</p>
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-4">Contact Information</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-4">
+                                <i class="fas fa-map-marker-alt text-blue-600 text-xl"></i>
+                                <span class="text-gray-600">123 Store Street, City, Country</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <i class="fas fa-phone text-blue-600 text-xl"></i>
+                                <span class="text-gray-600">+1 234 567 890</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <i class="fas fa-envelope text-blue-600 text-xl"></i>
+                                <span class="text-gray-600">contact@msemenconcept.store</span>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <h4 class="font-semibold mb-4">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="text-gray-600 hover:text-blue-600 transition duration-300">
+                                    <i class="fab fa-facebook text-2xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-600 hover:text-blue-400 transition duration-300">
+                                    <i class="fab fa-twitter text-2xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-600 hover:text-pink-600 transition duration-300">
+                                    <i class="fab fa-instagram text-2xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-600 hover:text-blue-800 transition duration-300">
+                                    <i class="fab fa-linkedin text-2xl"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label for="email" class="block text-gray-700 mb-2">Email</label>
-                        <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
-                    </div>
-                    <div>
-                        <label for="message" class="block text-gray-700 mb-2">Message</label>
-                        <textarea id="message" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300">
-                        Send Message
-                    </button>
-                </form>
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-gray-700 mb-2">Full Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-700 mb-2">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-gray-700 mb-2">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-700 mb-2">Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-8">
+    <footer class="bg-gray-900 text-white py-12">
         <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <p>&copy; 2024 MSemen Concept Store. All rights reserved.</p>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">MSemen Concept</h3>
+                    <p class="text-gray-400">Your destination for premium lifestyle products.</p>
                 </div>
-                <div class="flex space-x-6">
-                    <a href="#" class="hover:text-gray-300">Privacy Policy</a>
-                    <a href="#" class="hover:text-gray-300">Terms of Service</a>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="#products" class="text-gray-400 hover:text-white transition duration-300">Products</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition duration-300">About</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Customer Service</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Shipping Info</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Returns</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Subscribe to get special offers and updates.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg w-full focus:outline-none">
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 transition duration-300">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400">&copy; 2024 MSemen Concept Store. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">Terms of Service</a>
                 </div>
             </div>
         </div>
