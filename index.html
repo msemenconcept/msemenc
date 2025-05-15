@@ -1,262 +1,853 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MSemen Concept Store</title>
-    <link href="/css/main.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Msemen Concept - Saveurs Marocaines Authentiques</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <meta name="theme-color" content="#FCBA2E">
+    <meta name="description" content="Msemen Concept - Des msemens, melouis et pâtisseries traditionnels préparés avec passion et savoir-faire. Commandez en ligne et savourez l'authenticité marocaine.">
+    <!-- Favicon support -->
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/D0Y2DQx1/logo-clear.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 </head>
-<body class="bg-gray-50">
-    <!-- Header -->
-    <header class="bg-white shadow-sm fixed w-full z-10">
-        <nav class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="text-2xl font-bold text-gray-800">MSemen Concept</div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-gray-600 hover:text-gray-900 transition duration-300">Home</a>
-                    <a href="#products" class="text-gray-600 hover:text-gray-900 transition duration-300">Products</a>
-                    <a href="#about" class="text-gray-600 hover:text-gray-900 transition duration-300">About</a>
-                    <a href="#contact" class="text-gray-600 hover:text-gray-900 transition duration-300">Contact</a>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="logo-circle preloader-logo">
+            <img src="https://i.postimg.cc/D0Y2DQx1/logo-clear.png" alt="Msemen Concept Logo">
+        </div>
+    </div>
+
+    <!-- ========================= 
+         HEADER
+    ========================= -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="#home" class="logo">
+                <div class="logo-circle">
+                    <img src="https://i.postimg.cc/D0Y2DQx1/logo-clear.png" alt="Msemen Concept Logo">
                 </div>
-                <!-- Mobile Menu Button -->
-                <button class="md:hidden text-gray-600 hover:text-gray-900 focus:outline-none">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
-            </div>
-        </nav>
+            </a>
+            
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="#about">À Propos</a></li>
+                <li><a href="#specialties">Nos Spécialités</a></li>
+                <li><a href="#process">Notre Process</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#order-system" id="open-order-btn" class="order-button">Commander</a></li>
+            </ul>
+        </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="pt-24 pb-12 md:pt-32 md:pb-24 bg-gradient-to-r from-blue-50 to-indigo-50">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 mb-8 md:mb-0">
-                    <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-4 leading-tight">
-                        Discover Your Style at MSemen Concept
-                    </h1>
-                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-                        Experience the perfect blend of elegance and comfort with our curated collection of premium lifestyle products.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#products" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105">
-                            Explore Products
-                        </a>
-                        <a href="#contact" class="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-lg hover:bg-blue-50 transition duration-300">
-                            Contact Us
-                        </a>
-                    </div>
+    <!-- ========================= 
+         MAIN CONTENT
+    ========================= -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container hero-content">
+                <div class="logo-circle hero-logo-circle">
+                    <img src="https://i.postimg.cc/D0Y2DQx1/logo-clear.png" alt="Msemen Concept Logo" class="hero-logo">
                 </div>
-                <div class="md:w-1/2">
-                    <img src="https://images.pexels.com/photos/3965557/pexels-photo-3965557.jpeg" 
-                         alt="Store showcase" 
-                         class="rounded-lg shadow-xl transform hover:scale-105 transition duration-500">
+                <h1>Savourez l'Authenticité Marocaine</h1>
+                <p>Des msemens, melouis et pâtisseries traditionnels préparés avec passion et savoir-faire. Une expérience culinaire qui vous transporte directement au cœur du Maroc.</p>
+                <div class="hero-buttons">
+                    <a href="#order-system" class="btn primary" id="hero-order-btn">Commander en Ligne</a>
+                    <a href="#specialties" class="btn light">Découvrir Nos Spécialités</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Features Section -->
-    <section id="products" class="py-16 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center text-gray-900 mb-4">Our Featured Products</h2>
-            <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Discover our handpicked selection of premium products designed to elevate your lifestyle.</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-gray-50 rounded-lg p-6 shadow-md transform hover:scale-105 transition duration-300">
-                    <div class="relative">
-                        <img src="https://images.pexels.com/photos/4464821/pexels-photo-4464821.jpeg" 
-                             alt="Product 1" 
-                             class="w-full h-48 object-cover rounded-lg mb-4">
-                        <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm">New</div>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">Premium Collection</h3>
-                    <p class="text-gray-600 mb-4">Explore our handpicked premium products crafted for excellence.</p>
-                    <a href="#" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
-                        Learn More
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-6 shadow-md transform hover:scale-105 transition duration-300">
-                    <div class="relative">
-                        <img src="https://images.pexels.com/photos/5709661/pexels-photo-5709661.jpeg" 
-                             alt="Product 2" 
-                             class="w-full h-48 object-cover rounded-lg mb-4">
-                        <div class="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded-full text-sm">Popular</div>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">New Arrivals</h3>
-                    <p class="text-gray-600 mb-4">Be the first to discover our latest additions to the collection.</p>
-                    <a href="#" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
-                        Learn More
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-6 shadow-md transform hover:scale-105 transition duration-300">
-                    <div class="relative">
-                        <img src="https://images.pexels.com/photos/5709656/pexels-photo-5709656.jpeg" 
-                             alt="Product 3" 
-                             class="w-full h-48 object-cover rounded-lg mb-4">
-                        <div class="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-full text-sm">Best Seller</div>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">Best Sellers</h3>
-                    <p class="text-gray-600 mb-4">Shop our most loved and highly rated products.</p>
-                    <a href="#" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
-                        Learn More
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-16 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="md:w-1/2">
-                    <img src="https://images.pexels.com/photos/7679720/pexels-photo-7679720.jpeg" 
-                         alt="About us" 
-                         class="rounded-lg shadow-xl">
-                </div>
-                <div class="md:w-1/2">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-4">About MSemen Concept</h2>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        At MSemen Concept, we believe in delivering exceptional quality and style to our customers. Our carefully curated collection represents the perfect blend of contemporary design and timeless elegance.
-                    </p>
-                    <div class="grid grid-cols-2 gap-6">
-                        <div class="flex items-center space-x-3">
-                            <i class="fas fa-check-circle text-green-500 text-xl"></i>
-                            <span class="text-gray-700">Premium Quality</span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <i class="fas fa-truck text-blue-500 text-xl"></i>
-                            <span class="text-gray-700">Fast Delivery</span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <i class="fas fa-undo text-purple-500 text-xl"></i>
-                            <span class="text-gray-700">Easy Returns</span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <i class="fas fa-headset text-red-500 text-xl"></i>
-                            <span class="text-gray-700">24/7 Support</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-16 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center text-gray-900 mb-4">Get in Touch</h2>
-            <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Have questions about our products or services? We're here to help!</p>
-            <div class="max-w-4xl mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-gray-50 p-8 rounded-lg shadow-md">
-                        <h3 class="text-xl font-semibold mb-4">Contact Information</h3>
-                        <div class="space-y-4">
-                            <div class="flex items-center space-x-4">
-                                <i class="fas fa-map-marker-alt text-blue-600 text-xl"></i>
-                                <span class="text-gray-600">123 Store Street, City, Country</span>
+        <!-- About Section -->
+        <section class="about section-padding" id="about">
+            <div class="container about-container">
+                <div class="about-text">
+                    <h2>Où la Tradition Rencontre l'Innovation</h2>
+                    <p>Chez Msemen Concept by Bouti, nous honorons la tradition ancestrale du msemen marocain tout en introduisant des saveurs et des techniques contemporaines. Notre voyage a commencé par une profonde appréciation pour l'authentique Rghifa ou Msemen qui est un élément de base dans les foyers marocains depuis des générations.</p>
+                    
+                    <div class="about-features">
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-leaf"></i>
                             </div>
-                            <div class="flex items-center space-x-4">
-                                <i class="fas fa-phone text-blue-600 text-xl"></i>
-                                <span class="text-gray-600">+1 234 567 890</span>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <i class="fas fa-envelope text-blue-600 text-xl"></i>
-                                <span class="text-gray-600">contact@msemenconcept.store</span>
+                            <div class="feature-text">
+                                <h4>Ingrédients Frais</h4>
+                                <p>Nous utilisons uniquement des ingrédients frais et de qualité supérieure.</p>
                             </div>
                         </div>
-                        <div class="mt-8">
-                            <h4 class="font-semibold mb-4">Follow Us</h4>
-                            <div class="flex space-x-4">
-                                <a href="#" class="text-gray-600 hover:text-blue-600 transition duration-300">
-                                    <i class="fab fa-facebook text-2xl"></i>
-                                </a>
-                                <a href="#" class="text-gray-600 hover:text-blue-400 transition duration-300">
-                                    <i class="fab fa-twitter text-2xl"></i>
-                                </a>
-                                <a href="#" class="text-gray-600 hover:text-pink-600 transition duration-300">
-                                    <i class="fab fa-instagram text-2xl"></i>
-                                </a>
-                                <a href="#" class="text-gray-600 hover:text-blue-800 transition duration-300">
-                                    <i class="fab fa-linkedin text-2xl"></i>
-                                </a>
+                        
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-hands"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Fait à la Main</h4>
+                                <p>Chaque produit est préparé à la main avec soin et amour.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Recettes Authentiques</h4>
+                                <p>Des recettes traditionnelles marocaines transmises de génération en génération.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Fraîcheur Garantie</h4>
+                                <p>Nos produits sont préparés quotidiennement pour garantir leur fraîcheur.</p>
                             </div>
                         </div>
                     </div>
-                    <form class="space-y-6">
-                        <div>
-                            <label for="name" class="block text-gray-700 mb-2">Full Name</label>
-                            <input type="text" id="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">
+                    
+                    <a href="#order-system" class="btn" id="about-order-btn">Commander Maintenant</a>
+                </div>
+                
+                <div class="about-img">
+                    <img src="https://i.postimg.cc/rFDvV2h1/concept-poulet.jpg" alt="Msemen Concept Poulet">
+                </div>
+            </div>
+        </section>
+
+        <!-- Specialties Section -->
+        <section class="specialties section-padding" id="specialties">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Nos Spécialités Signature</h2>
+                    <p>Découvrez notre sélection de msemens traditionnels et créations originales, préparés chaque jour avec passion.</p>
+                </div>
+                
+                <div class="specialties-grid">
+                    <!-- Featured Product 1 -->
+                    <div class="specialty-item" data-product="concept-poulet">
+                        <div class="specialty-img-container">
+                            <img src="https://i.postimg.cc/rFDvV2h1/concept-poulet.jpg" alt="Concept Poulet" class="specialty-img">
+                            <div class="specialty-overlay">
+                                <h3 class="specialty-overlay-title">Concept Poulet</h3>
+                                <button class="specialty-overlay-btn quick-order-btn" data-name="Concept Poulet" data-price="12.00" data-description="Délicieux msemen farci de poulet tendre et d'oignons caramélisés, garni d'amandes concassées.">Commander</button>
+                            </div>
                         </div>
-                        <div>
-                            <label for="email" class="block text-gray-700 mb-2">Email Address</label>
-                            <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">
+                        <span class="specialty-badge">Populaire</span>
+                        <div class="specialty-info">
+                            <h3>Concept Poulet</h3>
+                            <p>Délicieux msemen farci de poulet tendre et d'oignons caramélisés, garni d'amandes concassées.</p>
+                            <div class="specialty-meta">
+                                <div class="specialty-price">12.00 DH</div>
+                                <div class="specialty-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span>4.5</span>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <label for="subject" class="block text-gray-700 mb-2">Subject</label>
-                            <input type="text" id="subject" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">
+                    </div>
+                    
+                    <!-- Featured Product 2 -->
+                    <div class="specialty-item" data-product="concept-viande">
+                        <div class="specialty-img-container">
+                            <img src="https://i.postimg.cc/c19pGLc1/concept-vh.jpg" alt="Concept Viande Hachée" class="specialty-img">
+                            <div class="specialty-overlay">
+                                <h3 class="specialty-overlay-title">Concept Viande Hachée</h3>
+                                <button class="specialty-overlay-btn quick-order-btn" data-name="Concept Viande Hachée" data-price="17.00" data-description="Msemen savoureux farci de viande hachée à la marocaine, d'oignons caramélisés et d'épices aromatiques.">Commander</button>
+                            </div>
                         </div>
-                        <div>
-                            <label for="message" class="block text-gray-700 mb-2">Message</label>
-                            <textarea id="message" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"></textarea>
+                        <div class="specialty-info">
+                            <h3>Concept Viande Hachée</h3>
+                            <p>Msemen savoureux farci de viande hachée à la marocaine, d'oignons caramélisés et d'épices aromatiques.</p>
+                            <div class="specialty-meta">
+                                <div class="specialty-price">17.00 DH</div>
+                                <div class="specialty-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span>5.0</span>
+                                </div>
+                            </div>
                         </div>
-                        <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105">
-                            Send Message
-                        </button>
-                    </form>
+                    </div>
+                    
+                    <!-- Featured Product 3 -->
+                    <div class="specialty-item" data-product="concept-nutella">
+                        <div class="specialty-img-container">
+                            <img src="https://i.postimg.cc/hv56L2GQ/concept-nutella.jpg" alt="Concept Nutella" class="specialty-img">
+                            <div class="specialty-overlay">
+                                <h3 class="specialty-overlay-title">Concept Nutella</h3>
+                                <button class="specialty-overlay-btn quick-order-btn" data-name="Concept Nutella" data-price="10.00" data-description="Msemen farci de Nutella et de noix concassées. Une douceur parfaite à déguster à tout moment de la journée.">Commander</button>
+                            </div>
+                        </div>
+                        <div class="specialty-info">
+                            <h3>Concept Nutella</h3>
+                            <p>Msemen farci de Nutella et de noix concassées. Une douceur parfaite à déguster à tout moment de la journée.</p>
+                            <div class="specialty-meta">
+                                <div class="specialty-price">10.00 DH</div>
+                                <div class="specialty-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>4.0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="view-all-btn">
+                    <a href="#order-system" class="btn primary" id="view-all-btn">Voir Toutes Nos Spécialités & Commander</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section class="process section-padding" id="process">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Notre Processus</h2>
+                    <p>Découvrez comment nous préparons nos délicieux msemens et spécialités marocaines.</p>
+                </div>
+                
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h3>Sélection des Ingrédients</h3>
+                        <p>Nous sélectionnons soigneusement des ingrédients frais et de qualité supérieure pour garantir le meilleur goût.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h3>Préparation Traditionnelle</h3>
+                        <p>Chaque msemen est préparé à la main selon des techniques traditionnelles marocaines.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h3>Cuisson Parfaite</h3>
+                        <p>Nos msemens sont cuits à la perfection sur une plaque chauffante traditionnelle pour préserver leur authenticité.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <h3>Service Frais</h3>
+                        <p>Nos produits sont servis frais pour vous garantir une expérience gustative exceptionnelle à chaque visite.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics Section -->
+        <section class="statistics section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Nos Chiffres</h2>
+                    <p>Découvrez notre aventure en chiffres</p>
+                </div>
+                
+                <div class="statistics-grid">
+                    <div class="statistic-item">
+                        <div class="statistic-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="counter" data-target="1000">0</h3>
+                        <p>Clients Satisfaits</p>
+                    </div>
+                    
+                    <div class="statistic-item">
+                        <div class="statistic-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3 class="counter" data-target="10000">0</h3>
+                        <p>Commands Préparés</p>
+                    </div>
+                    
+                    <div class="statistic-item">
+                        <div class="statistic-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3 class="counter" data-target="1">0</h3>
+                        <p>Années d'Expérience</p>
+                    </div>
+                    
+                    <div class="statistic-item">
+                        <div class="statistic-icon">
+                            <i class="fas fa-cookie"></i>
+                        </div>
+                        <h3 class="counter" data-target="10">0</h3>
+                        <p>Recettes Exclusives</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta">
+            <div class="container cta-container">
+                <h2>Envie de Savourer Nos Délices?</h2>
+                <p>Commandez en ligne et dégustez nos msemens fraîchement préparés. Livraison disponible ou passez nous voir en boutique!</p>
+                <div class="cta-buttons">
+                    <a href="#order-system" class="btn primary" id="cta-order-btn">Commander en Ligne</a>
+                    <a href="#contact" class="btn light">Nous Contacter</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact section-padding" id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Contactez-Nous</h2>
+                    <p>Vous avez des questions ou souhaitez passer une commande spéciale? N'hésitez pas à nous contacter.</p>
+                </div>
+                
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <div>
+                            <div class="contact-details">
+                                <div class="contact-item">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="contact-text">
+                                        <h4>Adresse</h4>
+                                        <p><a href="https://maps.app.goo.gl/B6epieZU2zmAgG4y9" target="_blank">Rue mexique, Tanger, Maroc</a></p>
+                                    </div>
+                                </div>
+                                
+                                <div class="contact-item">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div class="contact-text">
+                                        <h4>Téléphone</h4>
+                                        <p><a href="https://api.whatsapp.com/send/?phone=%2B212614882878&type=phone_number&app_absent=0" target="_blank">+212 614882878</a></p>
+                                    </div>
+                                </div>
+                                
+                                <div class="contact-item">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="contact-text">
+                                        <h4>Email</h4>
+                                        <p><a href="mailto:contact@msemenconcept.ma">contact@msemenconcept.ma</a></p>
+                                    </div>
+                                </div>
+                                
+                                <div class="contact-item">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="contact-text">
+                                        <h4>Heures d'Ouverture</h4>
+                                        <p>Lun-Sam: 9h00 - 22h00<br>Dim: férmer</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="social-links">
+                                <a href="https://www.instagram.com/msemen_concept/" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+                                <a href="https://api.whatsapp.com/send/?phone=%2B212614882878&type=phone_number&app_absent=0" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d520.1022468073575!2d-5.815253042986522!3d35.7794995893064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd0c79007598cf69%3A0xe3663863ebebab1f!2sMsemen%20Concept!5e1!3m2!1sen!2sma!4v1742741516444!5m2!1sen!2sma" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ========================= 
+         ORDERING SYSTEM
+    ========================= -->
+    <div class="order-system-overlay" id="order-system">
+        <div class="order-system-container">
+            <!-- Order Header -->
+            <header class="order-header">
+                <div class="order-header-content">
+                    <div class="logo-container">
+                        <div class="logo-circle">
+                            <img src="https://i.postimg.cc/D0Y2DQx1/logo-clear.png" alt="Logo Msemen Concept">
+                        </div>
+                        <h1 class="app-title">Msemen Concept</h1>
+                    </div>
+                    
+                    <!-- Search bar -->
+                    <div class="search-container" id="searchContainer">
+                        <input type="search" id="searchInput" placeholder="Rechercher un produit..." aria-label="Rechercher un produit">
+                        <button id="clearSearch" class="clear-search-btn" aria-label="Effacer la recherche">&times;</button>
+                    </div>
+                    
+                    <!-- Close button to return to main site -->
+                    <button id="close-order-system" class="close-order-btn" aria-label="Retour au site">
+                        <i class="fas fa-arrow-left"></i> Retour
+                    </button>
+                </div>
+            </header>
+
+            <!-- Order Content -->
+            <div class="order-content-wrapper">
+                <!-- Sidebar for desktop -->
+                <aside class="sidebar">
+                    <nav class="sidebar-nav">
+                        <ul>
+                            <li><a href="#concept" data-category="concept" class="active">Concept</a></li>
+                            <li><a href="#sales" data-category="sales">Salés</a></li>
+                            <li><a href="#ramadan" data-category="ramadan">Spécial Ramadan</a></li>
+                            <li><a href="#standards" data-category="standards">Standards</a></li>
+                            <li><a href="#boissons-chauds" data-category="boissons-chauds">Boissons Chauds</a></li>
+                            <li><a href="#boissons-fraiches" data-category="boissons-fraiches">Boissons Fraiches</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+
+                <!-- Main Order Content Area -->
+                <main class="order-main-content">
+                    <!-- Category Navigation (shown on mobile) -->
+                    <div class="category-wrapper" id="category-wrapper">
+                        <nav class="category-tabs" id="categoryTabs" aria-label="Catégories de nourriture">
+                            <div class="tab active" data-category="concept" role="button" tabindex="0" aria-selected="true">Concept</div>
+                            <div class="tab" data-category="sales" role="button" tabindex="0" aria-selected="false">Salés</div>
+                            <div class="tab" data-category="ramadan" role="button" tabindex="0" aria-selected="false">Spécial Ramadan</div>
+                            <div class="tab" data-category="standards" role="button" tabindex="0" aria-selected="false">Standards</div>
+                            <div class="tab" data-category="boissons-chauds" role="button" tabindex="0" aria-selected="false">Boissons Chauds</div>
+                            <div class="tab" data-category="boissons-fraiches" role="button" tabindex="0" aria-selected="false">Boissons Fraiches</div>
+                        </nav>
+                    </div>
+
+                    <!-- Food Items Container -->
+                    <div class="food-items" id="foodItemsContainer">
+                        <!-- Concept Items -->
+                        <div class="food-item" data-name="Concept Poulet" data-price="12.00DH" data-description="Délicieux msemen farci de poulet tendre et d'oignons caramélisés, garni d'amandes concassées." role="button" tabindex="0">
+                            <img data-src="https://i.postimg.cc/rFDvV2h1/concept-poulet.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Concept Poulet" class="food-image">
+                            <div class="food-details">
+                                <h3 class="food-title">Concept Poulet</h3>
+                                <p class="food-description">Délicieux msemen farci de poulet tendre et d'oignons caramélisés, garni d'amandes concassées.</p>
+                            </div>
+                            <div class="food-price">12.00DH</div>
+                            <button class="add-btn" aria-label="Ajouter Concept Poulet au panier">+</button>
+                        </div>
+
+                        <div class="food-item" data-name="Concept Viande Hachée" data-price="17.00DH" data-description="Msemen savoureux farci de viande hachée marocaine, d'oignons caramélisés et d'épices aromatiques." role="button" tabindex="0">
+                            <img data-src="https://i.postimg.cc/c19pGLc1/concept-vh.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Concept Viande Hachée" class="food-image">
+                            <div class="food-details">
+                                <h3 class="food-title">Concept Viande Hachée</h3>
+                                <p class="food-description">Msemen savoureux farci de viande hachée à la marocaine, d'oignons caramélisés et d'épices aromatiques.</p>
+                            </div>
+                            <div class="food-price">17.00DH</div>
+                            <button class="add-btn" aria-label="Ajouter Concept Viande Hachée au panier">+</button>
+                        </div>
+
+                        <div class="food-item" data-name="Concept Nutella" data-price="10.00DH" data-description="Msemen farci de Nutella et de noix concassées. Une douceur parfaite à tout moment." role="button" tabindex="0">
+                            <img data-src="https://i.postimg.cc/hv56L2GQ/concept-nutella.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Concept Nutella" class="food-image">
+                            <div class="food-details">
+                                <h3 class="food-title">Concept Nutella</h3>
+                                <p class="food-description">Msemen farci de Nutella et de noix concassées. Une douceur parfaite à tout moment.</p>
+                            </div>
+                            <div class="food-price">10.00DH</div>
+                            <button class="add-btn" aria-label="Ajouter Concept Nutella au panier">+</button>
+                        </div>
+                        
+                        <!-- Salés Items -->
+                        <div class="food-item sale-item" data-name="Salé Légumes et Fromage" data-price="3.00DH" data-description="Une pâtisserie salée à base de pâte Msemen farcie de légumes frais et de délicieux fromage." role="button" tabindex="0">
+                            <img data-src="https://i.postimg.cc/NGmdpGPP/sale-legume.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Salé Légumes et Fromage" class="food-image">
+                            <div class="food-details">
+                                <h3 class="food-title">Salé Légumes et Fromage</h3>
+                                <p class="food-description">Une pâtisserie salée à base de pâte Msemen farcie de légumes frais et de délicieux fromage.</p>
+                            </div>
+                            <div class="food-price">3.00DH</div>
+                            <button class="add-btn" aria-label="Ajouter Salé Légumes et Fromage au panier">+</button>
+                        </div>
+                        
+                        <div class="food-item sale-item" data-name="Salé Poulet" data-price="4.00DH" data-description="Une pâtisserie salée à base de pâte Msemen farcie de légumes et de morceaux de poulet tendre." role="button" tabindex="0">
+                            <img data-src="https://i.postimg.cc/MTthT62D/sale-poulet.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Salé Poulet" class="food-image">
+                            <div class="food-details">
+                                <h3 class="food-title">Salé Poulet</h3>
+                                <p class="food-description">Une pâtisserie salée à base de pâte Msemen farcie des morceaux de poulet tendre.</p>
+                            </div>
+                            <div class="food-price">4.00DH</div>
+                            <button class="add-btn" aria-label="Ajouter Salé Poulet au panier">+</button>
+                        </div>
+                        
+                        <div class="food-item sale-item" data-name="Salé Viande Hachée" data-price="5.00DH" data-description="Une pâtisserie salée à base de pâte Msemen farcie de légumes et de viande hachée assaisonnée." role="button" tabindex="0">
+                            <img data-src="https://i.postimg.cc/C519n3wV/sale-vh.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Salé Viande Hachée" class="food-image">
+                            <div class="food-details">
+                                <h3 class="food-title">Salé Viande Hachée</h3>
+                                <p class="food-description">Une pâtisserie salée à base de pâte Msemen farcie de viande hachée assaisonnée.</p>
+                            </div>
+                            <div class="food-price">5.00DH</div>
+                            <button class="add-btn" aria-label="Ajouter Salé Viande Hachée au panier">+</button>
+                        </div>
+
+                        <!-- Standards Items -->
+                        <div class="food-item standard-item" data-name="Rghifa Normal" data-price="1.50DH" data-description="Msemen marocain traditionnel, une crêpe feuilletée de forme carrée." role="button" tabindex="0">
+                            <img data-src="https://i.postimg.cc/SRh7w8t1/rghifa-1.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Rghifa Normal" class="food-image">
+                            <div class="food-details">
+                                <h3 class="food-title">Rghifa Normal</h3>
+                                <p class="food-description">Msemen marocain traditionnel.</p>
+                            </div>
+                            <div class="food-price">1.50DH</div>
+                            <button class="add-btn" aria-label="Ajouter Rghifa Normal au panier">+</button>
+                        </div>
+
+                        <div class="food-item standard-item" data-name="Rghifa Zrae" data-price="1.50DH" data-description="Msemen marocain traditionnel préparé avec de la farine complète pour une option plus saine avec une saveur de noix." role="button" tabindex="0">
+                            <img data-src="https://i.postimg.cc/j24QK5px/rghifa-complet.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Rghifa Zrae" class="food-image">
+                            <div class="food-details">
+                                <h3 class="food-title">Rghifa Zrae</h3>
+                                <p class="food-description">Msemen marocain traditionnel préparé avec de la farine complète pour une option plus saine.</p>
+                            </div>
+                            <div class="food-price">1.50DH</div>
+                            <button class="add-btn" aria-label="Ajouter Rghifa Zrae au panier">+</button>
+                        </div>
+
+                        <div class="food-item standard-item" data-name="Meloui Normal" data-price="2.00DH" data-description="Meloui marocain traditionnel, une crêpe feuilletée ronde à texture moelleuse. Parfait avec du miel ou de la confiture." role="button" tabindex="0">
+                            <img data-src="https://i.postimg.cc/9M3G7ZVX/meloui-2.webp" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Meloui Normal" class="food-image">
+                            <div class="food-details">
+                                <h3 class="food-title">Meloui Normal</h3>
+                                <p class="food-description">Meloui marocain traditionnel.</p>
+                            </div>
+                            <div class="food-price">2.00DH</div>
+                            <button class="add-btn" aria-label="Ajouter Meloui Normal au panier">+</button>
+                        </div>
+
+                        <div class="food-item standard-item" data-name="Meloui Zrae" data-price="2.00DH" data-description="Meloui marocain traditionnel préparé avec de la farine complète. Option plus saine avec une saveur riche et terreuse." role="button" tabindex="0">
+                            <img data-src="https://i.postimg.cc/B6DBYNN1/meloui-1.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Meloui Zrae" class="food-image">
+                            <div class="food-details">
+                                <h3 class="food-title">Meloui Zrae</h3>
+                                <p class="food-description">Meloui marocain traditionnel préparé avec de la farine complète. Option plus saine avec une saveur riche.</p>
+                            </div>
+                            <div class="food-price">2.00DH</div>
+                            <button class="add-btn" aria-label="Ajouter Meloui Zrae au panier">+</button>
+                        </div>
+
+                        <!-- Boissons Chauds Items -->
+                        <div class="food-item boisson-chaude-item" data-name="Café normal" data-price="8.00DH" data-description="Expresso riche préparé avec des grains d'Arabica de qualité supérieure. Fort et aromatique." role="button" tabindex="0">
+                            <img data-src="https://i.postimg.cc/QdhNHMRL/cafe.webp" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Café normal" class="food-image">
+                            <div class="food-details">
+                                <h3 class="food-title">Café normal</h3>
+                                <p class="food-description">Expresso riche préparé avec des grains d'Arabica de qualité supérieure. Fort et aromatique.</p>
+                            </div>
+                            <div class="food-price">8.00DH</div>
+                            <button class="add-btn" aria-label="Ajouter Café normal au panier">+</button>
+                        </div>
+
+                        <div class="food-item boisson-chaude-item" data-name="Café au lait" data-price="9.00DH" data-description="Café onctueux servi avec du lait chaud. Un équilibre parfait entre un café fort et un lait crémeux." role="button" tabindex="0">
+                            <img data-src="https://i.postimg.cc/tJFyg0kC/dolcevita-cortado-macchiato-sans-sucre-dolce-vita.webp" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Café au lait" class="food-image">
+                            <div class="food-details">
+                                <h3 class="food-title">Café au lait</h3>
+                                <p class="food-description">Café onctueux servi avec du lait chaud. Un équilibre parfait entre un café fort et un lait crémeux.</p>
+                            </div>
+                            <div class="food-price">9.00DH</div>
+                            <button class="add-btn" aria-label="Ajouter Café au lait au panier">+</button>
+                        </div>
+
+                        <div class="food-item boisson-chaude-item" data-name="Thé" data-price="8.00DH" data-description="Thé à la menthe marocain traditionnel. Un mélange rafraîchissant de thé vert, de feuilles de menthe fraîche et de sucre." role="button" tabindex="0">
+                            <img data-src="https://i.postimg.cc/L6z69PQB/the-a-la-menthe-Palais-Faraj-1.webp" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Thé" class="food-image">
+                            <div class="food-details">
+                                <h3 class="food-title">Thé</h3>
+                                <p class="food-description">Thé à la menthe marocain traditionnel. Un mélange rafraîchissant de thé vert, de feuilles de menthe fraîche et de sucre.</p>
+                            </div>
+                            <div class="food-price">8.00DH</div>
+                            <button class="add-btn" aria-label="Ajouter Thé au panier">+</button>
+                        </div>
+
+                        <!-- Boissons Fraiches Items -->
+                        <div class="food-item boisson-fraiche-item" data-name="Jus de Citron" data-price="8.00DH" data-description="Jus de citron fraîchement pressé avec une touche de douceur. Rafraîchissant et riche en vitamines." role="button" tabindex="0">
+                            <img data-src="https://i.postimg.cc/fT4RQCCR/zitronensaft-titelbild.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Jus de Citron" class="food-image">
+                            <div class="food-details">
+                                <h3 class="food-title">Jus de Citron</h3>
+                                <p class="food-description">Jus de citron fraîchement pressé avec une touche de douceur. Rafraîchissant et riche en vitamines.</p>
+                            </div>
+                            <div class="food-price">8.00DH</div>
+                            <button class="add-btn" aria-label="Ajouter Jus de Citron au panier">+</button>
+                        </div>
+                        
+                        <!-- Ramadan Items -->
+                        <div class="food-item ramadan-item" data-name="Briouates au poulet" data-price="5.00DH" data-description="Délicieux briouates croustillants farcis de poulet tendre, épices marocaines." role="button" tabindex="0">
+                            <img data-src="https://i.postimg.cc/placeholder-briouates.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Briouates au poulet" class="food-image">
+                            <div class="food-details">
+                                <h3 class="food-title">Briouates au poulet</h3>
+                                <p class="food-description">Délicieux briouates croustillants farcis de poulet tendre, épices marocaines.</p>
+                            </div>
+                            <div class="food-price">5.00DH</div>
+                            <button class="add-btn" aria-label="Ajouter Briouates au poulet au panier">+</button>
+                        </div>
+                        
+                        <div class="food-item ramadan-item" data-name="Mini Pizza" data-price="5.00DH" data-description="Petites pizzas savoureuses garnies de sauce tomate maison." role="button" tabindex="0">
+                            <img data-src="https://i.postimg.cc/placeholder-mini-pizza.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Mini Pizza" class="food-image">
+                            <div class="food-details">
+                                <h3 class="food-title">Mini Pizza</h3>
+                                <p class="food-description">Petites pizzas savoureuses garnies de sauce tomate maison.</p>
+                            </div>
+                            <div class="food-price">5.00DH</div>
+                            <button class="add-btn" aria-label="Ajouter Mini Pizza au panier">+</button>
+                        </div>
+                        
+                        <div class="food-item ramadan-item" data-name="Chausson au thon" data-price="4.00DH" data-description="Pâte feuilletée dorée renfermant un délicieux mélange de thon." role="button" tabindex="0">
+                            <img data-src="https://i.postimg.cc/placeholder-chausson.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Chausson au thon" class="food-image">
+                            <div class="food-details">
+                                <h3 class="food-title">Chausson au thon</h3>
+                                <p class="food-description">Pâte feuilletée dorée renfermant un délicieux mélange de thon.</p>
+                            </div>
+                            <div class="food-price">4.00DH</div>
+                            <button class="add-btn" aria-label="Ajouter Chausson au thon au panier">+</button>
+                        </div>
+                        
+                        <div class="food-item ramadan-item" data-name="Mini Quiche au poulet" data-price="5.00DH" data-description="Tartelettes crémeuses garnies de poulet tendre et fromage gratiné." role="button" tabindex="0">
+                            <img data-src="https://i.postimg.cc/placeholder-quiche.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Mini Quiche au poulet" class="food-image">
+                            <div class="food-details">
+                                <h3 class="food-title">Mini Quiche au poulet</h3>
+                                <p class="food-description">Tartelettes crémeuses garnies de poulet tendre et fromage gratiné.</p>
+                            </div>
+                            <div class="food-price">5.00DH</div>
+                            <button class="add-btn" aria-label="Ajouter Mini Quiche au poulet au panier">+</button>
+                        </div>
+                        
+                        <!-- Loading indicator -->
+                        <div id="loadingIndicator" class="loading">
+                            <div class="loading-spinner"></div>
+                        </div>
+                        
+                        <!-- No results message -->
+                        <div id="noResultsMessage" class="no-results">
+                            <div class="no-results-icon">🔍</div>
+                            <p>Aucun article correspondant.</p>
+                            <p class="no-results-help">Essayez un autre terme ou catégorie.</p>
+                        </div>
+                    </div>
+                </main>
+            </div>
+
+            <!-- Cart Button (Bottom Bar) -->
+            <div class="bottom-bar">
+                <div class="cart-box" id="viewCart" role="button" tabindex="0" aria-label="Voir le panier">
+                    <div class="cart-info">
+                        <span class="cart-icon">🛒</span>
+                        <span id="cart-items-count">0</span> articles
+                    </div>
+                    <div class="cart-price">
+                        <span id="cart-total">0.00DH</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-4">MSemen Concept</h3>
-                    <p class="text-gray-400">Your destination for premium lifestyle products.</p>
+    <!-- ========================= 
+         MODALS
+    ========================= -->
+    <!-- Modal for adding items to cart -->
+    <div class="modal" id="itemModal" role="dialog" aria-labelledby="modal-header-text" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="modal-header-text">Ajouter au panier</span>
+                <button class="modal-close-btn" id="closeItemModal" aria-label="Fermer">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-image-container">
+                    <img id="modal-item-image" src="" alt="Product image" class="modal-product-image">
                 </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
-                        <li><a href="#products" class="text-gray-400 hover:text-white transition duration-300">Products</a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-white transition duration-300">About</a></li>
-                        <li><a href="#contact" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
+                <div class="modal-item-info">
+                    <h3 id="modal-item-name"></h3>
+                    <p id="modal-item-description"></p>
+                    <p class="modal-item-price" id="modal-item-price"></p>
+                </div>
+                <div class="quantity-control">
+                    <span>Quantité</span>
+                    <div class="quantity-buttons">
+                        <button class="quantity-btn" id="decrease" aria-label="Diminuer la quantité">-</button>
+                        <input type="number" class="quantity-input" id="quantity" min="1" max="99" value="1" aria-label="Quantité">
+                        <button class="quantity-btn" id="increase" aria-label="Augmenter la quantité">+</button>
+                    </div>
+                </div>
+                <button class="add-to-cart-btn" id="addToCart">
+                    <span class="btn-icon">+</span>
+                    <span class="btn-text">Ajouter au panier</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for basket/checkout -->
+    <div class="modal" id="basketModal" role="dialog" aria-labelledby="basket-header-text" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="basket-header-text">Votre Panier</span>
+                <button class="modal-close-btn" id="closeBasket" aria-label="Fermer le panier">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="cart-actions">
+                    <button class="empty-cart-btn" id="emptyCart">
+                        <span class="btn-icon">🗑️</span>
+                        <span class="btn-text">Vider le panier</span>
+                    </button>
+                </div>
+                <div class="cart-items" id="cartItemsList" aria-live="polite">
+                    <!-- Cart items will be added here dynamically -->
+                    
+                    <!-- Empty cart message with illustration -->
+                    <div class="empty-cart-message" id="emptyCartMessage">
+                        <div class="empty-cart-icon">🛒</div>
+                        <p>Votre panier est vide</p>
+                        <p class="empty-cart-help">Parcourez notre menu et ajoutez des articles à votre panier</p>
+                    </div>
+                </div>
+                <div class="cart-summary">
+                    <div class="cart-total">Total: <span id="basketTotal" aria-live="polite">0.00DH</span></div>
+                </div>
+                <!-- Checkout form -->
+                <div class="checkout-form">
+                    <div class="form-group">
+                        <label for="fullName">Nom complet</label>
+                        <input type="text" id="fullName" placeholder="Entrez votre nom complet" required autocomplete="name">
+                        <div class="form-feedback" id="fullNameFeedback"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumber">Numéro de téléphone</label>
+                        <div class="phone-input-group">
+                            <div class="country-code">+212</div>
+                            <input type="tel" id="phoneNumber" placeholder="6XX XXX XXX" required autocomplete="tel" pattern="[0-9]{9}">
+                        </div>
+                        <div class="form-feedback" id="phoneNumberFeedback"></div>
+                        <div class="form-hint">Format: 6XX XXX XXX (9 chiffres)</div>
+                    </div>
+                    <button class="checkout-btn" id="checkout">Passer la commande</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order confirmation modal -->
+    <div class="modal" id="confirmationModal" role="dialog" aria-labelledby="confirmation-header-text" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="confirmation-header-text">Confirmation de commande</span>
+                <button class="modal-close-btn" id="closeConfirmation" aria-label="Fermer la confirmation">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="order-confirmation">
+                    <div class="order-success-message">
+                        <div class="success-icon">✓</div>
+                        <p>Commande prête!</p>
+                    </div>
+                    <div class="order-title">Détails de la commande</div>
+                    <div class="order-details" id="orderDetailsList" aria-live="polite">
+                        <!-- Order details will be added here dynamically -->
+                    </div>
+                    <div class="customer-details" id="customerDetails" aria-live="polite">
+                        <!-- Customer details will be added here -->
+                    </div>
+                    <div class="cart-total">Total: <span id="confirmationTotal" aria-live="polite">0.00DH</span></div>
+                </div>
+                <button class="submit-order-btn" id="submitOrder">
+                    <span class="whatsapp-icon">📱</span>
+                    Envoyer la commande par WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fullscreen image modal -->
+    <div class="modal" id="fullImageModal" role="dialog" aria-hidden="true">
+        <div class="fullscreen-image-container">
+            <img id="fullscreen-image" src="" alt="Product image in full view">
+            <button class="modal-close-btn fullscreen-close-btn" id="closeFullImageModal" aria-label="Fermer">&times;</button>
+        </div>
+    </div>
+
+    <!-- ========================= 
+         FOOTER
+    ========================= -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="logo-circle footer-logo-circle">
+                        <img src="https://i.postimg.cc/D0Y2DQx1/logo-clear.png" alt="Msemen Concept Logo" class="footer-logo">
+                    </div>
+                    <p>Msemen Concept - L'authenticité de la cuisine marocaine à travers des msemens et pâtisseries traditionnels de qualité.</p>
+                </div>
+                
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Liens Rapides</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Accueil</a></li>
+                        <li><a href="#about">À Propos</a></li>
+                        <li><a href="#specialties">Nos Spécialités</a></li>
+                        <li><a href="#process">Notre Process</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#order-system" id="footer-order-btn">Commander</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Customer Service</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Shipping Info</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Returns</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">FAQ</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Size Guide</a></li>
+                
+                <div class="footer-contact-container">
+                    <h3 class="footer-heading">Contact</h3>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-map-marker-alt"></i> Rue mexique, Tanger, Maroc</li>
+                        <li><i class="fas fa-phone-alt"></i> +212 614882878</li>
+                        <li><i class="fas fa-envelope"></i> contact@msemenconcept.ma</li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
-                    <p class="text-gray-400 mb-4">Subscribe to get special offers and updates.</p>
-                    <form class="flex">
-                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg w-full focus:outline-none">
-                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 transition duration-300">
-                            Subscribe
-                        </button>
-                    </form>
-                </div>
             </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400">&copy; 2024 MSemen Concept Store. All rights reserved.</p>
-                <div class="flex space-x-6 mt-4 md:mt-0">
-                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">Privacy Policy</a>
-                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">Terms of Service</a>
-                </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Msemen Concept. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
+
+    <!-- ========================= 
+         UTILITY ELEMENTS
+    ========================= -->
+    <!-- Scroll to top button -->
+    <button id="scroll-top-btn" class="scroll-top-btn" aria-label="Retour en haut">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- WhatsApp floating button -->
+    <a href="https://api.whatsapp.com/send/?phone=%2B212614882878&type=phone_number&app_absent=0" class="whatsapp-btn" target="_blank" aria-label="Contacter par WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <!-- Toast container for notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ========================= 
+         SCRIPTS
+    ========================= -->
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
+    
+    <!-- App Scripts -->
+    <script src="js/app.js"></script>
 </body>
 </html>
